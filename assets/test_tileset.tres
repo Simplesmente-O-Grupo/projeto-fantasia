@@ -1,0 +1,14 @@
+[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://biilh0ufacguh"]
+
+[ext_resource type="Texture2D" uid="uid://8lincth7scjr" path="res://assets/sprites/tilemap.png" id="1_sdj6w"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_siwt3"]
+texture = ExtResource("1_sdj6w")
+0:0/0 = 0
+0:0/0/custom_data_0 = true
+1:0/0 = 0
+
+[resource]
+custom_data_layer_0/name = "isWalkable"
+custom_data_layer_0/type = 1
+sources/0 = SubResource("TileSetAtlasSource_siwt3")
