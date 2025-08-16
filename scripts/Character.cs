@@ -1,9 +1,7 @@
 using Godot;
 using System;
 
-public partial class Character : Sprite2D {
-	[Export]
-	public TileMapLayer map;
+public partial class Character : Actor {
 
 	public override void _Input(InputEvent @event)
 	{
@@ -28,18 +26,6 @@ public partial class Character : Sprite2D {
 
 		if (offset != Vector2I.Zero) {
 			Walk(offset);
-		}
-	}
-
-	private void Walk(Vector2I offset) {
-		Vector2I toMovePos = map.LocalToMap(Position);
-		toMovePos += offset;
-		
-		TileData tile = map.GetCellTileData(toMovePos);
-
-		if (tile.HasCustomData("isWalkable") && (bool) tile.GetCustomData("isWalkable")) {
-			GD.Print(toMovePos);
-			Position = map.MapToLocal(toMovePos);
 		}
 	}
 }
