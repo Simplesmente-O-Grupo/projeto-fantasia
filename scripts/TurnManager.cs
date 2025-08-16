@@ -17,12 +17,8 @@ public partial class TurnManager : Node {
 	public void Tick() {
 		EmitSignal(SignalName.turnBegin);
 
-		GD.Print("Turn: " + TurnCount);
-
 		actors.Clear();
 		actors = GetTree().GetNodesInGroup("TimeSlave");
-
-		GD.Print("Actor count: " + actors.Count);
 
 		index = -1;
 		NextActor();
@@ -30,7 +26,6 @@ public partial class TurnManager : Node {
 
 	private void NextActor() {
 		index++;
-		GD.Print("Index: " + index);
 		if (index >= actors.Count) {
 			EndTurn();
 			return;
@@ -43,7 +38,7 @@ public partial class TurnManager : Node {
 	private void ActorPerformAction() {
 		Actor currentActor = (Actor) actors[index];
 		if (currentActor.Energy > 0) {
-			currentActor.performAction();
+			currentActor.PerformAction();
 		} else {
 			NextActor();
 		}
@@ -54,7 +49,6 @@ public partial class TurnManager : Node {
 	}
 
 	private void EndTurn() {
-		GD.Print("Turn End");
 		TurnCount++;
 		EmitSignal(SignalName.turnEnd);
 	}

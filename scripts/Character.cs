@@ -23,7 +23,6 @@ public partial class Character : Actor {
 				Walk(Vector2I.Left);
 			}
 			if (@event.IsActionPressed("walk-right")) {
-				GD.Print("Hello!");
 				Walk(Vector2I.Right);
 			}
 
@@ -34,7 +33,6 @@ public partial class Character : Actor {
 	}
 
 	private void SkipTurn() {
-		GD.Print("Skipped the turn.");
 		Energy = 0;
 		EndAction();
 	}
@@ -44,8 +42,7 @@ public partial class Character : Actor {
 		base.EndAction();
 	}
 
-	public override void performAction() {
-		GD.Print("I can act");
+	public override void PerformAction() {
 		canAct = true;
 	}
 }

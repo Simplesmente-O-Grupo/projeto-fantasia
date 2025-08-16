@@ -19,7 +19,6 @@ public abstract partial class Actor : Node2D {
 		TileData tile = Map.GetCellTileData(toMovePos);
 
 		if (tile.HasCustomData("isWalkable") && (bool) tile.GetCustomData("isWalkable")) {
-			GD.Print(toMovePos);
 			Position = Map.MapToLocal(toMovePos);
 		}
 
@@ -31,5 +30,5 @@ public abstract partial class Actor : Node2D {
 		EmitSignal(SignalName.actionPerformed);
 	}
 
-	public abstract void performAction();
+	public abstract void PerformAction();
 }
