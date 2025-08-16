@@ -4,21 +4,25 @@ using System;
 public partial class Character : Sprite2D {
 	[Export]
 	public TileMapLayer map;
-	public override void _Process(double delta) {
-		base._Process(delta);
+
+	public override void _Input(InputEvent @event)
+	{
+		base._Input(@event);
+
+		if (!@event.IsPressed()) return;
 
 		Vector2I offset = Vector2I.Zero;
 
-		if (Input.IsActionJustPressed("walk-up")) {
+		if (@event.IsActionPressed("walk-up")) {
 			offset += Vector2I.Up;
 		}
-		if (Input.IsActionJustPressed("walk-down")) {
+		if (@event.IsActionPressed("walk-down")) {
 			offset += Vector2I.Down;
 		}
-		if (Input.IsActionJustPressed("walk-left")) {
+		if (@event.IsActionPressed("walk-left")) {
 			offset += Vector2I.Left;
 		}
-		if (Input.IsActionJustPressed("walk-right")) {
+		if (@event.IsActionPressed("walk-right")) {
 			offset += Vector2I.Right;
 		}
 
@@ -28,15 +32,14 @@ public partial class Character : Sprite2D {
 	}
 
 	private void Walk(Vector2I offset) {
-		Vector2I gridCoords = map.LocalToMap(Position);
-		gridCoords += offset;
-
-		TileData tile = map.GetCellTileData(gridCoords);
-
+		Vector2I toMovePos = map.LocalToMap(Position);
+		toMovePos += offset;
 		
+		TileData tile = map.GetCellTileData(toMovePos);
+
 		if (tile.HasCustomData("isWalkable") && (bool) tile.GetCustomData("isWalkable")) {
-			GD.Print(gridCoords);
-			Position = map.MapToLocal(gridCoords);
+			GD.Print(toMovePos);
+			Position = map.MapToLocal(toMovePos);
 		}
 	}
 }
