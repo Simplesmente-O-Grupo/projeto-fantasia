@@ -3,6 +3,6 @@
 [ext_resource type="Texture2D" uid="uid://dh5sgjdwkps88" path="res://assets/sprites/skeleton.png" id="1_pbvs3"]
 [ext_resource type="Script" uid="uid://bef1fo3vgvxej" path="res://scripts/Enemy.cs" id="2_txkty"]
 
-[node name="Skeleton" type="Sprite2D"]
+[node name="Skeleton" type="Sprite2D" groups=["TimeSlave"]]
 texture = ExtResource("1_pbvs3")
 script = ExtResource("2_txkty")
