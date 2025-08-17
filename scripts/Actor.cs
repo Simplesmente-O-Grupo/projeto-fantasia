@@ -18,8 +18,10 @@ public abstract partial class Actor : Node2D {
 		
 		TileData tile = Map.GetCellTileData(toMovePos);
 
-		if (tile.HasCustomData("isWalkable") && (bool) tile.GetCustomData("isWalkable")) {
-			Position = Map.MapToLocal(toMovePos);
+		if (tile != null) {
+			if ((bool) tile.GetCustomData("isWalkable")) {
+				Position = Map.MapToLocal(toMovePos);
+			}
 		}
 
 		Energy -= baseWalkCost;
