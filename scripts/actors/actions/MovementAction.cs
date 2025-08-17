@@ -1,12 +1,10 @@
 using Godot;
 using System;
 
-public partial class MovementAction : Action
+public partial class MovementAction : DirectionalAction
 {
-	public Vector2I Offset { get; private set; }
-	public MovementAction(Vector2I offset)
+	public MovementAction(Vector2I offset) : base(offset)
 	{
-		Offset = offset;
 	}
 
 	public override void Perform(Game game, Actor actor)
