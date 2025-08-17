@@ -1,18 +1,19 @@
 using Godot;
 using System;
 
-public partial class DungeonLevel : Node2D {
-	TurnManager turnManager;
+public partial class DungeonLevel : Node2D
+{
+	public Player player;
+	public TileMapLayer buildingLayer;
 
-	public override void _Ready() {
+	private Node2D actors;
+
+	public override void _Ready()
+	{
 		base._Ready();
 
-		turnManager = GetNode<TurnManager>("TurnManager");
-
-		turnManager.Tick();
-	}
-
-	public void OnTurnEnd() {
-		turnManager.Tick();
+		buildingLayer = GetNode<TileMapLayer>("Dungeon");
+		actors = GetNode<Node2D>("Actors");
+		player = actors.GetNode<Player>("Player");
 	}
 }

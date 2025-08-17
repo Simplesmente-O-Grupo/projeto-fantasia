@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://7sfxgul40ths"]
+
+[ext_resource type="Script" uid="uid://c840l08453pu2" path="res://scripts/actors/Player.cs" id="1_p0vlq"]
+[ext_resource type="Texture2D" uid="uid://dwky8qc2y602k" path="res://assets/sprites/character.png" id="1_v6fml"]
+
+[node name="Player" type="Sprite2D"]
+texture = ExtResource("1_v6fml")
+centered = false
+script = ExtResource("1_p0vlq")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+offset = Vector2(8, 8)
+zoom = Vector2(2, 2)
