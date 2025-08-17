@@ -15,6 +15,8 @@ public partial class MovementAction : Action
 
 		if (!game.Map.IsTileWalkable(finalDestination)) return;
 
+		if (game.Map.GetBlockingActorAtPosition(finalDestination) != null) return;
+
 		actor.Walk(Offset);
 	}
 }

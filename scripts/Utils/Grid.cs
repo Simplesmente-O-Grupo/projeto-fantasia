@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class Grid : GodotObject {
+public abstract partial class Grid : GodotObject {
 	public static readonly Vector2I tileSize = new(16, 16);
 
 	public static Vector2I WorldToGrid(Vector2 coord) {
