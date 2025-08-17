@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ActorDefinition" load_steps=2 format=3 uid="uid://bphsl6o2nsb8x"]
+
+[ext_resource type="Script" uid="uid://crxw1e37xlrrt" path="res://scripts/actors/ActorDefinition.cs" id="1_m5x88"]
+
+[resource]
+script = ExtResource("1_m5x88")
+name = "Eis que leto"
+blocksMovement = true
+metadata/_custom_type_script = "uid://crxw1e37xlrrt"

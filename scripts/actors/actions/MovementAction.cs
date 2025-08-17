@@ -13,9 +13,7 @@ public partial class MovementAction : Action
 	{
 		Vector2I finalDestination = actor.GridPosition + Offset;
 
-		TileData tile = game.Dungeon.GetCellTileData(finalDestination);
-
-		if (tile == null || !(bool) tile.GetCustomData("isWalkable")) return;
+		if (!game.Map.IsTileWalkable(finalDestination)) return;
 
 		actor.Walk(Offset);
 	}

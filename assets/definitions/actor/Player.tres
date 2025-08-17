@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ActorDefinition" load_steps=2 format=3 uid="uid://cn6xnpwxjudbp"]
+
+[ext_resource type="Script" uid="uid://crxw1e37xlrrt" path="res://scripts/actors/ActorDefinition.cs" id="1_2k33r"]
+
+[resource]
+script = ExtResource("1_2k33r")
+name = "Jogador"
+blocksMovement = true
+metadata/_custom_type_script = "uid://crxw1e37xlrrt"
