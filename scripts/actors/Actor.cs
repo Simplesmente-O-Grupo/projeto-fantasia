@@ -3,11 +3,18 @@ using Godot;
 [GlobalClass]
 public abstract partial class Actor : Sprite2D
 {
-	[Export]
 	private ActorDefinition definition;
 	private Vector2I gridPosition = Vector2I.Zero;
-	[Export]
 	public DungeonLevel Map { get; private set; }
+
+	public Actor(Vector2I initialPosition, DungeonLevel map, ActorDefinition definition) {
+		GridPosition = initialPosition;
+		Map = map;
+		this.definition = definition;
+		Texture = definition.texture;
+		Centered = false;
+	}
+
 	public Vector2I GridPosition {
 		set {
 			gridPosition = value;

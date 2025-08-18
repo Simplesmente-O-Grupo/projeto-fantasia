@@ -11,3 +11,7 @@ script = ExtResource("1_cpr0p")
 
 [node name="InputHandler" type="Node" parent="."]
 script = ExtResource("3_s0nni")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+offset = Vector2(8, 8)
+zoom = Vector2(2, 2)

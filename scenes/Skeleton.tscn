@@ -1,11 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://cnkx22hgs0b3p"]
+[gd_scene load_steps=3 format=3 uid="uid://byyjwp5j4byux"]
 
 [ext_resource type="Texture2D" uid="uid://dh5sgjdwkps88" path="res://assets/sprites/skeleton.png" id="1_s4oxe"]
 [ext_resource type="Script" uid="uid://bef1fo3vgvxej" path="res://scripts/Enemy.cs" id="2_at7gs"]
-[ext_resource type="Resource" uid="uid://bphsl6o2nsb8x" path="res://assets/definitions/actor/Skeleton.tres" id="3_at7gs"]
 
 [node name="Skeleton" type="Sprite2D"]
 texture = ExtResource("1_s4oxe")
 centered = false
 script = ExtResource("2_at7gs")
-definition = ExtResource("3_at7gs")

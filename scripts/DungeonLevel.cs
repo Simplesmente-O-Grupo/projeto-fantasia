@@ -3,11 +3,8 @@ using System;
 
 public partial class DungeonLevel : Node2D
 {
-	public Player player;
 	private TileMapLayer buildingLayer;
-	[Export]
 	public Godot.Collections.Array<Actor> Actors { get; private set; } = [];
-
 
 	private Node2D actorsNode;
 
@@ -17,7 +14,11 @@ public partial class DungeonLevel : Node2D
 
 		buildingLayer = GetNode<TileMapLayer>("Dungeon");
 		actorsNode = GetNode<Node2D>("Actors");
-		player = actorsNode.GetNode<Player>("Player");
+	}
+
+	public void InsertActor(Actor actor) {
+		Actors.Add(actor);
+		actorsNode.AddChild(actor);
 	}
 
 	public bool IsTileWalkable(Vector2I pos) {

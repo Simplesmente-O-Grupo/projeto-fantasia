@@ -2,6 +2,7 @@ using Godot;
 using System;
 
 public partial class Game : Node {
+	private static readonly ActorDefinition playerDefinition = GD.Load<ActorDefinition>("res://assets/definitions/actor/Player.tres");
 	private Player player;
 	public DungeonLevel Map { get; private set; }
 	private InputHandler inputHandler;
@@ -12,8 +13,14 @@ public partial class Game : Node {
 		Map = GetNode<DungeonLevel>("Map");
 
 		inputHandler = GetNode<InputHandler>("InputHandler");
-		
-		player = Map.player;
+
+		player = new Player(new Vector2I(0, 0), Map, playerDefinition);
+		Camera2D camera = GetNode<Camera2D>("Camera2D");
+		RemoveChild(camera);
+
+		player.AddChild(camera);
+
+		Map.InsertActor(player);
 	}
 
 	public override void _PhysicsProcess(double delta) {

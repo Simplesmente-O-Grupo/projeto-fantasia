@@ -1,9 +1,11 @@
-[gd_resource type="Resource" script_class="ActorDefinition" load_steps=2 format=3 uid="uid://cn6xnpwxjudbp"]
+[gd_resource type="Resource" script_class="ActorDefinition" load_steps=3 format=3 uid="uid://cn6xnpwxjudbp"]
 
 [ext_resource type="Script" uid="uid://crxw1e37xlrrt" path="res://scripts/actors/ActorDefinition.cs" id="1_2k33r"]
+[ext_resource type="Texture2D" uid="uid://dwky8qc2y602k" path="res://assets/sprites/character.png" id="2_2xyvf"]
 
 [resource]
 script = ExtResource("1_2k33r")
 name = "Jogador"
+texture = ExtResource("2_2xyvf")
 blocksMovement = true
 metadata/_custom_type_script = "uid://crxw1e37xlrrt"
