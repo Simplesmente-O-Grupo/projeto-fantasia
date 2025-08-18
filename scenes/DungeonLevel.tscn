@@ -16,8 +16,10 @@ tile_set = ExtResource("1_bxfih")
 
 [node name="Actors" type="Node2D" parent="."]
 
-[node name="Player" parent="Actors" instance=ExtResource("2_u6mlv")]
+[node name="Player" parent="Actors" node_paths=PackedStringArray("Map") instance=ExtResource("2_u6mlv")]
 position = Vector2(144, 144)
+Map = NodePath("../..")
 
-[node name="Skeleton" parent="Actors" instance=ExtResource("4_8elbs")]
+[node name="Skeleton" parent="Actors" node_paths=PackedStringArray("Map") instance=ExtResource("4_8elbs")]
 position = Vector2(160, 128)
+Map = NodePath("../..")

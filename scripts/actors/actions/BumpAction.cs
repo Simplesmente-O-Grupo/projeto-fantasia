@@ -3,22 +3,22 @@ using System;
 
 public partial class BumpAction : DirectionalAction
 {
-	public BumpAction(Vector2I offset) : base(offset)
+	public BumpAction(Actor actor, Vector2I offset) : base(actor, offset)
 	{
 	}
 
-	public override void Perform(Game game, Actor actor)
+	public override void Perform()
 	{
 		Vector2I destination = actor.GridPosition + Offset;
 
 		Action action;
 
-		if (game.Map.GetBlockingActorAtPosition(destination) != null) {
-			action = new MeleeAction(Offset);
+		if (GetBlockingActorAtPosition(destination) != null) {
+			action = new MeleeAction(actor, Offset);
 		} else {
-			action = new MovementAction(Offset);
+			action = new MovementAction(actor, Offset);
 		}
 
-		action.Perform(game, actor);
+		action.Perform();
 	}
 }

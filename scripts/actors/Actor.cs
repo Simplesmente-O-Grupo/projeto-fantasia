@@ -1,10 +1,13 @@
 using Godot;
 
 [GlobalClass]
-public abstract partial class Actor : Sprite2D {
+public abstract partial class Actor : Sprite2D
+{
 	[Export]
 	private ActorDefinition definition;
 	private Vector2I gridPosition = Vector2I.Zero;
+	[Export]
+	public DungeonLevel Map { get; private set; }
 	public Vector2I GridPosition {
 		set {
 			gridPosition = value;

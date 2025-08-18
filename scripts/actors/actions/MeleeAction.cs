@@ -4,15 +4,15 @@ using System.Net.NetworkInformation;
 
 public partial class MeleeAction : DirectionalAction
 {
-	public MeleeAction(Vector2I offset) : base(offset)
+	public MeleeAction(Actor actor, Vector2I offset) : base(actor, offset)
 	{
 	}
 
-	public override void Perform(Game game, Actor actor)
+	public override void Perform()
 	{
 		Vector2I destination = actor.GridPosition + Offset;
 
-		Actor target = game.Map.GetBlockingActorAtPosition(destination);
+		Actor target = GetBlockingActorAtPosition(destination);
 
 		if (target == null) return;
 

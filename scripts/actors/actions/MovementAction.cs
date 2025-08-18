@@ -3,17 +3,17 @@ using System;
 
 public partial class MovementAction : DirectionalAction
 {
-	public MovementAction(Vector2I offset) : base(offset)
+	public MovementAction(Actor actor, Vector2I offset) : base(actor, offset)
 	{
 	}
 
-	public override void Perform(Game game, Actor actor)
+	public override void Perform()
 	{
 		Vector2I finalDestination = actor.GridPosition + Offset;
 
-		if (!game.Map.IsTileWalkable(finalDestination)) return;
+		if (!Map.IsTileWalkable(finalDestination)) return;
 
-		if (game.Map.GetBlockingActorAtPosition(finalDestination) != null) return;
+		if (GetBlockingActorAtPosition(finalDestination) != null) return;
 
 		actor.Walk(Offset);
 	}

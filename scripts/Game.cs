@@ -19,10 +19,10 @@ public partial class Game : Node {
 	public override void _PhysicsProcess(double delta) {
 		base._PhysicsProcess(delta);
 
-		Action action = inputHandler.GetAction();
+		Action action = inputHandler.GetAction(player);
 
 		if (action != null) {
-			action.Perform(this, player);
+			action.Perform();
 			HandleEnemyTurns();
 		}
 	}
