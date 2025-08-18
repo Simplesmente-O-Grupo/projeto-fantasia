@@ -1,16 +1,21 @@
 [gd_scene load_steps=4 format=3 uid="uid://u5h6iqyi8wd0"]
 
 [ext_resource type="Script" uid="uid://dwubb28wt4bhe" path="res://scripts/Game.cs" id="1_cpr0p"]
-[ext_resource type="PackedScene" uid="uid://dnh8xgk1w76i2" path="res://scenes/DungeonLevel.tscn" id="2_cpr0p"]
+[ext_resource type="Script" uid="uid://fe2h4is11tnw" path="res://scripts/Map.cs" id="3_cpr0p"]
 [ext_resource type="Script" uid="uid://ejqmdbc0524i" path="res://scripts/InputHandler.cs" id="3_s0nni"]
 
 [node name="Game" type="Node"]
 script = ExtResource("1_cpr0p")
 
-[node name="Map" parent="." instance=ExtResource("2_cpr0p")]
-
 [node name="InputHandler" type="Node" parent="."]
 script = ExtResource("3_s0nni")
+
+[node name="Map" type="Node2D" parent="."]
+script = ExtResource("3_cpr0p")
+Height = 20
+Width = 20
+
+[node name="Actors" type="Node2D" parent="."]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 offset = Vector2(8, 8)

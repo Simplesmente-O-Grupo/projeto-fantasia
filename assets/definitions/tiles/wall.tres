@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="TileDefinition" load_steps=3 format=3 uid="uid://cdluqrbfcu5ng"]
+
+[ext_resource type="Texture2D" uid="uid://s5klxirh5r1w" path="res://assets/sprites/wall.png" id="1_jkwov"]
+[ext_resource type="Script" uid="uid://ba82a33ov6uuo" path="res://scripts/map/TileDefinition.cs" id="1_ugwtv"]
+
+[resource]
+script = ExtResource("1_ugwtv")
+Texture = ExtResource("1_jkwov")
+IsWalkable = false
+metadata/_custom_type_script = "uid://ba82a33ov6uuo"

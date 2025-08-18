@@ -11,7 +11,7 @@ public partial class MovementAction : DirectionalAction
 	{
 		Vector2I finalDestination = actor.GridPosition + Offset;
 
-		if (!Map.IsTileWalkable(finalDestination)) return;
+		if (!Map_Data.IsTileWalkable(finalDestination)) return;
 
 		if (GetBlockingActorAtPosition(finalDestination) != null) return;
 

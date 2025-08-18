@@ -10,6 +10,6 @@ public abstract partial class DirectionalAction : Action
 	}
 
 	protected Actor GetBlockingActorAtPosition(Vector2I pos) {
-		return Map.GetBlockingActorAtPosition(pos);
+		return Map_Data.GetBlockingActorAtPosition(pos);
 	}
 }

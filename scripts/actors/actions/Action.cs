@@ -11,7 +11,7 @@ public abstract partial class Action : RefCounted {
 
 	public abstract void Perform();
 
-	protected DungeonLevel Map {
-		get => actor.Map;
+	protected MapData Map_Data {
+		get => actor.Map_Data;
 	}
 }

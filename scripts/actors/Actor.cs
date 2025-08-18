@@ -5,11 +5,11 @@ public abstract partial class Actor : Sprite2D
 {
 	private ActorDefinition definition;
 	private Vector2I gridPosition = Vector2I.Zero;
-	public DungeonLevel Map { get; private set; }
+	public MapData Map_Data { get; private set; }
 
-	public Actor(Vector2I initialPosition, DungeonLevel map, ActorDefinition definition) {
+	public Actor(Vector2I initialPosition, MapData map, ActorDefinition definition) {
 		GridPosition = initialPosition;
-		Map = map;
+		Map_Data = map;
 		this.definition = definition;
 		Texture = definition.texture;
 		Centered = false;
