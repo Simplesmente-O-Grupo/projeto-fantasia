@@ -21,6 +21,17 @@ public partial class Game : Node {
 
 		Action action = inputHandler.GetAction();
 
-		action?.Perform(this, player);
+		if (action != null) {
+			action.Perform(this, player);
+			HandleEnemyTurns();
+		}
+	}
+
+	private void HandleEnemyTurns() {
+		foreach (Actor actor in Map.Actors) {
+			if (actor is Player) continue;
+
+			GD.Print($"O {actor.ActorName} foi cuckado e não tem como agir.");
+		}
 	}
 }

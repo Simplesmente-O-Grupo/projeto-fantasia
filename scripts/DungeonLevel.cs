@@ -6,7 +6,8 @@ public partial class DungeonLevel : Node2D
 	public Player player;
 	private TileMapLayer buildingLayer;
 	[Export]
-	private Godot.Collections.Array<Actor> actors = [];
+	public Godot.Collections.Array<Actor> Actors { get; private set; } = [];
+
 
 	private Node2D actorsNode;
 
@@ -28,7 +29,7 @@ public partial class DungeonLevel : Node2D
 	}
 
 	public Actor GetBlockingActorAtPosition(Vector2I pos) {
-		foreach (Actor actor in actors) {
+		foreach (Actor actor in Actors) {
 			if (actor.GridPosition == pos && actor.BlocksMovement) {
 				return actor;
 			}

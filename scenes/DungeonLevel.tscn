@@ -5,9 +5,9 @@
 [ext_resource type="PackedScene" uid="uid://c3wbuxeetj24a" path="res://scenes/Player.tscn" id="2_u6mlv"]
 [ext_resource type="PackedScene" uid="uid://cnkx22hgs0b3p" path="res://scenes/Skeleton.tscn" id="4_8elbs"]
 
-[node name="Map" type="Node2D" node_paths=PackedStringArray("actors")]
+[node name="Map" type="Node2D" node_paths=PackedStringArray("Actors")]
 script = ExtResource("1_u6mlv")
-actors = [NodePath("Actors/Player"), NodePath("Actors/Skeleton")]
+Actors = [NodePath("Actors/Player"), NodePath("Actors/Skeleton")]
 
 [node name="Dungeon" type="TileMapLayer" parent="."]
 texture_filter = 1
