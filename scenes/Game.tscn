@@ -17,9 +17,8 @@ script = ExtResource("3_cpr0p")
 [node name="Generator" type="Node" parent="Map"]
 script = ExtResource("4_78awf")
 seed = 989
-maxRooms = 30
-roomMinWidth = 4
-roomMinHeight = 5
+useSeed = false
+iterations = 8
 
 [node name="Actors" type="Node2D" parent="."]
 

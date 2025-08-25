@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Drawing;
 using System.Linq;
 using System.Net.NetworkInformation;
 
@@ -18,15 +19,7 @@ public partial class DungeonGenerator : Node
 	[Export]
 	private bool useSeed = true;
 	[Export]
-	private int maxRooms = 10;
-	[Export]
-	private int roomMaxWidth = 10;
-	[Export]
-	private int roomMinWidth = 3;
-	[Export]
-	private int roomMaxHeight = 10;
-	[Export]
-	private int roomMinHeight = 2;
+	private int iterations = 3;
 
 	public override void _Ready()
 	{
@@ -46,11 +39,9 @@ public partial class DungeonGenerator : Node
 
 	private static void CarveRoom(MapData data, Rect2I room)
 	{
-		Rect2I inner = room.Grow(-1);
-
-		for (int y = inner.Position.Y; y <= inner.End.Y; y++)
+		for (int y = room.Position.Y; y < room.End.Y; y++)
 		{
-			for (int x = inner.Position.X; x <= inner.End.X; x++)
+			for (int x = room.Position.X; x < room.End.X; x++)
 			{
 				CarveTile(data, new Vector2I(x, y));
 			}
@@ -61,35 +52,32 @@ public partial class DungeonGenerator : Node
 	{
 		MapData data = new MapData(width, height);
 
-		Godot.Collections.Array<Rect2I> rooms = [];
+		MapDivision root = new MapDivision(0, 0, width, height);
 
-		for (int tryroom = 0; tryroom < maxRooms; tryroom++) {
-			int roomWidth = rng.RandiRange(roomMinWidth, roomMaxWidth);
-			int roomHeight = rng.RandiRange(roomMinHeight, roomMaxHeight);
+		root.Split(iterations, rng);
 
-			int x = rng.RandiRange(0, data.Width - 1 - roomWidth);
-			int y = rng.RandiRange(0, data.Height - 1 - roomHeight);
+		bool first = true;
 
-			Rect2I newRoom = new(x, y, roomWidth, roomHeight);
+		TunnelDivisions(data, root);
 
-			bool intersects = false;
-			foreach (Rect2I room in rooms) {
-				if (newRoom.Intersects(room)) {
-					intersects = true;
-					break;
-				}
+		foreach(MapDivision division in root.GetLeaves())
+		{
+			Rect2I room = new(division.Position, division.Size);
+			
+			room = room.GrowIndividual(
+				-rng.RandiRange(1, 2),
+				-rng.RandiRange(1, 2),
+				-rng.RandiRange(1, 2),
+				-rng.RandiRange(1, 2)
+			);
+
+			GD.Print($"Division {room}");
+			CarveRoom(data, room);
+			if (first)
+			{
+				first = false;
+				player.GridPosition = room.GetCenter();
 			}
-			if (intersects) {
-				continue;
-			}
-
-			CarveRoom(data, newRoom);
-			if (rooms.Count <= 0) {
-				player.GridPosition = newRoom.GetCenter();
-			} else {
-				TunnelBetween(data, rooms.Last().GetCenter(), newRoom.GetCenter());
-			}
-			rooms.Add(newRoom);
 		}
 
 		return data;
@@ -114,5 +102,15 @@ public partial class DungeonGenerator : Node
 	private void TunnelBetween(MapData data, Vector2I start, Vector2I end) {
 		HorizontalCorridor(data, start.Y, start.X, end.X);
 		VerticalCorridor(data, end.X, start.Y, end.Y);
+	}
+
+	private void TunnelDivisions(MapData data, MapDivision root) {
+		if (root.IsLeaf) {
+			return;
+		}
+
+		TunnelBetween(data, root.Right.Center, root.Left.Center);
+		TunnelDivisions(data, root.Left);
+		TunnelDivisions(data, root.Right);
 	}
 }
