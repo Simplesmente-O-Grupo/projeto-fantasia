@@ -5,7 +5,7 @@ public partial class Tile : Sprite2D
 {
 	private TileDefinition definition;
 
-	public bool IsWalkable { get; set; }
+	public bool IsWalkable { get; private set; }
 
 	public Tile(Vector2I pos, TileDefinition definition)
 	{
@@ -17,6 +17,6 @@ public partial class Tile : Sprite2D
 	public void SetDefinition(TileDefinition definition) {
 		this.definition = definition;
 		Texture = definition.Texture;
-		this.IsWalkable = definition.IsWalkable;
+		IsWalkable = definition.IsWalkable;
 	}
 }

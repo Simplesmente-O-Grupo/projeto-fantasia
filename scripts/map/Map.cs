@@ -5,10 +5,7 @@ public partial class Map : Node2D
 {
 	public MapData Map_Data { get; private set; }
 
-	[Export]
-	public int Height;
-	[Export]
-	public int Width;
+	DungeonGenerator generator;
 
 	private void PlaceTiles() {
 		foreach (Tile tile in Map_Data.Tiles) {
@@ -16,11 +13,15 @@ public partial class Map : Node2D
 		}
 	}
 
-	public override void _Ready()
+	public void Generate(Player player)
 	{
-		base._Ready();
+		generator = GetNode<DungeonGenerator>("Generator");
 
-		Map_Data = new MapData(Width, Height);
+		Map_Data = generator.GenerateDungeon(player);
+
+		Map_Data.InsertActor(player);
+
+		player.Map_Data = Map_Data;
 
 		PlaceTiles();
 	}

@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://u5h6iqyi8wd0"]
+[gd_scene load_steps=5 format=3 uid="uid://u5h6iqyi8wd0"]
 
 [ext_resource type="Script" uid="uid://dwubb28wt4bhe" path="res://scripts/Game.cs" id="1_cpr0p"]
-[ext_resource type="Script" uid="uid://fe2h4is11tnw" path="res://scripts/Map.cs" id="3_cpr0p"]
+[ext_resource type="Script" uid="uid://fe2h4is11tnw" path="res://scripts/map/Map.cs" id="3_cpr0p"]
 [ext_resource type="Script" uid="uid://ejqmdbc0524i" path="res://scripts/InputHandler.cs" id="3_s0nni"]
+[ext_resource type="Script" uid="uid://dwyr067lwqcsj" path="res://scripts/map/DungeonGenerator.cs" id="4_78awf"]
 
 [node name="Game" type="Node"]
 script = ExtResource("1_cpr0p")
@@ -12,8 +13,13 @@ script = ExtResource("3_s0nni")
 
 [node name="Map" type="Node2D" parent="."]
 script = ExtResource("3_cpr0p")
-Height = 20
-Width = 20
+
+[node name="Generator" type="Node" parent="Map"]
+script = ExtResource("4_78awf")
+seed = 989
+maxRooms = 30
+roomMinWidth = 4
+roomMinHeight = 5
 
 [node name="Actors" type="Node2D" parent="."]
 

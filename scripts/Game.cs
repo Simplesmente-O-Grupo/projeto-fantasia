@@ -14,12 +14,10 @@ public partial class Game : Node {
 
 		Map Map = GetNode<Map>("Map");
 
-		Map_Data = Map.Map_Data;
-
 		inputHandler = GetNode<InputHandler>("InputHandler");
 		actorsNode = GetNode<Node2D>("Actors");
 
-		player = new Player(Vector2I.Zero, Map_Data, playerDefinition);
+		player = new Player(Vector2I.Zero, null, playerDefinition);
 		Camera2D camera = GetNode<Camera2D>("Camera2D");
 		RemoveChild(camera);
 
@@ -27,11 +25,9 @@ public partial class Game : Node {
 
 		actorsNode.AddChild(player);
 
-		Enemy Skeleton = new Enemy(Vector2I.Zero, Map_Data, skeletonDefinition);
-		actorsNode.AddChild(Skeleton);
+		Map.Generate(player);
 
-		Map_Data.InsertActor(new Vector2I(1, 1), player);
-		Map_Data.InsertActor(new Vector2I(3, 4), Skeleton);
+		Map_Data = Map.Map_Data;
 	}
 
 	public override void _PhysicsProcess(double delta) {

@@ -22,24 +22,16 @@ public partial class MapData : RefCounted
 	}
 
 	private void SetupTiles() {
-		for (int i = 0; i < Width; i++)
+		for (int i = 0; i < Height; i++)
 		{
-			for (int j = 0; j < Height; j++)
+			for (int j = 0; j < Width; j++)
 			{
-				Tile tile;
-				if (i == 0 || j == 0 || i == (Width - 1) || j == (Height - 1)) {
-					tile = new Tile(new Vector2I(i, j), wallDefinition);
-				} else {
-					tile = new Tile(new Vector2I(i, j), floorDefinition);
-				}
-
-				Tiles.Add(tile);
+				Tiles.Add(new Tile(new Vector2I(j, i), wallDefinition));
 			}
 		}
 	}
 
-	public void InsertActor(Vector2I pos, Actor actor) {
-		actor.GridPosition = pos;
+	public void InsertActor(Actor actor) {
 		Actors.Add(actor);
 	}
 
