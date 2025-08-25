@@ -83,9 +83,8 @@ public partial class DungeonGenerator : Node
 			{
 				first = false;
 				player.GridPosition = room.GetCenter();
-			} else {
-				PlaceEntities(data, room);
 			}
+			PlaceEntities(data, room);
 		}
 
 		return data;
@@ -94,23 +93,25 @@ public partial class DungeonGenerator : Node
 	private void PlaceEntities(MapData data, Rect2I room) {
 		int monsterAmount = rng.RandiRange(0, maxMonsterPerRoom);
 
-		Vector2I position = new(
-			rng.RandiRange(room.Position.X, room.End.X - 1),
-			rng.RandiRange(room.Position.Y, room.End.Y - 1)
-		);
+		for (int i = 0; i < monsterAmount; i++) {
+			Vector2I position = new(
+				rng.RandiRange(room.Position.X, room.End.X - 1),
+				rng.RandiRange(room.Position.Y, room.End.Y - 1)
+			);
 
-		bool canPlace = true;
-		foreach (Actor actor in data.Actors) {
-			if (actor.GridPosition == position) {
-				canPlace = false;
-				break;
+			bool canPlace = true;
+			foreach (Actor actor in data.Actors) {
+				if (actor.GridPosition == position) {
+					canPlace = false;
+					break;
+				}
 			}
-		}
 
-		if (canPlace) {
-			ActorDefinition definition = enemies.PickRandom();
-			Enemy enemy = new Enemy(position, data, definition);
-			data.InsertActor(enemy);
+			if (canPlace) {
+				ActorDefinition definition = enemies.PickRandom();
+				Enemy enemy = new Enemy(position, data, definition);
+				data.InsertActor(enemy);
+			}
 		}
 	}
 
