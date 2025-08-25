@@ -1,11 +1,11 @@
 using Godot;
-using System;
-using System.Drawing;
-using System.Linq;
-using System.Net.NetworkInformation;
 
 public partial class DungeonGenerator : Node
 {
+	private static readonly Godot.Collections.Array<ActorDefinition> enemies = [
+		GD.Load<ActorDefinition>("res://assets/definitions/actor/Skeleton.tres")
+	];
+
 	[ExportCategory("Dimension")]
 	[Export]
 	private int width = 80;
@@ -20,6 +20,10 @@ public partial class DungeonGenerator : Node
 	private bool useSeed = true;
 	[Export]
 	private int iterations = 3;
+
+	[ExportCategory("Monster RNG")]
+	[Export]
+	private int maxMonsterPerRoom = 2;
 
 	public override void _Ready()
 	{
@@ -74,16 +78,40 @@ public partial class DungeonGenerator : Node
 				-rng.RandiRange(1, 2)
 			);
 
-			GD.Print($"Division {room}");
 			CarveRoom(data, room);
 			if (first)
 			{
 				first = false;
 				player.GridPosition = room.GetCenter();
+			} else {
+				PlaceEntities(data, room);
 			}
 		}
 
 		return data;
+	}
+
+	private void PlaceEntities(MapData data, Rect2I room) {
+		int monsterAmount = rng.RandiRange(0, maxMonsterPerRoom);
+
+		Vector2I position = new(
+			rng.RandiRange(room.Position.X, room.End.X - 1),
+			rng.RandiRange(room.Position.Y, room.End.Y - 1)
+		);
+
+		bool canPlace = true;
+		foreach (Actor actor in data.Actors) {
+			if (actor.GridPosition == position) {
+				canPlace = false;
+				break;
+			}
+		}
+
+		if (canPlace) {
+			ActorDefinition definition = enemies.PickRandom();
+			Enemy enemy = new Enemy(position, data, definition);
+			data.InsertActor(enemy);
+		}
 	}
 
 	private static void HorizontalCorridor(MapData data, int y, int xBegin, int xEnd) {

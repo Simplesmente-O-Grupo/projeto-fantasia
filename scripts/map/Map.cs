@@ -49,5 +49,8 @@ public partial class Map : Node2D
 
 	public void UpdateFOV(Vector2I pos) {
 		fieldOfView.UpdateFOV(Map_Data, pos, fovRadius);
+		foreach (Actor actor in Map_Data.Actors) {
+			actor.Visible = Map_Data.GetTile(actor.GridPosition).IsInView;
+		}
 	}
 }

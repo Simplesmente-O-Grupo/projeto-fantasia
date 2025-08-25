@@ -3,7 +3,6 @@ using System;
 
 public partial class Game : Node {
 	private static readonly ActorDefinition playerDefinition = GD.Load<ActorDefinition>("res://assets/definitions/actor/Player.tres");
-	private static readonly ActorDefinition skeletonDefinition = GD.Load<ActorDefinition>("res://assets/definitions/actor/Skeleton.tres");
 	private Map Map;
 	private InputHandler inputHandler;
 
