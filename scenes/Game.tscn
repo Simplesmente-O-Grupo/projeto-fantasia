@@ -24,7 +24,9 @@ iterations = 8
 [node name="FieldOfView" type="Node" parent="Map"]
 script = ExtResource("5_s0nni")
 
-[node name="Actors" type="Node2D" parent="."]
+[node name="Tiles" type="Node2D" parent="Map"]
+
+[node name="Actors" type="Node2D" parent="Map"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 offset = Vector2(8, 8)

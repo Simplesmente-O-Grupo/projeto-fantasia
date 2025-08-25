@@ -4,8 +4,6 @@ using System;
 public partial class Game : Node {
 	private static readonly ActorDefinition playerDefinition = GD.Load<ActorDefinition>("res://assets/definitions/actor/Player.tres");
 	private static readonly ActorDefinition skeletonDefinition = GD.Load<ActorDefinition>("res://assets/definitions/actor/Skeleton.tres");
-	private Player player;
-	private Node2D actorsNode;
 	private Map Map;
 	private InputHandler inputHandler;
 
@@ -15,15 +13,12 @@ public partial class Game : Node {
 		Map = GetNode<Map>("Map");
 
 		inputHandler = GetNode<InputHandler>("InputHandler");
-		actorsNode = GetNode<Node2D>("Actors");
 
-		player = new Player(Vector2I.Zero, null, playerDefinition);
+		Player player = new Player(Vector2I.Zero, null, playerDefinition);
 		Camera2D camera = GetNode<Camera2D>("Camera2D");
 		RemoveChild(camera);
 
 		player.AddChild(camera);
-
-		actorsNode.AddChild(player);
 
 		Map.Generate(player);
 
@@ -32,6 +27,8 @@ public partial class Game : Node {
 
 	public override void _PhysicsProcess(double delta) {
 		base._PhysicsProcess(delta);
+
+		Player player = Map.Map_Data.Player;
 
 		Action action = inputHandler.GetAction(player);
 

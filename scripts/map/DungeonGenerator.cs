@@ -50,7 +50,10 @@ public partial class DungeonGenerator : Node
 
 	public MapData GenerateDungeon(Player player)
 	{
-		MapData data = new MapData(width, height);
+		MapData data = new MapData(width, height, player);
+
+		data.InsertActor(player);
+		player.Map_Data = data;
 
 		MapDivision root = new MapDivision(0, 0, width, height);
 

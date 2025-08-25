@@ -12,11 +12,14 @@ public partial class MapData : RefCounted
 
 	public Godot.Collections.Array<Tile> Tiles { get; private set; } = [];
 
+	public Player Player { get; set; }
 	public Godot.Collections.Array<Actor> Actors { get; private set; } = [];
 
-	public MapData(int width, int height) {
+	public MapData(int width, int height, Player player) {
 		Width = width;
 		Height = height;
+
+		Player = player;
 
 		SetupTiles();
 	}
