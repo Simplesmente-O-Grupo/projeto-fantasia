@@ -60,6 +60,10 @@ public partial class MapData : RefCounted
 		return Tiles[index];
 	}
 
+	public Tile GetTile(int x, int y) {
+		return GetTile(new Vector2I(x, y));
+	}
+
 	public Actor GetBlockingActorAtPosition(Vector2I pos) {
 		foreach (Actor actor in Actors) {
 			if (actor.GridPosition == pos && actor.BlocksMovement) {

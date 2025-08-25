@@ -11,4 +11,6 @@ public partial class TileDefinition : Resource
 	[ExportCategory("Mechanics")]
 	[Export]
 	public bool IsWalkable { get; set; }
+	[Export]
+	public bool IsTransparent { get; set; }
 }
