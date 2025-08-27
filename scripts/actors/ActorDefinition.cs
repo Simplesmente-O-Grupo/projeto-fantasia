@@ -13,4 +13,16 @@ public partial class ActorDefinition : Resource
 	[ExportCategory("Mechanics")]
 	[Export]
 	public bool blocksMovement = true;
+
+	[ExportCategory("Stats")]
+	[Export]
+	public int Hp;
+	[Export]
+	public int Mp;
+	[Export]
+	public int Atk;
+	[Export]
+	public int Def;
+	[Export]
+	public int Men;
 }

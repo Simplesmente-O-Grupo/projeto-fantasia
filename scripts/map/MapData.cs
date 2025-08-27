@@ -15,6 +15,42 @@ public partial class MapData : RefCounted
 	public Player Player { get; set; }
 	public Godot.Collections.Array<Actor> Actors { get; private set; } = [];
 
+	private AStarGrid2D pathfinder;
+	public AStarGrid2D Pathfinder { get => pathfinder; }
+	private static float ActorWeight = 10.0f;
+
+	public void SetupPathfinding() {
+		pathfinder = new AStarGrid2D
+		{
+			Region = new Rect2I(0, 0, Width, Height)
+		};
+
+		pathfinder.Update();
+
+		for (int y = 0; y < Height; y++) {
+			for (int x = 0; x < Width; x++) {
+				Vector2I pos = new Vector2I(x, y);
+				Tile tile = GetTile(pos);
+				pathfinder.SetPointSolid(pos, !tile.IsWalkable);
+			}
+		}
+
+		foreach (Actor actor in Actors) {
+			if (actor.BlocksMovement) {
+				RegisterBlockingActor(actor);
+			}
+		}
+
+	}
+
+	public void RegisterBlockingActor(Actor actor) {
+		pathfinder.SetPointWeightScale(actor.GridPosition, ActorWeight);
+	}
+
+	public void UnregisterBlockingActor(Actor actor) {
+		pathfinder.SetPointWeightScale(actor.GridPosition, 0);
+	}
+
 	public MapData(int width, int height, Player player) {
 		Width = width;
 		Height = height;

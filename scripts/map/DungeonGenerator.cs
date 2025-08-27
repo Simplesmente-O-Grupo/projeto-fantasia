@@ -2,8 +2,8 @@ using Godot;
 
 public partial class DungeonGenerator : Node
 {
-	private static readonly Godot.Collections.Array<ActorDefinition> enemies = [
-		GD.Load<ActorDefinition>("res://assets/definitions/actor/Skeleton.tres")
+	private static readonly Godot.Collections.Array<EnemyDefinition> enemies = [
+		GD.Load<EnemyDefinition>("res://assets/definitions/actor/Skeleton.tres")
 	];
 
 	[ExportCategory("Dimension")]
@@ -87,6 +87,7 @@ public partial class DungeonGenerator : Node
 			PlaceEntities(data, room);
 		}
 
+		data.SetupPathfinding();
 		return data;
 	}
 
@@ -108,7 +109,7 @@ public partial class DungeonGenerator : Node
 			}
 
 			if (canPlace) {
-				ActorDefinition definition = enemies.PickRandom();
+				EnemyDefinition definition = enemies.PickRandom();
 				Enemy enemy = new Enemy(position, data, definition);
 				data.InsertActor(enemy);
 			}

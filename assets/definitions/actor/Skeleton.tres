@@ -1,11 +1,17 @@
-[gd_resource type="Resource" script_class="ActorDefinition" load_steps=3 format=3 uid="uid://bphsl6o2nsb8x"]
+[gd_resource type="Resource" script_class="EnemyDefinition" load_steps=3 format=3 uid="uid://gt6xqa737dyt"]
 
-[ext_resource type="Script" uid="uid://crxw1e37xlrrt" path="res://scripts/actors/ActorDefinition.cs" id="1_m5x88"]
+[ext_resource type="Script" uid="uid://dkfdm2m2scyks" path="res://scripts/actors/EnemyDefinition.cs" id="1_m5x88"]
 [ext_resource type="Texture2D" uid="uid://dh5sgjdwkps88" path="res://assets/sprites/skeleton.png" id="2_hhidw"]
 
 [resource]
 script = ExtResource("1_m5x88")
+AI = 1
 name = "Eis que leto"
 texture = ExtResource("2_hhidw")
 blocksMovement = true
-metadata/_custom_type_script = "uid://crxw1e37xlrrt"
+Hp = 12
+Mp = 2
+Atk = 3
+Def = 2
+Men = 2
+metadata/_custom_type_script = "uid://dkfdm2m2scyks"

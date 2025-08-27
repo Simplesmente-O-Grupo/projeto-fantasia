@@ -44,8 +44,9 @@ public partial class Game : Node {
 	private void HandleEnemyTurns() {
 		foreach (Actor actor in Map.Map_Data.Actors) {
 			if (actor is Player) continue;
-
-			GD.Print($"O {actor.ActorName} foi cuckado e não tem como agir.");
+			if (actor is Enemy enemy && enemy.IsAlive) {
+				enemy.Soul.Perform();
+			}
 		}
 	}
 }

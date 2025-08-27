@@ -15,6 +15,8 @@ public partial class MovementAction : DirectionalAction
 
 		if (GetBlockingActorAtPosition(finalDestination) != null) return;
 
+		GD.Print("What?");
+
 		actor.Walk(Offset);
 	}
 }
