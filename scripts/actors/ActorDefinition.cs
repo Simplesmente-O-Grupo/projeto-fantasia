@@ -21,6 +21,8 @@ public partial class ActorDefinition : Resource
 	// Se o ator bloqueia movimento.
 	[Export]
 	public bool blocksMovement = true;
+	[Export]
+	public int Speed { get; set;} = 10;
 
 	// Estatísticas padrão do ator.
 	[ExportCategory("Stats")]

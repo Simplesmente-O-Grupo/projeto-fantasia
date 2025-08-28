@@ -10,6 +10,7 @@ name = "Jogador"
 texture = ExtResource("2_2xyvf")
 deathTexture = ExtResource("1_m72ac")
 blocksMovement = true
+Speed = 40
 Hp = 12
 Mp = 12
 Atk = 6

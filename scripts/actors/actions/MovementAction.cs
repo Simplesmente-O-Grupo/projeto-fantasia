@@ -18,6 +18,7 @@ public partial class MovementAction : DirectionalAction
 		// Na maioria dos casos, essa condição nunca é verdadeira.
 		if (GetTargetActor() != null) return;
 
+		actor.Energy -= cost;
 		actor.Walk(Offset);
 	}
 }

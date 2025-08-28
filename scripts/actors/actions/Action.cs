@@ -11,8 +11,13 @@ public abstract partial class Action : RefCounted {
     /// </summary>
 	protected Actor actor;
 
+    // O custo da ação.
+	protected int cost;
+
 	public Action(Actor actor) {
 		this.actor = actor;
+		// Custo base, subclasses podem sobreescrever isto se quiserem.
+		cost = 10;
 	}
 
 	/// <summary>

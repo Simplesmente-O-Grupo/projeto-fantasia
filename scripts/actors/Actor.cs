@@ -21,7 +21,36 @@ public abstract partial class Actor : Sprite2D
     /// Se o ator está vivo.
     /// </summary>
 	public bool IsAlive { get => Hp > 0; }
-	
+
+	private int energy;
+	/// <summary>
+	/// Utilizado no sistema de turnos.
+	/// Enquanto o ator tiver energia, ele poderá realizar turnos.
+	/// </summary>
+	public int Energy 
+	{ 
+		get => energy;
+		set
+		{
+			if (value > Speed) {
+				energy = Speed;
+			} else {
+				energy = value;
+			}
+		}
+	}
+	/// <summary>
+    /// Taxa de recarga de energia.
+    /// </summary>
+    public int Speed { get => definition.Speed; }
+
+	/// <summary>
+    /// Executado uma vez por turno,
+    /// </summary>
+	public void RechargeEnergy() {
+		Energy += Speed;
+	}
+
 	private Vector2I gridPosition = Vector2I.Zero;
 	/// <summary>
     /// Posição do ator no mapa do jogo. Diferentemente de Position, GridPosition tem como formato 

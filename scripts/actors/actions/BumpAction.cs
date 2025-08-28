@@ -11,10 +11,10 @@ public partial class BumpAction : DirectionalAction
 	{
 	}
 
+	// Como esta ação inevitavelmente gera outras ações,
+	// não faz sentido descontar a energia do ator.
 	public override void Perform()
 	{
-		Vector2I destination = actor.GridPosition + Offset;
-
 		// Declaramos uma ação genérica.
 		Action action;
 

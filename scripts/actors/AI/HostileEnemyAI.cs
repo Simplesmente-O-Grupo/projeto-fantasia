@@ -47,6 +47,8 @@ public partial class HostileEnemyAI : BaseAI
 			Vector2I destination = (Vector2I) path[0];
 			// Se tiver um outro ator no caminho, paramos o nosso turno aqui.
 			if (body.Map_Data.GetBlockingActorAtPosition(destination) != null) {
+				action = new WaitAction(body);
+				action.Perform();
 				return;
 			}
 
@@ -55,6 +57,12 @@ public partial class HostileEnemyAI : BaseAI
 			action.Perform();
 			// Podemos remover o passo do caminho.
 			path.RemoveAt(0);
+			return;
 		}
+
+		// Senão, espere.
+		action = new WaitAction(body);
+		action.Perform();
+		return;
 	}
 }
