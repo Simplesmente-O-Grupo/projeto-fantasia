@@ -6,6 +6,8 @@
 [resource]
 script = ExtResource("1_snxyj")
 Texture = ExtResource("1_vvyfi")
+LitColor = Color(1, 1, 1, 1)
+DarkColor = Color(0.272655, 0.272655, 0.272655, 1)
 IsWalkable = true
 IsTransparent = true
 metadata/_custom_type_script = "uid://ba82a33ov6uuo"

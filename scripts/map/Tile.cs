@@ -44,9 +44,10 @@ public partial class Tile : Sprite2D
     /// Elementos neste tile estão dentro do campo de visão do jogador.
     /// </summary>
 	public bool IsInView {
-		get => this.isInView;
+		get => isInView;
 		set {
-			this.isInView = value;
+			isInView = value;
+			Modulate = isInView ? definition.LitColor : definition.DarkColor;
 			if (IsInView && !IsExplored) {
 				IsExplored = true;
 			}
@@ -72,6 +73,7 @@ public partial class Tile : Sprite2D
     /// <param name="definition">Definição do tile.</param>
 	public void SetDefinition(TileDefinition definition) {
 		this.definition = definition;
+		Modulate = definition.DarkColor;
 		Texture = definition.Texture;
 		IsWalkable = definition.IsWalkable;
 		IsTransparent = definition.IsTransparent;
