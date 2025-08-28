@@ -1,6 +1,8 @@
 using Godot;
-using System;
 
+/// <summary>
+/// Obtém input do usuário.
+/// </summary>
 public partial class InputHandler : Node {
 	public Action GetAction(Player player) {
 		Action action = null;

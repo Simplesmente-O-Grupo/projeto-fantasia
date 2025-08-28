@@ -1,6 +1,8 @@
 using Godot;
-using System;
 
+/// <summary>
+/// Define as características de um tile.
+/// </summary>
 [GlobalClass]
 public partial class TileDefinition : Resource
 {

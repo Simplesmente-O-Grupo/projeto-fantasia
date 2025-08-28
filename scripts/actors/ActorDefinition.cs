@@ -1,19 +1,26 @@
 using Godot;
-using System;
 
+
+/// <summary>
+/// Define de forma genérica as características de um ator.
+/// </summary>
 [GlobalClass]
 public partial class ActorDefinition : Resource
 {
 	[ExportCategory("Visuals")]
+	// Nome do ator.
 	[Export]
 	public string name = "unnamed";
+	// Seu sprite.
 	[Export]
 	public Texture2D texture;
 
 	[ExportCategory("Mechanics")]
+	// Se o ator bloqueia movimento.
 	[Export]
 	public bool blocksMovement = true;
 
+	// Estatísticas padrão do ator.
 	[ExportCategory("Stats")]
 	[Export]
 	public int Hp;

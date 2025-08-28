@@ -1,6 +1,12 @@
 using Godot;
 using System;
 
+/// <summary>
+/// Classe utilitária para converter coordenadas da malha dos tiles
+/// em coordenadas em pixels.
+/// Esta classe é necessária porque o Godot trata posições em pixels,
+/// mas faz mais sentido tratarmos as posições em tiles.
+/// </summary>
 public abstract partial class Grid : GodotObject {
 	public static readonly Vector2I tileSize = new(16, 16);
 

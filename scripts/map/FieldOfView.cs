@@ -2,6 +2,8 @@ using Godot;
 
 // Copiado e adaptado deste cara aqui: https://www.roguebasin.com/index.php?title=C%2B%2B_shadowcasting_implementation e deste também https://selinadev.github.io/08-rogueliketutorial-04/
 
+// Eu não vou mentir, li como o algoritmo funciona, mas mesmo assim não entendi.
+
 public partial class FieldOfView : Node {
 
 	private Godot.Collections.Array<Tile> fov = [];
