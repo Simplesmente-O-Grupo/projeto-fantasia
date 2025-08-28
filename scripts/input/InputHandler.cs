@@ -19,14 +19,16 @@ public partial class InputHandler : Node {
 	public Action GetAction(Player player) {
 		Action action = null;
 
-		foreach (var direction in directions) {
-			if (Input.IsActionJustPressed(direction.Key)) {
-				action = new BumpAction(player, direction.Value);
+		if (player.IsAlive) {
+			foreach (var direction in directions) {
+				if (Input.IsActionJustPressed(direction.Key)) {
+					action = new BumpAction(player, direction.Value);
+				}
 			}
-		}
-		
-		if (Input.IsActionJustPressed("skip-turn")) {
-			action = new WaitAction(player);
+			
+			if (Input.IsActionJustPressed("skip-turn")) {
+				action = new WaitAction(player);
+			}
 		}
 
 		return action;

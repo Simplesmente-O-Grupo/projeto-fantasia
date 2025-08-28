@@ -11,14 +11,12 @@ public partial class MovementAction : DirectionalAction
 
 	public override void Perform()
 	{
-		Vector2I finalDestination = actor.GridPosition + Offset;
-
 		// Não anda se o destino for um tile sólido.
-		if (!Map_Data.IsTileWalkable(finalDestination)) return;
+		if (!Map_Data.IsTileWalkable(Destination)) return;
 
 		// Não anda se o destino for oculpado por um ator.
 		// Na maioria dos casos, essa condição nunca é verdadeira.
-		if (GetBlockingActorAtPosition(finalDestination) != null) return;
+		if (GetTargetActor() != null) return;
 
 		actor.Walk(Offset);
 	}

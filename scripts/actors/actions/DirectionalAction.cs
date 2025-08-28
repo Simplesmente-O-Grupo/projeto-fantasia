@@ -11,18 +11,20 @@ public abstract partial class DirectionalAction : Action
     /// Seu significado depende da ação que implementará esta classe.
     /// </summary>
 	public Vector2I Offset { get; private set; }
+	/// <summary>
+    /// Coordenada do alvo da ação.
+    /// </summary>
+	public Vector2I Destination { get => actor.GridPosition + Offset; }
 	public DirectionalAction(Actor actor, Vector2I offset) : base(actor)
 	{
 		Offset = offset;
 	}
 
 	/// <summary>
-    /// É conveniente ter acesso à função para obter atores em uma determinada posição.
-    /// Este método expõe o método de mesmo nome do mapa.
+    /// Função que obtém o alvo da ação, se houver.
     /// </summary>
-    /// <param name="pos">Posição para verificar</param>
-    /// <returns>O ator naquela posição, nulo se não houver.</returns>
-	protected Actor GetBlockingActorAtPosition(Vector2I pos) {
-		return Map_Data.GetBlockingActorAtPosition(pos);
+    /// <returns>O ator alvo da ação, nulo se não houver.</returns>
+	protected Actor GetTargetActor() {
+		return Map_Data.GetBlockingActorAtPosition(Destination);
 	}
 }

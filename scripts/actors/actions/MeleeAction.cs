@@ -14,14 +14,24 @@ public partial class MeleeAction : DirectionalAction
 	/// </summary>
 	public override void Perform()
 	{
-		Vector2I destination = actor.GridPosition + Offset;
 		// Eu te disse que este método seria útil.
-		Actor target = GetBlockingActorAtPosition(destination);
+		Actor target = GetTargetActor();
 
 		// Se não houver um ator na direção, não podemos continuar.
 		if (target == null) return;
 
-		// TODO: Implementar ataque.
-		GD.Print($"Você tenta socar {target.ActorName}, mas como não sobra nada para o beta, você ainda não tem um método de ataque.");
+		// não podemos ter dano negativo.
+		int damage = actor.Atk - target.Def;
+
+		string attackDesc = $"{actor.ActorName} ataca {target.ActorName}";
+
+		if (damage > 0) {
+			attackDesc += $" e remove {damage} de HP.";
+			target.Hp -= damage;
+		} else {
+			attackDesc += $" mas {target.ActorName} tem músculos de aço.";
+		}
+
+		GD.Print(attackDesc);
 	}
 }

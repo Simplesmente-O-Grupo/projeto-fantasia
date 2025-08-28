@@ -46,4 +46,10 @@ public partial class Enemy : Actor
 				break;
 		}
 	}
+
+	public override void Die() {
+		Soul.QueueFree();
+		Soul = null;
+		base.Die();
+	}
 }

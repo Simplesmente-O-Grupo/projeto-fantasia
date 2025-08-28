@@ -1,6 +1,5 @@
 using Godot;
 
-
 /// <summary>
 /// Define de forma genérica as características de um ator.
 /// </summary>
@@ -14,6 +13,9 @@ public partial class ActorDefinition : Resource
 	// Seu sprite.
 	[Export]
 	public Texture2D texture;
+	// Sprite de morto
+	[Export]
+	public Texture2D deathTexture;
 
 	[ExportCategory("Mechanics")]
 	// Se o ator bloqueia movimento.
