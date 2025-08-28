@@ -17,6 +17,10 @@ public abstract partial class Actor : Sprite2D
     /// </summary>
 	public MapData Map_Data { get; set; }
 
+	/// <summary>
+    /// Se o ator está vivo.
+    /// </summary>
+	public bool IsAlive { get => Hp > 0; }
 	
 	private Vector2I gridPosition = Vector2I.Zero;
 	/// <summary>

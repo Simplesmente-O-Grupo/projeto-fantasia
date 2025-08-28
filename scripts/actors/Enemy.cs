@@ -21,11 +21,6 @@ public partial class Enemy : Actor
     /// </summary>
 	public BaseAI Soul { get; private set; }
 
-	/// <summary>
-    /// Enquanto a alma controlar o corpo, o ser continua vivo.
-    /// </summary>
-	public bool IsAlive { get => Soul != null; }
-
 	public Enemy(Vector2I initialPosition, MapData map, EnemyDefinition definition) : base(initialPosition, map, definition)
 	{
 		SetDefinition(definition);
