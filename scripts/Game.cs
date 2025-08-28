@@ -19,17 +19,21 @@ public partial class Game : Node {
     /// </summary>
 	private InputHandler inputHandler;
 
+	private UI ui;
+
 	public override void _Ready() {
 		base._Ready();
 
 		Map = GetNode<Map>("Map");
 
 		inputHandler = GetNode<InputHandler>("InputHandler");
+		ui = GetNode<UI>("UI");
 
 		// O jogador é criado pelo jogo.
 		Player player = new Player(Vector2I.Zero, null, playerDefinition);
 		Camera2D camera = GetNode<Camera2D>("Camera2D");
 		RemoveChild(camera);
+		player.HealthChanged += (int hp, int maxHp) => ui.OnHealthChanged(hp, maxHp);
 
 		player.AddChild(camera);
 

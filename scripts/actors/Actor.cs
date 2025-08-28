@@ -6,10 +6,13 @@ using Godot;
 [GlobalClass]
 public abstract partial class Actor : Sprite2D
 {
+	[Signal]
+	public delegate void HealthChangedEventHandler(int hp, int maxHp);
+
 	/// <summary>
-    /// A definição do ator possui caracterísitcas padrões que definem
-    /// o ator em questão.
-    /// </summary>
+	/// A definição do ator possui caracterísitcas padrões que definem
+	/// o ator em questão.
+	/// </summary>
 	protected ActorDefinition definition;
 	/// <summary>
     /// É conveniente ter acesso ao mapa dentro do ator. Isto porque suas ações são feitas dentro
@@ -95,6 +98,7 @@ public abstract partial class Actor : Sprite2D
 		set {
 			// Esta propriedade impede que o HP seja maior que o máximo.
 			hp = int.Clamp(value, 0, MaxHp);
+			EmitSignal(SignalName.HealthChanged, Hp, MaxHp);
 			if (hp <= 0) {
 				Die();
 			}
