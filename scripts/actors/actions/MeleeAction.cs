@@ -14,6 +14,7 @@ public partial class MeleeAction : DirectionalAction
 	/// </summary>
 	public override void Perform()
 	{
+		actor.Energy -= cost;
 		// Eu te disse que este método seria útil.
 		Actor target = GetTargetActor();
 
@@ -32,7 +33,6 @@ public partial class MeleeAction : DirectionalAction
 			attackDesc += $" mas {target.ActorName} tem músculos de aço.";
 		}
 
-		actor.Energy -= cost;
 		GD.Print(attackDesc);
 	}
 }

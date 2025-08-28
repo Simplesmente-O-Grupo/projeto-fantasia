@@ -50,8 +50,8 @@ public partial class Game : Node {
 		// Pegamos uma ação do usuário
 		Action action = inputHandler.GetAction(player);
 
-		// Se realmente houve uma ação, computamos um turno.
-		if (action != null) {
+		// Se realmente houve uma ação ou se o jogador não puder agir, computamos um turno.
+		if (action != null || player.Energy < 0) {
 			Vector2I previousPlayerPos = player.GridPosition;
 
 			// Início do turno, o jogador recebe um pouco de energia.
@@ -60,7 +60,7 @@ public partial class Game : Node {
 			}
 
 			// Primeiro executamos a ação do jogador
-			action.Perform();
+			action?.Perform();
 
 			// Se o jogador ainda tem energia, ele poderá fazer
 			// mais um turno sem interrupções.
