@@ -1,10 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://u5h6iqyi8wd0"]
+[gd_scene load_steps=8 format=3 uid="uid://u5h6iqyi8wd0"]
 
 [ext_resource type="Script" uid="uid://dwubb28wt4bhe" path="res://scripts/Game.cs" id="1_cpr0p"]
 [ext_resource type="Script" uid="uid://fe2h4is11tnw" path="res://scripts/map/Map.cs" id="3_cpr0p"]
 [ext_resource type="Script" uid="uid://ejqmdbc0524i" path="res://scripts/input/InputHandler.cs" id="3_s0nni"]
 [ext_resource type="Script" uid="uid://dwyr067lwqcsj" path="res://scripts/map/DungeonGenerator.cs" id="4_78awf"]
 [ext_resource type="Script" uid="uid://bereyrj1s46y5" path="res://scripts/map/FieldOfView.cs" id="5_s0nni"]
+[ext_resource type="Texture2D" uid="uid://br2axiabhqlch" path="res://assets/definitions/1640640081715.png" id="6_aug50"]
+[ext_resource type="Script" uid="uid://dqbod82hbdiya" path="res://scenes/shitpost.cs" id="7_kiw3p"]
 
 [node name="Game" type="Node"]
 script = ExtResource("1_cpr0p")
@@ -31,3 +33,9 @@ script = ExtResource("5_s0nni")
 [node name="Camera2D" type="Camera2D" parent="."]
 offset = Vector2(8, 8)
 zoom = Vector2(2, 2)
+
+[node name="1640640081715" type="Sprite2D" parent="Camera2D"]
+position = Vector2(6.5, 28)
+scale = Vector2(0.248059, 0.142715)
+texture = ExtResource("6_aug50")
+script = ExtResource("7_kiw3p")
