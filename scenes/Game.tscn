@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://ejqmdbc0524i" path="res://scripts/input/InputHandler.cs" id="3_s0nni"]
 [ext_resource type="Script" uid="uid://dwyr067lwqcsj" path="res://scripts/map/DungeonGenerator.cs" id="4_78awf"]
 [ext_resource type="Script" uid="uid://bereyrj1s46y5" path="res://scripts/map/FieldOfView.cs" id="5_s0nni"]
-[ext_resource type="PackedScene" uid="uid://bnuyp1ahv7q0h" path="res://scenes/ui.tscn" id="6_aug50"]
+[ext_resource type="PackedScene" uid="uid://b4h4xyr1g8o50" path="res://scenes/ui.tscn" id="6_aug50"]
 
 [node name="Game" type="Node"]
 script = ExtResource("1_cpr0p")
