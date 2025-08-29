@@ -10,7 +10,8 @@ public partial class DungeonGenerator : Node
     /// Coleção de todos os inimigos que o gerador tem acesso.
     /// </summary>
 	private static readonly Godot.Collections.Array<EnemyDefinition> enemies = [
-		GD.Load<EnemyDefinition>("res://assets/definitions/actor/Skeleton.tres")
+		GD.Load<EnemyDefinition>("res://assets/definitions/actor/Skeleton.tres"),
+		GD.Load<EnemyDefinition>("res://assets/definitions/actor/morcegao.tres")
 	];
 
 	/// <summary>
