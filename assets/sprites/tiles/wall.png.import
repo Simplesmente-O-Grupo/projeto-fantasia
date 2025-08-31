@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cddn56s7w2lc2"
-path="res://.godot/imported/morcegao.png-b78ee871b76fbe6f1d562b3e81534220.ctex"
+uid="uid://s5klxirh5r1w"
+path="res://.godot/imported/wall.png-bb8201e87c0f46209b140b217e71c3c2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/morcegao.png"
-dest_files=["res://.godot/imported/morcegao.png-b78ee871b76fbe6f1d562b3e81534220.ctex"]
+source_file="res://assets/sprites/tiles/wall.png"
+dest_files=["res://.godot/imported/wall.png-bb8201e87c0f46209b140b217e71c3c2.ctex"]
 
 [params]
 

@@ -1,10 +1,10 @@
 [gd_scene load_steps=8 format=3 uid="uid://b4h4xyr1g8o50"]
 
 [ext_resource type="Script" uid="uid://br7w3abe0boqb" path="res://scripts/UI.cs" id="1_gdt2y"]
-[ext_resource type="Texture2D" uid="uid://dsqdxdtldmpnq" path="res://assets/sprites/HealthBarUnder2.png" id="2_p7vwb"]
-[ext_resource type="Texture2D" uid="uid://dlgtaxucc6cq8" path="res://assets/sprites/HealthBarOverlay2.png" id="3_ktti3"]
+[ext_resource type="Texture2D" uid="uid://cbqd3s1065am6" path="res://assets/sprites/inter-face/HP/HealthBarUnder2.png" id="2_p7vwb"]
+[ext_resource type="Texture2D" uid="uid://c1cktg2arnphx" path="res://assets/sprites/inter-face/HP/HealthBarOverlay2.png" id="3_ktti3"]
 [ext_resource type="Texture2D" uid="uid://sgqb6ccdbt4h" path="res://assets/sprites/inter-face/MP/ManaBarUnder2.png" id="4_8dubc"]
-[ext_resource type="Texture2D" uid="uid://y3pw6113pf7l" path="res://assets/sprites/HealthBar2.png" id="4_cgfq5"]
+[ext_resource type="Texture2D" uid="uid://do06pptudsqdp" path="res://assets/sprites/inter-face/HP/HealthBar2.png" id="4_cgfq5"]
 [ext_resource type="Texture2D" uid="uid://b2msd7khjxtat" path="res://assets/sprites/inter-face/MP/ManaBarOverlay.png" id="5_p7vwb"]
 [ext_resource type="Texture2D" uid="uid://b1rotmrfynpau" path="res://assets/sprites/inter-face/MP/ManaBar.png" id="6_ktti3"]
 
