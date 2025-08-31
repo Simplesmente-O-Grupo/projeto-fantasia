@@ -6,8 +6,20 @@ using Godot;
 [GlobalClass]
 public abstract partial class Actor : Sprite2D
 {
+	/// <summary>
+    /// Sinal emitido toda vez que o HP mudar.
+    /// </summary>
+    /// <param name="hp">Novo HP</param>
+    /// <param name="maxHp">Quantidade máxima de HP.</param>
 	[Signal]
 	public delegate void HealthChangedEventHandler(int hp, int maxHp);
+
+	/// <summary>
+    /// Sinal emitido se o ator morrer.
+    /// </summary>
+	[Signal]
+	public delegate void DiedEventHandler();
+
 
 	/// <summary>
 	/// A definição do ator possui caracterísitcas padrões que definem
@@ -229,7 +241,8 @@ public abstract partial class Actor : Sprite2D
 		Texture = definition.deathTexture;
 		blocksMovement = false;
 		ZIndex = 0;
-		actorName = $"Restos mortais de ${actorName}";
+		actorName = $"Restos mortais de {actorName}";
 		Map_Data.UnregisterBlockingActor(this);
+		EmitSignal(SignalName.Died);
 	}
 }

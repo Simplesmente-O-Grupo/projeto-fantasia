@@ -34,6 +34,7 @@ public partial class Game : Node {
 		Camera2D camera = GetNode<Camera2D>("Camera2D");
 		RemoveChild(camera);
 		player.HealthChanged += (int hp, int maxHp) => ui.OnHealthChanged(hp, maxHp);
+		player.Died += () => inputHandler.SetInputHandler(InputHandlers.GameOver);
 
 		player.AddChild(camera);
 
@@ -80,7 +81,7 @@ public partial class Game : Node {
 	}
 
 	/// <summary>
-    /// Executa um turno para cada ator no mapa.
+    /// Executa turnos para cada ator no mapa.
     /// </summary>
 	private void HandleEnemyTurns() {
 		foreach (Actor actor in Map.Map_Data.Actors) {

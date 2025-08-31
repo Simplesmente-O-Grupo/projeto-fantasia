@@ -1,36 +1,44 @@
-using System.Numerics;
 using Godot;
 
+public enum InputHandlers
+{
+	MainGame,
+	GameOver
+}
+
 /// <summary>
-/// Obtém input do usuário.
+/// Máquina de estado que obtém ações do usuário conforme o estado atual do jogo.
 /// </summary>
-public partial class InputHandler : Node {
-	private readonly Godot.Collections.Dictionary<string, Vector2I> directions = new()
+public partial class InputHandler : Node
+{
+	private Godot.Collections.Dictionary<InputHandlers, BaseInputHandler> inputHandlers = [];
+
+	[Export]
+	private InputHandlers startingInputHandler;
+
+	private BaseInputHandler selectedInputHandler;
+
+	public override void _Ready()
 	{
-		{"walk-up", Vector2I.Up},
-		{"walk-down", Vector2I.Down},
-		{"walk-left", Vector2I.Left},
-		{"walk-right", Vector2I.Right},
-		{"walk-up-right", Vector2I.Up + Vector2I.Right},
-		{"walk-up-left", Vector2I.Up + Vector2I.Left},
-		{"walk-down-right", Vector2I.Down + Vector2I.Right},
-		{"walk-down-left", Vector2I.Down + Vector2I.Left},
-	};
+		base._Ready();
+		// Controles para quando o jogador está vivo e jogando normalmente.
+		inputHandlers.Add(InputHandlers.MainGame, GetNode<MainGameInputHandler>("MainGameInputHandler"));
+		// Controles para quando o jogador está morto.
+		inputHandlers.Add(InputHandlers.GameOver, GetNode<GameOverInputHandler>("GameOverInputHandler"));
+		
+		SetInputHandler(startingInputHandler);
+	}
+	
 	public Action GetAction(Player player) {
-		Action action = null;
+		return selectedInputHandler.GetAction(player);
+	}
 
-		if (player.IsAlive) {
-			foreach (var direction in directions) {
-				if (Input.IsActionJustPressed(direction.Key)) {
-					action = new BumpAction(player, direction.Value);
-				}
-			}
-			
-			if (Input.IsActionJustPressed("skip-turn")) {
-				action = new WaitAction(player);
-			}
-		}
-
-		return action;
+	/// <summary>
+    /// Define o esquema de controle atual do jogo
+    /// para o estado informado.
+    /// </summary>
+    /// <param name="inputhandler">Estado do jogo.</param>
+	public void SetInputHandler(InputHandlers inputhandler) {
+		selectedInputHandler = inputHandlers[inputhandler];
 	}
 }
