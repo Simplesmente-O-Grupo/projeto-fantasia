@@ -18,6 +18,10 @@ public partial class Game : Node {
     /// Objeto para obter input do usuário.
     /// </summary>
 	private InputHandler inputHandler;
+	/// <summary>
+	/// Gerenciador de turnos
+	/// </summary>
+	private TurnManager turnManager;
 
 	private UI ui;
 
@@ -41,6 +45,8 @@ public partial class Game : Node {
 		Map.Generate(player);
 
 		Map.UpdateFOV(player.GridPosition);
+
+		turnManager = new(Map);
 	}
 
 	/// <summary>
@@ -55,48 +61,12 @@ public partial class Game : Node {
 		// Pegamos uma ação do usuário
 		Action action = inputHandler.GetAction(player);
 
-		// Se realmente houve uma ação ou se o jogador não puder agir, computamos um turno.
-		if (action != null || player.Energy < 0) {
-			Vector2I previousPlayerPos = player.GridPosition;
-
-			// Início do turno, o jogador recebe um pouco de energia.
-			if (player.Energy <= 0) {
-				player.RechargeEnergy();
-			}
-
-			// Primeiro executamos a ação do jogador
-			action?.Perform();
-
-			// Se o jogador ainda tem energia, ele poderá fazer
-			// mais um turno sem interrupções.
-			if (player.Energy <= 0) {
-				// Depois computamos os turnos dos outros atores.
-				HandleEnemyTurns();
-			}
-			// Por fim, se o jogador mudou de lugar, atualizamos seu campo de visão.
-			if (player.GridPosition != previousPlayerPos) {
-				Map.UpdateFOV(player.GridPosition);
-			}
+		if (action != null) {
+			turnManager.InsertPlayerAction(action);
 		}
+
+		// Computamos um turno.
+		turnManager.Tick();
 	}
 
-	/// <summary>
-    /// Executa turnos para cada ator no mapa.
-    /// </summary>
-	private void HandleEnemyTurns() {
-		foreach (Actor actor in Map.Map_Data.Actors) {
-			if (actor is Player) continue;
-			// Se o ator for um inimigo e estiver vivo, deixamos
-			// que sua IA faça um turno.
-			if (actor is Enemy enemy && enemy.IsAlive) {
-				// Início do turno, inimigo recebe energia.
-				enemy.RechargeEnergy();
-
-				// O inimigo poderá fazer quantos turnos sua energia deixar.
-				while (enemy.Energy > 0) {
-					enemy.Soul.Perform();
-				}
-			}
-		}
-	}
 }
