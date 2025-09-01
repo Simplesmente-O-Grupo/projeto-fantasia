@@ -51,7 +51,7 @@ public partial class TurnManager : RefCounted
 		}
 
 		// Primeiro executamos a ação do jogador, se ele puder.
-		if (Player.Energy > 0) {
+		if (playerActionQueue.Count > 0 && Player.Energy > 0) {
 			Action action = playerActionQueue[0];
 			playerActionQueue.RemoveAt(0);
 

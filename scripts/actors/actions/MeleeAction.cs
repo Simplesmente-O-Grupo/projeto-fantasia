@@ -33,6 +33,6 @@ public partial class MeleeAction : DirectionalAction
 			attackDesc += $" mas {target.ActorName} tem músculos de aço.";
 		}
 
-		GD.Print(attackDesc);
+		MessageLog.SendMessage(attackDesc);
 	}
 }
