@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 signalBus="*res://scripts/Utils/SignalBus.cs"
+MessageLogData="*res://scripts/Utils/MessageLogData.cs"
 
 [display]
 

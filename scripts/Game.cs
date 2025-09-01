@@ -48,7 +48,7 @@ public partial class Game : Node {
 
 		turnManager = new(Map);
 
-		MessageLog.SendMessage("UMA FILA DE HOMENS EJACULANDO NA BOCA DA DALVA");
+		MessageLogData.Instance.AddMessage("Boa sorte!");
 	}
 
 	/// <summary>

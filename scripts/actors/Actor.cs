@@ -236,7 +236,7 @@ public abstract partial class Actor : Sprite2D
 			deathMessage = $"{ActorName} morreu!";
 		}
 
-		MessageLog.SendMessage(deathMessage);
+		MessageLogData.Instance.AddMessage(deathMessage);
 
 		Texture = definition.deathTexture;
 		blocksMovement = false;

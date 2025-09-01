@@ -16,10 +16,4 @@ public partial class SignalBus : Node
 		base._Ready();
 		Instance = this;
 	}
-	/// <summary>
-	/// Acionado sempre que uma mensagem for adicionada para o log.
-	/// </summary>
-	/// <param name="text">Mensagem.</param>
-	[Signal]
-	public delegate void messageSentEventHandler(string text);
 }
