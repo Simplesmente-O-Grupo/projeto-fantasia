@@ -63,6 +63,7 @@ public partial class TurnManager : RefCounted
 		if (Player.Energy <= 0) {
 			// Depois computamos os turnos dos outros atores.
 			HandleEnemyTurns();
+			map.UpdateFOV(Player.GridPosition);
 		}
 		// Por fim, se o jogador mudou de lugar, atualizamos seu campo de visão.
 		if (Player.GridPosition != previousPlayerPos) {

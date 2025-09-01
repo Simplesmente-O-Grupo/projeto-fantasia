@@ -14,11 +14,11 @@ public partial class MeleeAction : DirectionalAction
 	/// </summary>
 	public override void Perform()
 	{
-		actor.Energy -= cost;
 		// Eu te disse que este método seria útil.
 		Actor target = GetTargetActor();
 
 		// Se não houver um ator na direção, não podemos continuar.
+		// Isto é uma ação gratuita.
 		if (target == null) return;
 
 		// não podemos ter dano negativo.
@@ -34,5 +34,6 @@ public partial class MeleeAction : DirectionalAction
 		}
 
 		MessageLogData.Instance.AddMessage(attackDesc);
+		actor.Energy -= cost;
 	}
 }

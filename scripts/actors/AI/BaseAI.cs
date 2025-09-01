@@ -19,6 +19,8 @@ public abstract partial class BaseAI : Node {
 
 	/// <summary>
     /// Computa um único turno para o ator controlado.
+    /// Aviso: NPCs não possuem ações gratuitas.
+    /// A IA SEMPRE precisa executar uma ação que custe energia.
     /// </summary>
 	public abstract void Perform();
 

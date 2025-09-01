@@ -11,7 +11,6 @@ public partial class MovementAction : DirectionalAction
 
 	public override void Perform()
 	{
-		actor.Energy -= cost;
 		// Não anda se o destino for um tile sólido.
 		if (!Map_Data.IsTileWalkable(Destination)) return;
 
@@ -20,5 +19,6 @@ public partial class MovementAction : DirectionalAction
 		if (GetTargetActor() != null) return;
 
 		actor.Walk(Offset);
+		actor.Energy -= cost;
 	}
 }

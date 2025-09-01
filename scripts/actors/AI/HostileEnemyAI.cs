@@ -25,6 +25,14 @@ public partial class HostileEnemyAI : BaseAI
 
 		// Só faz sentido atacar o jogador se o inimigo estiver visível.
 		if (body.Map_Data.GetTile(body.GridPosition).IsInView) {
+			// Se o inimigo consegue ver que o jogador está morto,
+			// IT'S OVER.
+			if (!target.IsAlive) {
+				action = new WaitAction(body);
+				action.Perform();
+				return;
+			}
+
 			// Se estiver do lado do jogador, ataque.
 			if (distance <= 1) {
 				action = new MeleeAction(body, offset);
