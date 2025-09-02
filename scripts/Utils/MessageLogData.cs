@@ -16,7 +16,9 @@ private Message LastMessage {
 	}
 
 	public void ClearMessages() {
-		foreach (Message message in messages) {
+		for (int i = messages.Count - 1; i >= 0; i--) {
+			Message message = messages[i];
+			messages.RemoveAt(i);
 			message.QueueFree();
 		}
 	}
