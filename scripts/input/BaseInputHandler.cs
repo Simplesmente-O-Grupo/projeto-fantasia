@@ -9,11 +9,18 @@ using Godot;
 /// Mas isto pode aumentar.
 /// </summary>
 public abstract partial class BaseInputHandler : Node {
-
-	/// <summary>
-    /// Obtém uma ação do usuári conforme input.
+    /// <summary>
+    /// Método executado quando o input handler entra em cena;
     /// </summary>
-    /// <param name="player">Jogador</param>
-    /// <returns>Ação que o jogador escolheu, nulo se nenhuma.</returns>
+	public virtual void Enter() { }
+    /// <summary>
+    /// Método executado quando o input handler sai de cena;
+    /// </summary>
+	public virtual void Exit() { }
+	/// <summary>
+	/// Obtém uma ação do usuári conforme input.
+	/// </summary>
+	/// <param name="player">Jogador</param>
+	/// <returns>Ação que o jogador escolheu, nulo se nenhuma.</returns>
 	public abstract Action GetAction(Player player);
 }

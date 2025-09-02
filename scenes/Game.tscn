@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://u5h6iqyi8wd0"]
+[gd_scene load_steps=10 format=3 uid="uid://u5h6iqyi8wd0"]
 
 [ext_resource type="Script" uid="uid://dwubb28wt4bhe" path="res://scripts/Game.cs" id="1_cpr0p"]
 [ext_resource type="Script" uid="uid://ejqmdbc0524i" path="res://scripts/input/MainGameInputHandler.cs" id="3_400sg"]
@@ -6,20 +6,12 @@
 [ext_resource type="Script" uid="uid://bxt6g7t1uvvia" path="res://scripts/input/InputHandler.cs" id="3_s0nni"]
 [ext_resource type="Script" uid="uid://dwyr067lwqcsj" path="res://scripts/map/DungeonGenerator.cs" id="4_78awf"]
 [ext_resource type="Script" uid="uid://ogqlb3purl6n" path="res://scripts/input/GameOverInputHandler.cs" id="4_g4kob"]
+[ext_resource type="Script" uid="uid://bamlnrj5bm1rd" path="res://scripts/input/InspectInputHandler.cs" id="5_g4kob"]
 [ext_resource type="Script" uid="uid://bereyrj1s46y5" path="res://scripts/map/FieldOfView.cs" id="5_s0nni"]
 [ext_resource type="PackedScene" uid="uid://b4h4xyr1g8o50" path="res://scenes/hud.tscn" id="6_aug50"]
 
 [node name="Game" type="Node"]
 script = ExtResource("1_cpr0p")
-
-[node name="InputHandler" type="Node" parent="."]
-script = ExtResource("3_s0nni")
-
-[node name="MainGameInputHandler" type="Node" parent="InputHandler"]
-script = ExtResource("3_400sg")
-
-[node name="GameOverInputHandler" type="Node" parent="InputHandler"]
-script = ExtResource("4_g4kob")
 
 [node name="Map" type="Node2D" parent="."]
 script = ExtResource("3_cpr0p")
@@ -36,6 +28,19 @@ script = ExtResource("5_s0nni")
 [node name="Tiles" type="Node2D" parent="Map"]
 
 [node name="Actors" type="Node2D" parent="Map"]
+
+[node name="InputHandler" type="Node" parent="."]
+script = ExtResource("3_s0nni")
+
+[node name="MainGameInputHandler" type="Node" parent="InputHandler"]
+script = ExtResource("3_400sg")
+
+[node name="GameOverInputHandler" type="Node" parent="InputHandler"]
+script = ExtResource("4_g4kob")
+
+[node name="InspectInputHandler" type="Node" parent="InputHandler" node_paths=PackedStringArray("map")]
+script = ExtResource("5_g4kob")
+map = NodePath("../../Map")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 offset = Vector2(8, 8)

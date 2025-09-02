@@ -4,7 +4,7 @@ using Godot;
 /// A classe de ator define um personagem no jogo.
 /// </summary>
 [GlobalClass]
-public abstract partial class Actor : Sprite2D
+public partial class Actor : Sprite2D
 {
 	/// <summary>
     /// Sinal emitido toda vez que o HP mudar.

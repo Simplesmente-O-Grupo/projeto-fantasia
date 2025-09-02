@@ -24,6 +24,10 @@ public partial class MainGameInputHandler : BaseInputHandler {
 					action = new BumpAction(player, direction.Value);
 				}
 			}
+
+			if (Input.IsActionJustPressed("inspect")) {
+				GetParent<InputHandler>().SetInputHandler(InputHandlers.Inspect);
+			}
 			
 			if (Input.IsActionJustPressed("skip-turn")) {
 				action = new WaitAction(player);

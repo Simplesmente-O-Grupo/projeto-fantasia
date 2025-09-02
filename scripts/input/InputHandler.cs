@@ -3,7 +3,8 @@ using Godot;
 public enum InputHandlers
 {
 	MainGame,
-	GameOver
+	GameOver,
+	Inspect
 }
 
 /// <summary>
@@ -25,7 +26,8 @@ public partial class InputHandler : Node
 		inputHandlers.Add(InputHandlers.MainGame, GetNode<MainGameInputHandler>("MainGameInputHandler"));
 		// Controles para quando o jogador está morto.
 		inputHandlers.Add(InputHandlers.GameOver, GetNode<GameOverInputHandler>("GameOverInputHandler"));
-		
+		inputHandlers.Add(InputHandlers.Inspect, GetNode<InspectInputHandler>("InspectInputHandler"));
+
 		SetInputHandler(startingInputHandler);
 	}
 	
@@ -39,6 +41,8 @@ public partial class InputHandler : Node
     /// </summary>
     /// <param name="inputhandler">Estado do jogo.</param>
 	public void SetInputHandler(InputHandlers inputhandler) {
+		selectedInputHandler?.Exit();
 		selectedInputHandler = inputHandlers[inputhandler];
+		selectedInputHandler.Enter();
 	}
 }
