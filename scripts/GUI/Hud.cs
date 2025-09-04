@@ -7,7 +7,7 @@ public partial class Hud : Node
 
 	public override void _Ready() {
 		base._Ready();
-		hpBar = GetNode<TextureProgressBar>("InfoBar/Stats/MarginContainer/HBoxContainer/HPbar");
+		hpBar = GetNode<TextureProgressBar>("VBoxContainer/InfoBar/Stats/MarginContainer/HBoxContainer/AspectRatioContainer/HPbar");
 	}
 
 	public void OnHealthChanged(int hp, int maxHp) {
