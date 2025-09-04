@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://u5h6iqyi8wd0"]
+[gd_scene load_steps=11 format=3 uid="uid://u5h6iqyi8wd0"]
 
 [ext_resource type="Script" uid="uid://dwubb28wt4bhe" path="res://scripts/Game.cs" id="1_cpr0p"]
 [ext_resource type="Script" uid="uid://ejqmdbc0524i" path="res://scripts/input/MainGameInputHandler.cs" id="3_400sg"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://dwyr067lwqcsj" path="res://scripts/map/DungeonGenerator.cs" id="4_78awf"]
 [ext_resource type="Script" uid="uid://ogqlb3purl6n" path="res://scripts/input/GameOverInputHandler.cs" id="4_g4kob"]
 [ext_resource type="Script" uid="uid://bamlnrj5bm1rd" path="res://scripts/input/InspectInputHandler.cs" id="5_g4kob"]
+[ext_resource type="PackedScene" uid="uid://bryqrafavmwj4" path="res://scenes/Details.tscn" id="5_qy1jj"]
 [ext_resource type="Script" uid="uid://bereyrj1s46y5" path="res://scripts/map/FieldOfView.cs" id="5_s0nni"]
 [ext_resource type="PackedScene" uid="uid://b4h4xyr1g8o50" path="res://scenes/hud.tscn" id="6_aug50"]
 
@@ -28,6 +29,9 @@ script = ExtResource("5_s0nni")
 [node name="Tiles" type="Node2D" parent="Map"]
 
 [node name="Actors" type="Node2D" parent="Map"]
+
+[node name="InspectDetails" parent="Map" instance=ExtResource("5_qy1jj")]
+visible = false
 
 [node name="InputHandler" type="Node" parent="."]
 script = ExtResource("3_s0nni")

@@ -198,6 +198,38 @@ public partial class MapData : RefCounted
 	}
 
 	/// <summary>
+    /// Obtém todos os atores na posição especificada.
+    /// É possível haver mais de um ator na mesma posição se um deles for morto.
+    /// </summary>
+    /// <param name="pos">Vetor posição</param>
+    /// <returns>Lista com todos os atores na posição especificada.</returns>
+	public Godot.Collections.Array<Actor> GetActorsAtPosition(Vector2I pos) {
+		Godot.Collections.Array<Actor> ZOfZero = [];
+		Godot.Collections.Array<Actor> ZOfOne = [];
+		Godot.Collections.Array<Actor> ZOfTwo = [];
+		
+		// Pego todos os atores
+		foreach (Actor actor in Actors) {
+			if (actor.GridPosition == pos) {
+				switch (actor.ZIndex) {
+					case 0:
+						ZOfZero.Add(actor);
+						break;
+					case 1:
+						ZOfOne.Add(actor);
+						break;
+					case 2:
+						ZOfTwo.Add(actor);
+						break;
+				}
+			}
+		}
+
+		// Retorno os atores ordenados por ZIndex.
+		return ZOfZero + ZOfOne + ZOfTwo;
+	}
+
+	/// <summary>
     /// Verifica se é possível caminhar na coordenada especificada.
     /// Este método será removido.
     /// </summary>

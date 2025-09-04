@@ -16,4 +16,12 @@ public partial class SignalBus : Node
 		base._Ready();
 		Instance = this;
 	}
+
+	[Signal]
+	public delegate void InspectorMovedEventHandler(Vector2I pos);
+
+	[Signal]
+	public delegate void EnterInspectionModeEventHandler();
+	[Signal]
+	public delegate void ExitInspectionModeEventHandler();
 }

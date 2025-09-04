@@ -5,6 +5,8 @@ using Godot;
 /// </summary>
 public partial class InspectInputHandler : BaseInputHandler
 {
+	private static readonly PackedScene InspectorScene = GD.Load<PackedScene>("res://scenes/Inspector.tscn");
+
 	private readonly Godot.Collections.Dictionary<string, Vector2I> directions = new()
 	{
 		{"walk-up", Vector2I.Up},
@@ -25,21 +27,18 @@ public partial class InspectInputHandler : BaseInputHandler
 	private Inspector inspector;
 
 	public override void Enter() {
-		inspector = new(map.Map_Data.Player.GridPosition)
-		{
-			ZIndex = 4
-		};
-		// Copiamos a câmera do jogador com todas as suas configurações
-		Camera2D camera = (Camera2D) map.Map_Data.Player.GetNode<Camera2D>("Camera2D").Duplicate();
-		inspector.AddChild(camera);
+		SignalBus.Instance.EmitSignal(SignalBus.SignalName.EnterInspectionMode);
+		inspector = InspectorScene.Instantiate<Inspector>();
+
+		inspector.GridPosition = map.Map_Data.Player.GridPosition;
 
 		map.AddChild(inspector);
-		camera.Enabled = true;
-		camera.MakeCurrent();
 	}
 
 	public override void Exit() {
 		inspector.QueueFree();
+
+		SignalBus.Instance.EmitSignal(SignalBus.SignalName.ExitInspectionMode);
 	}
 	public override Action GetAction(Player player)
 	{

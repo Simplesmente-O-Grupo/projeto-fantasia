@@ -1,0 +1,28 @@
+[gd_scene load_steps=2 format=3 uid="uid://bryqrafavmwj4"]
+
+[ext_resource type="Script" uid="uid://c5f8urot55re6" path="res://scripts/GUI/Details.cs" id="1_5ml16"]
+
+[node name="InspectDetails" type="CanvasLayer"]
+script = ExtResource("1_5ml16")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.0
+
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="Entities" type="VBoxContainer" parent="HBoxContainer/PanelContainer/ScrollContainer"]
+layout_mode = 2

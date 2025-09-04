@@ -5,8 +5,6 @@ using Godot;
 /// </summary>
 public partial class Inspector : Sprite2D
 {
-	private static readonly Texture2D texture = GD.Load<Texture2D>("res://assets/sprites/inspector.png");
-
 	private Vector2I gridPosition = Vector2I.Zero;
 	/// <summary>
     /// Posição do inspetor no espaço. Diferentemente de Position, GridPosition tem como formato 
@@ -22,11 +20,13 @@ public partial class Inspector : Sprite2D
 		get => gridPosition;
 	}
 
-	public Inspector(Vector2I initialPosition)
-	{
-		GridPosition = initialPosition;
-		Centered = false;
-		Texture = texture;
+	public override void _Ready() {
+		base._Ready();
+		Camera2D camera = GetNode<Camera2D>("Camera2D");
+		camera.Enabled = true;
+		camera.MakeCurrent();
+
+		SignalBus.Instance.EmitSignal(SignalBus.SignalName.InspectorMoved, GridPosition);
 	}
 
 	/// <summary>
@@ -35,5 +35,6 @@ public partial class Inspector : Sprite2D
     /// <param name="offset"></param>
 	public void Walk(Vector2I offset) {
 		GridPosition += offset;
+		SignalBus.Instance.EmitSignal(SignalBus.SignalName.InspectorMoved, GridPosition);
 	}
 }
