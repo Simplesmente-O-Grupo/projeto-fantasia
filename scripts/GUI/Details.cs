@@ -6,7 +6,7 @@ public partial class Details : CanvasLayer
 	private static readonly LabelSettings lblSettings = GD.Load<LabelSettings>("res://assets/definitions/message_label_settings.tres");
 	private Map map;
 	private VBoxContainer entityNames;
-	private Godot.Collections.Array<Actor> actors = [];
+	private Godot.Collections.Array<Entity> entities = [];
 
 	private Godot.Collections.Array<Label> actorsLabel = [];
 
@@ -23,7 +23,7 @@ public partial class Details : CanvasLayer
 
 	public void OnInspectorWalk(Vector2I pos) {
 		MapData mapData = map.Map_Data;
-		actors = mapData.GetActorsAtPosition(pos);
+		entities = mapData.GetEntitiesAtPosition(pos);
 		UpdateLabels();
 	}
 
@@ -33,10 +33,10 @@ public partial class Details : CanvasLayer
 		}
 		actorsLabel.Clear();
 
-		foreach (Actor actor in actors) {
+		foreach (Entity entity in entities) {
 			Label label = new()
 			{
-				Text = actor.ActorName,
+				Text = entity.DisplayName,
 				LabelSettings = lblSettings
 			};
 

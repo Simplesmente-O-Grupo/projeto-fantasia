@@ -16,13 +16,15 @@ public enum AIType
 /// </summary>
 public partial class Enemy : Actor
 {
+	private EnemyDefinition definition;
 	/// <summary>
-    /// A alma do ator. Gera ações que são executadas todo turno.
-    /// </summary>
+	/// A alma do ator. Gera ações que são executadas todo turno.
+	/// </summary>
 	public BaseAI Soul { get; private set; }
 
 	public Enemy(Vector2I initialPosition, MapData map, EnemyDefinition definition) : base(initialPosition, map, definition)
 	{
+		this.definition = definition;
 		SetDefinition(definition);
 	}
 

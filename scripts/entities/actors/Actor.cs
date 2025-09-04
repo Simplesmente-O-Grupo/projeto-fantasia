@@ -4,7 +4,7 @@ using Godot;
 /// A classe de ator define um personagem no jogo.
 /// </summary>
 [GlobalClass]
-public partial class Actor : Sprite2D
+public partial class Actor : Entity
 {
 	/// <summary>
     /// Sinal emitido toda vez que o HP mudar.
@@ -25,12 +25,7 @@ public partial class Actor : Sprite2D
 	/// A definição do ator possui caracterísitcas padrões que definem
 	/// o ator em questão.
 	/// </summary>
-	protected ActorDefinition definition;
-	/// <summary>
-    /// É conveniente ter acesso ao mapa dentro do ator. Isto porque suas ações são feitas dentro
-    /// do mapa, então é necessário ter acesso à algumas informações.
-    /// </summary>
-	public MapData Map_Data { get; set; }
+	private ActorDefinition definition;
 
 	/// <summary>
     /// Se o ator está vivo.
@@ -64,37 +59,6 @@ public partial class Actor : Sprite2D
     /// </summary>
 	public void RechargeEnergy() {
 		Energy += Speed;
-	}
-
-	private Vector2I gridPosition = Vector2I.Zero;
-	/// <summary>
-    /// Posição do ator no mapa do jogo. Diferentemente de Position, GridPosition tem como formato 
-    /// os tiles do mapa.
-    /// </summary>
-	public Vector2I GridPosition {
-		set {
-			gridPosition = value;
-			// O sistema de coordenadas do Godot é em pixels, mas faz mais sentido para o jogo utilizar coordenadas em tiles.
-			// Esta propriedade converte um sistema para o outro automaticamente.
-			Position = Grid.GridToWorld(value);
-		}
-		get => gridPosition;
-	}
-
-	private bool blocksMovement;
-	/// <summary>
-	/// Se o ator bloqueia movimento (não pode oculpar a mesma célula de outro ator.)
-	/// </summary>
-	public bool BlocksMovement {
-		get => blocksMovement;
-	}
-
-	private string actorName;
-	/// <summary>
-    /// Nome do ator.
-    /// </summary>
-	public string ActorName {
-		get => actorName;
 	}
 
 	private int hp;
@@ -147,14 +111,6 @@ public partial class Actor : Sprite2D
     /// </summary>
 	public int Men { get; private set; }
 
-	public override void _Ready()
-	{
-		base._Ready();
-		// Quando o ator for carregado completamente, atualizamos sua posição para refletir
-		// sua posição real.
-		GridPosition = Grid.WorldToGrid(Position);
-	}
-
 	/// <summary>
     /// Move o ator para uma localização. Veja MovementAction.
     /// </summary>
@@ -162,18 +118,15 @@ public partial class Actor : Sprite2D
 	public void Walk(Vector2I offset) {
 		// Cada ator tem um peso no sistema de pathfinding.
 		// Sempre que ele se mover, removemos seu peso da posição antiga
-		Map_Data.UnregisterBlockingActor(this);
+		Map_Data.UnregisterBlockingEntity(this);
 		GridPosition += offset;
 		// E colocamos na próxima.
-		Map_Data.RegisterBlockingActor(this);
+		Map_Data.RegisterBlockingEntity(this);
 		// Este peso influencia o algoritmo de pathfinding.
 		// Atores evitam caminhos bloqueados. por outros atores.
 	}
 
-	public Actor(Vector2I initialPosition, MapData map, ActorDefinition definition) {
-		GridPosition = initialPosition;
-		Map_Data = map;
-		Centered = false;
+	public Actor(Vector2I initialPosition, MapData map, ActorDefinition definition) : base(initialPosition, map, definition) {
 
 		SetDefinition(definition);
 	}
@@ -200,11 +153,10 @@ public partial class Actor : Sprite2D
     /// </summary>
     /// <param name="definition">A definição do ator.</param>
 	public virtual void SetDefinition(ActorDefinition definition) {
+		base.SetDefinition(definition);
 		this.definition = definition;
-		blocksMovement = definition.blocksMovement;
-		actorName = definition.name;
+
 		ZIndex = 1;
-		Texture = definition.texture;
 
 		MaxHp = definition.Hp;
 		Hp = definition.Hp;
@@ -248,16 +200,16 @@ public partial class Actor : Sprite2D
 		if (Map_Data.Player == this) {
 			deathMessage = "Você morreu!";
 		} else {
-			deathMessage = $"{ActorName} morreu!";
+			deathMessage = $"{DisplayName} morreu!";
 		}
 
 		MessageLogData.Instance.AddMessage(deathMessage);
 
 		Texture = definition.deathTexture;
-		blocksMovement = false;
+		BlocksMovement = false;
 		ZIndex = 0;
-		actorName = $"Restos mortais de {actorName}";
-		Map_Data.UnregisterBlockingActor(this);
+		DisplayName= $"Restos mortais de {DisplayName}";
+		Map_Data.UnregisterBlockingEntity(this);
 		EmitSignal(SignalName.Died);
 	}
 }

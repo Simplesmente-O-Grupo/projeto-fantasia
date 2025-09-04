@@ -28,7 +28,7 @@ script = ExtResource("5_s0nni")
 
 [node name="Tiles" type="Node2D" parent="Map"]
 
-[node name="Actors" type="Node2D" parent="Map"]
+[node name="Entities" type="Node2D" parent="Map"]
 
 [node name="InspectDetails" parent="Map" instance=ExtResource("5_qy1jj")]
 visible = false

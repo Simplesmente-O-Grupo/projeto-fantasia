@@ -78,8 +78,8 @@ public partial class TurnManager : RefCounted
 		TurnCount++;
 
 		// Recarregamos a energia de todos os atores.
-		foreach (Actor actor in Map_Data.Actors) {
-			if (actor.IsAlive) {
+		foreach (Entity entity in Map_Data.Entities) {
+			if (entity is Actor actor && actor.IsAlive) {
 				actor.RechargeEnergy();
 			}
 		}
@@ -89,11 +89,11 @@ public partial class TurnManager : RefCounted
 	/// Executa turnos para cada ator no mapa.
 	/// </summary>
 	private void HandleEnemyTurns() {
-		foreach (Actor actor in Map_Data.Actors) {
-			if (actor is Player) continue;
+		foreach (Entity entity in Map_Data.Entities) {
+			if (entity is Player) continue;
 			// Se o ator for um inimigo e estiver vivo, deixamos
 			// que sua IA faça um turno.
-			if (actor is Enemy enemy && enemy.IsAlive) {
+			if (entity is Enemy enemy && enemy.IsAlive) {
 				// O inimigo poderá fazer quantos turnos sua energia deixar.
 				while (enemy.Energy > 0) {
 					enemy.Soul.Perform();

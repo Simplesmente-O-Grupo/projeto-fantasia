@@ -24,7 +24,7 @@ public abstract partial class DirectionalAction : Action
     /// Função que obtém o alvo da ação, se houver.
     /// </summary>
     /// <returns>O ator alvo da ação, nulo se não houver.</returns>
-	protected Actor GetTargetActor() {
-		return Map_Data.GetBlockingActorAtPosition(Destination);
+	protected Entity GetTarget() {
+		return Map_Data.GetBlockingEntityAtPosition(Destination);
 	}
 }

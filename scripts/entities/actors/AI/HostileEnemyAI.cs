@@ -53,8 +53,8 @@ public partial class HostileEnemyAI : BaseAI
 		if (path.Count > 0) {
 			// Pegamos o próximo passo para o destino.
 			Vector2I destination = (Vector2I) path[0];
-			// Se tiver um outro ator no caminho, paramos o nosso turno aqui.
-			if (body.Map_Data.GetBlockingActorAtPosition(destination) != null) {
+			// Se tiver o caminho estiver bloqueado, paramos o nosso turno aqui.
+			if (body.Map_Data.GetBlockingEntityAtPosition(destination) != null) {
 				action = new WaitAction(body);
 				action.Perform();
 				return;

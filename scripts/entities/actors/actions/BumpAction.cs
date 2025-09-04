@@ -19,7 +19,7 @@ public partial class BumpAction : DirectionalAction
 		Action action;
 
 		// Se houver um ator no destino, crie uma ação de ataque.
-		if (GetTargetActor() != null) {
+		if (GetTarget() != null) {
 			action = new MeleeAction(actor, Offset);
 		} else {
 			// Mas se não houver, crie uma ação de movimento.

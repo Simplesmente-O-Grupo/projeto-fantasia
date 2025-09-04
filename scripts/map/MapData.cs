@@ -31,7 +31,7 @@ public partial class MapData : RefCounted
 	/// <summary>
     /// Lista de todos os atores dentro do mapa.
     /// </summary>
-	public Godot.Collections.Array<Actor> Actors { get; private set; } = [];
+	public Godot.Collections.Array<Entity> Entities { get; private set; } = [];
 
 	private AStarGrid2D pathfinder;
 	/// <summary>
@@ -43,7 +43,7 @@ public partial class MapData : RefCounted
     /// Peso do ator no pathfinder.
     /// A IA irá evitar de passar por espaços com peso alto.
     /// </summary>
-	private static float ActorWeight = 10.0f;
+	private static readonly float EntityWeight = 10.0f;
 
 	/// <summary>
     /// Inicializa o pathfinder;
@@ -69,31 +69,31 @@ public partial class MapData : RefCounted
 		}
 
 		// Registra todos os atores em cena.
-		foreach (Actor actor in Actors) {
-			if (actor.BlocksMovement) {
-				RegisterBlockingActor(actor);
+		foreach (Entity entity in Entities) {
+			if (entity.BlocksMovement) {
+				RegisterBlockingEntity(entity);
 			}
 		}
 
 	}
 
 	/// <summary>
-    /// Define um peso na posição de um ator para que a IA evite de passar por lá.
+    /// Define um peso na posição de uma entidade para que a IA evite de passar por lá.
     /// Ênfase em evitar. Se  o único caminho para o destino estiver bloqueado
-    /// por um ator, o jogo tentará andar mesmo assim.
+    /// por uma entidade, o jogo tentará andar mesmo assim.
     /// </summary>
-    /// <param name="actor">O ator em questão.</param>
-	public void RegisterBlockingActor(Actor actor) {
-		pathfinder.SetPointWeightScale(actor.GridPosition, ActorWeight);
+    /// <param name="entity">A entidade em questão.</param>
+	public void RegisterBlockingEntity(Entity entity) {
+		pathfinder.SetPointWeightScale(entity.GridPosition, EntityWeight);
 	}
 
 	/// <summary>
-    /// Remove o peso na posição de um ator.
-    /// Quando um ator move sua posição, devemos tirar o peso de sua posição anterior.
+    /// Remove o peso na posição de uma entidade.
+    /// Quando uma entidade move sua posição, devemos tirar o peso de sua posição anterior.
     /// </summary>
-    /// <param name="actor">O ator em questão.</param>
-	public void UnregisterBlockingActor(Actor actor) {
-		pathfinder.SetPointWeightScale(actor.GridPosition, 0);
+    /// <param name="entity">A entidade em questão.</param>
+	public void UnregisterBlockingEntity(Entity entity) {
+		pathfinder.SetPointWeightScale(entity.GridPosition, 0);
 	}
 
 	public MapData(int width, int height, Player player) {
@@ -104,7 +104,7 @@ public partial class MapData : RefCounted
 		// Como o jogador é criado antes do mapa, precisamos
 		// atualizá-lo com o novo mapa.
 		player.Map_Data = this;
-		InsertActor(player);
+		InsertEntity(player);
 
 		SetupTiles();
 	}
@@ -125,12 +125,12 @@ public partial class MapData : RefCounted
 	}
 
 	/// <summary>
-    /// Registra um ator no mapa. A existência de um ator não é considerada se ele não
-    /// estiver registrado no mapa.
+    /// Registra uma entidade no mapa. A existência de uma entidade não é considerada se ela não
+    /// estiver registrada no mapa.
     /// </summary>
-    /// <param name="actor">O ator em questão</param>
-	public void InsertActor(Actor actor) {
-		Actors.Add(actor);
+    /// <param name="entity">A entidade em questão</param>
+	public void InsertEntity(Entity entity) {
+		Entities.Add(entity);
 	}
 
 	/// <summary>
@@ -184,42 +184,42 @@ public partial class MapData : RefCounted
 	}
 
 	/// <summary>
-    /// Obtém o ator na posição especificada.
+    /// Obtém a entidade na posição especificada.
     /// </summary>
     /// <param name="pos">Vetor posição</param>
-    /// <returns>O ator na posição especificada, nulo se não houver.</returns>
-	public Actor GetBlockingActorAtPosition(Vector2I pos) {
-		foreach (Actor actor in Actors) {
-			if (actor.GridPosition == pos && actor.BlocksMovement) {
-				return actor;
+    /// <returns>A entidade na posição especificada, nulo se não houver.</returns>
+	public Entity GetBlockingEntityAtPosition(Vector2I pos) {
+		foreach (Entity entity in Entities) {
+			if (entity.GridPosition == pos && entity.BlocksMovement) {
+				return entity;
 			}
 		}
 		return null;
 	}
 
 	/// <summary>
-    /// Obtém todos os atores na posição especificada.
-    /// É possível haver mais de um ator na mesma posição se um deles for morto.
+    /// Obtém todas as entidades na posição especificada.
+    /// É possível haver mais de uma entidade na mesma posição se uma delas não bloquear movimento.
     /// </summary>
     /// <param name="pos">Vetor posição</param>
-    /// <returns>Lista com todos os atores na posição especificada.</returns>
-	public Godot.Collections.Array<Actor> GetActorsAtPosition(Vector2I pos) {
-		Godot.Collections.Array<Actor> ZOfZero = [];
-		Godot.Collections.Array<Actor> ZOfOne = [];
-		Godot.Collections.Array<Actor> ZOfTwo = [];
+    /// <returns>Lista com todas as entidades na posição especificada.</returns>
+	public Godot.Collections.Array<Entity> GetEntitiesAtPosition(Vector2I pos) {
+		Godot.Collections.Array<Entity> ZOfZero = [];
+		Godot.Collections.Array<Entity> ZOfOne = [];
+		Godot.Collections.Array<Entity> ZOfTwo = [];
 		
 		// Pego todos os atores
-		foreach (Actor actor in Actors) {
-			if (actor.GridPosition == pos) {
-				switch (actor.ZIndex) {
+		foreach (Entity entity in Entities) {
+			if (entity.GridPosition == pos) {
+				switch (entity.ZIndex) {
 					case 0:
-						ZOfZero.Add(actor);
+						ZOfZero.Add(entity);
 						break;
 					case 1:
-						ZOfOne.Add(actor);
+						ZOfOne.Add(entity);
 						break;
 					case 2:
-						ZOfTwo.Add(actor);
+						ZOfTwo.Add(entity);
 						break;
 				}
 			}
@@ -227,19 +227,5 @@ public partial class MapData : RefCounted
 
 		// Retorno os atores ordenados por ZIndex.
 		return ZOfZero + ZOfOne + ZOfTwo;
-	}
-
-	/// <summary>
-    /// Verifica se é possível caminhar na coordenada especificada.
-    /// Este método será removido.
-    /// </summary>
-    /// <param name="pos">Vetor posição</param>
-    /// <returns>Se é possível caminhar nesta posição</returns>
-	public bool IsTileWalkable(Vector2I pos) {
-		Tile tile = GetTile(pos);
-
-		if (tile == null) return false;
-
-		return tile.IsWalkable;
 	}
 }

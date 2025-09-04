@@ -12,11 +12,11 @@ public partial class MovementAction : DirectionalAction
 	public override void Perform()
 	{
 		// Não anda se o destino for um tile sólido.
-		if (!Map_Data.IsTileWalkable(Destination)) return;
+		if (!Map_Data.GetTile(Destination).IsWalkable) return;
 
 		// Não anda se o destino for oculpado por um ator.
 		// Na maioria dos casos, essa condição nunca é verdadeira.
-		if (GetTargetActor() != null) return;
+		if (GetTarget() != null) return;
 
 		actor.Walk(Offset);
 		actor.Energy -= cost;

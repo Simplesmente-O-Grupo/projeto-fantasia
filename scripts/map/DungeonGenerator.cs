@@ -159,8 +159,8 @@ public partial class DungeonGenerator : Node
 
 			// Só podemos colocar um ator por ponto no espaço.
 			bool canPlace = true;
-			foreach (Actor actor in data.Actors) {
-				if (actor.GridPosition == position) {
+			foreach (Entity entity in data.Entities) {
+				if (entity.GridPosition == position) {
 					canPlace = false;
 					break;
 				}
@@ -169,8 +169,8 @@ public partial class DungeonGenerator : Node
 			// Se possível, criamos um inimigo aleatório na posição escolhida.
 			if (canPlace) {
 				EnemyDefinition definition = enemies.PickRandom();
-				Enemy enemy = new Enemy(position, data, definition);
-				data.InsertActor(enemy);
+				Enemy enemy = new(position, data, definition);
+				data.InsertEntity(enemy);
 			}
 		}
 	}
@@ -211,7 +211,7 @@ public partial class DungeonGenerator : Node
     /// <param name="data">O mapa</param>
     /// <param name="start">Ponto inicial</param>
     /// <param name="end">Ponto final.</param>
-	private void TunnelBetween(MapData data, Vector2I start, Vector2I end) {
+	private static void TunnelBetween(MapData data, Vector2I start, Vector2I end) {
 		HorizontalCorridor(data, start.Y, start.X, end.X);
 		VerticalCorridor(data, end.X, start.Y, end.Y);
 	}
@@ -221,7 +221,7 @@ public partial class DungeonGenerator : Node
     /// </summary>
     /// <param name="data">O mapa</param>
     /// <param name="root">Divisão mestre.</param>
-	private void TunnelDivisions(MapData data, MapDivision root) {
+	private static void TunnelDivisions(MapData data, MapDivision root) {
 		if (root.IsLeaf) {
 			return;
 		}

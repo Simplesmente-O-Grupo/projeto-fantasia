@@ -4,23 +4,14 @@ using Godot;
 /// Define de forma genérica as características de um ator.
 /// </summary>
 [GlobalClass]
-public partial class ActorDefinition : Resource
+public partial class ActorDefinition : EntityDefinition
 {
 	[ExportCategory("Visuals")]
-	// Nome do ator.
-	[Export]
-	public string name = "unnamed";
-	// Seu sprite.
-	[Export]
-	public Texture2D texture;
 	// Sprite de morto
 	[Export]
 	public Texture2D deathTexture;
 
 	[ExportCategory("Mechanics")]
-	// Se o ator bloqueia movimento.
-	[Export]
-	public bool blocksMovement = true;
 	[Export]
 	public int Speed { get; set;} = 10;
 

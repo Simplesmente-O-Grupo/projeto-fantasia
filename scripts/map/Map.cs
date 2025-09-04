@@ -24,7 +24,7 @@ public partial class Map : Node2D
 	FieldOfView fieldOfView;
 
 	private Node2D tilesNode;
-	private Node2D actorsNode;
+	private Node2D entitiesNode;
 
 	public override void _Ready()
 	{
@@ -33,7 +33,7 @@ public partial class Map : Node2D
 		generator = GetNode<DungeonGenerator>("Generator");
 		fieldOfView = GetNode<FieldOfView>("FieldOfView");
 		tilesNode = GetNode<Node2D>("Tiles");
-		actorsNode = GetNode<Node2D>("Actors");
+		entitiesNode = GetNode<Node2D>("Entities");
 	}
 
 	/// <summary>
@@ -48,9 +48,9 @@ public partial class Map : Node2D
 	/// <summary>
     /// Coloca todos os tiles do mapa no mundo do jogo.
     /// </summary>
-	private void PlaceActors() {
-		foreach (Actor actor in Map_Data.Actors) {
-			actorsNode.AddChild(actor);
+	private void PlaceEntities() {
+		foreach (Actor actor in Map_Data.Entities) {
+			entitiesNode.AddChild(actor);
 		}
 	}
 
@@ -63,7 +63,7 @@ public partial class Map : Node2D
 		Map_Data = generator.GenerateDungeon(player);
 
 		PlaceTiles();
-		PlaceActors();
+		PlaceEntities();
 	}
 
 	/// <summary>
@@ -73,7 +73,7 @@ public partial class Map : Node2D
 	public void UpdateFOV(Vector2I pos) {
 		fieldOfView.UpdateFOV(Map_Data, pos, fovRadius);
 		// Esconde ou revela atores com base no campo de visão.
-		foreach (Actor actor in Map_Data.Actors) {
+		foreach (Actor actor in Map_Data.Entities) {
 			actor.Visible = Map_Data.GetTile(actor.GridPosition).IsInView;
 		}
 	}
