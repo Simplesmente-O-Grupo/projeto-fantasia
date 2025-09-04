@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="ActorDefinition" load_steps=4 format=3 uid="uid://cn6xnpwxjudbp"]
 
-[ext_resource type="Script" uid="uid://crxw1e37xlrrt" path="res://scripts/actors/ActorDefinition.cs" id="1_2k33r"]
+[ext_resource type="Script" uid="uid://crxw1e37xlrrt" path="res://scripts/entities/actors/ActorDefinition.cs" id="1_2k33r"]
 [ext_resource type="Texture2D" uid="uid://w0808ug4al66" path="res://assets/sprites/actors/generic_grave.png" id="1_m72ac"]
 [ext_resource type="Texture2D" uid="uid://dwky8qc2y602k" path="res://assets/sprites/actors/player.png" id="2_2xyvf"]
 

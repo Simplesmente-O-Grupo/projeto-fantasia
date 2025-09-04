@@ -179,6 +179,21 @@ public partial class Actor : Sprite2D
 	}
 
 	/// <summary>
+    /// Recupera uma quantidade de HP do ator.
+    /// </summary>
+    /// <param name="amount">HP para recuperar</param>
+    /// <returns>Quanto HP foi realmente recuperado.</returns>
+	public int Heal(int amount) {
+		int neoHp = Hp + amount;
+
+		if (amount > MaxHp) neoHp = MaxHp;
+
+		int recovered = neoHp - Hp;
+		Hp = neoHp;
+		return recovered;
+	}
+
+	/// <summary>
     /// Aplica uma definição de NPC para o ator.
     /// Se o ator for um boneco de barro, este método é como um
     /// sopro de vida.
