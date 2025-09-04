@@ -7,13 +7,15 @@
 [resource]
 script = ExtResource("1_m5x88")
 AI = 1
-name = "Eis que leto"
-texture = ExtResource("2_hhidw")
 deathTexture = ExtResource("1_7fof3")
-blocksMovement = true
+Speed = 10
 Hp = 12
 Mp = 2
 Atk = 3
 Def = 2
 Men = 2
+name = "Eis que leto"
+texture = ExtResource("2_hhidw")
+Type = 2
+blocksMovement = true
 metadata/_custom_type_script = "uid://dkfdm2m2scyks"

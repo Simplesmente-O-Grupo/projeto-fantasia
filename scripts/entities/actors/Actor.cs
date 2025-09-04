@@ -156,7 +156,7 @@ public partial class Actor : Entity
 		base.SetDefinition(definition);
 		this.definition = definition;
 
-		ZIndex = 1;
+		Type = definition.Type;
 
 		MaxHp = definition.Hp;
 		Hp = definition.Hp;
@@ -207,7 +207,7 @@ public partial class Actor : Entity
 
 		Texture = definition.deathTexture;
 		BlocksMovement = false;
-		ZIndex = 0;
+		Type = EntityType.CORPSE;
 		DisplayName= $"Restos mortais de {DisplayName}";
 		Map_Data.UnregisterBlockingEntity(this);
 		EmitSignal(SignalName.Died);

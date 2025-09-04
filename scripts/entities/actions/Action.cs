@@ -10,8 +10,9 @@ public abstract partial class Action : RefCounted {
     /// O ator que realiza a ação.
     /// </summary>
 	protected Actor actor;
+    public Actor ThisActor { get => actor; }
 
-    // O custo da ação.
+	// O custo da ação.
 	protected int cost;
 
 	public Action(Actor actor) {

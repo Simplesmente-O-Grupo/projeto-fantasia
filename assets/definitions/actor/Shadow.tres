@@ -7,14 +7,15 @@
 [resource]
 script = ExtResource("1_4jpld")
 AI = 1
-name = "Shadow"
-texture = ExtResource("3_kvxyn")
 deathTexture = ExtResource("1_3bs08")
-blocksMovement = true
 Speed = 10
 Hp = 15
 Mp = 23
 Atk = 5
 Def = 2
 Men = 8
+name = "Shadow"
+texture = ExtResource("3_kvxyn")
+Type = 2
+blocksMovement = true
 metadata/_custom_type_script = "uid://dkfdm2m2scyks"

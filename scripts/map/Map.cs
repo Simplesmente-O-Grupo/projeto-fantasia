@@ -46,11 +46,11 @@ public partial class Map : Node2D
 	}
 
 	/// <summary>
-    /// Coloca todos os tiles do mapa no mundo do jogo.
+    /// Coloca todas as entidades do mapa no mundo do jogo.
     /// </summary>
 	private void PlaceEntities() {
-		foreach (Actor actor in Map_Data.Entities) {
-			entitiesNode.AddChild(actor);
+		foreach (Entity entity in Map_Data.Entities) {
+			entitiesNode.AddChild(entity);
 		}
 	}
 
@@ -72,9 +72,9 @@ public partial class Map : Node2D
     /// <param name="pos">Centro de visão, normalmente é a posição do jogador.</param>
 	public void UpdateFOV(Vector2I pos) {
 		fieldOfView.UpdateFOV(Map_Data, pos, fovRadius);
-		// Esconde ou revela atores com base no campo de visão.
-		foreach (Actor actor in Map_Data.Entities) {
-			actor.Visible = Map_Data.GetTile(actor.GridPosition).IsInView;
+		// Esconde ou revela entidades com base no campo de visão.
+		foreach (Entity entity in Map_Data.Entities) {
+			entity.Visible = Map_Data.GetTile(entity.GridPosition).IsInView;
 		}
 	}
 }

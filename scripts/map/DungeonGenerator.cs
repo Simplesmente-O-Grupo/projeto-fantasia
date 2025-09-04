@@ -12,12 +12,16 @@ public partial class DungeonGenerator : Node
 	private static readonly Godot.Collections.Array<EnemyDefinition> enemies = [
 		GD.Load<EnemyDefinition>("res://assets/definitions/actor/Skeleton.tres"),
 		GD.Load<EnemyDefinition>("res://assets/definitions/actor/morcegao.tres"),
-		GD.Load<EnemyDefinition>("res://assets/definitions/actor/Shadow.tres")
+		GD.Load<EnemyDefinition>("res://assets/definitions/actor/Shadow.tres"),
+	];
+
+	private static readonly Godot.Collections.Array<ConsumableItemDefinition> items = [
+		GD.Load<HealingConsumableDefinition>("res://assets/definitions/Items/small_healing_potion.tres")
 	];
 
 	/// <summary>
-    /// Dimensões do mapa a ser criado.
-    /// </summary>
+	/// Dimensões do mapa a ser criado.
+	/// </summary>
 	[ExportCategory("Dimension")]
 	[Export]
 	private int width = 80;
@@ -51,6 +55,13 @@ public partial class DungeonGenerator : Node
 	[ExportCategory("Monster RNG")]
 	[Export]
 	private int maxMonsterPerRoom = 2;
+
+	/// <summary>
+    /// Quantidade máxima de itens por sala.
+    /// </summary>
+	[ExportCategory("Loot RNG")]
+	[Export]
+	private int maxItemsPerRoom = 2;
 
 	public override void _Ready()
 	{
@@ -149,6 +160,8 @@ public partial class DungeonGenerator : Node
 	private void PlaceEntities(MapData data, Rect2I room) {
 		// Define quantos monstros serão colocados na sala
 		int monsterAmount = rng.RandiRange(0, maxMonsterPerRoom);
+		// Define quantos itens serão colocados na sala.
+		int itemAmount = rng.RandiRange(0, maxItemsPerRoom);
 
 		for (int i = 0; i < monsterAmount; i++) {
 			// Escolhe um lugar aleatório na sala.
@@ -171,6 +184,32 @@ public partial class DungeonGenerator : Node
 				EnemyDefinition definition = enemies.PickRandom();
 				Enemy enemy = new(position, data, definition);
 				data.InsertEntity(enemy);
+			}
+		}
+
+		for (int i = 0; i < itemAmount; i++) {
+			// Escolhe um lugar aleatório na sala.
+			Vector2I position = new(
+				rng.RandiRange(room.Position.X, room.End.X - 1),
+				rng.RandiRange(room.Position.Y, room.End.Y - 1)
+			);
+
+			// Só podemos colocar um ator por ponto no espaço.
+			bool canPlace = true;
+			foreach (Entity entity in data.Entities) {
+				if (entity.GridPosition == position) {
+					canPlace = false;
+					break;
+				}
+			}
+
+			// Se possível, criamos um inimigo aleatório na posição escolhida.
+			if (canPlace) {
+				ConsumableItemDefinition definition = items.PickRandom();
+				if (definition is HealingConsumableDefinition hcDefinition) {
+					HealingConsumable item = new(position, data, hcDefinition);
+					data.InsertEntity(item);
+				}
 			}
 		}
 	}

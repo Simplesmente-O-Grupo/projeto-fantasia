@@ -1,16 +1,42 @@
 using Godot;
 
-public partial class Entity : Sprite2D {
+/// <summary>
+/// Defino aqui que o jogo irá desenhar
+/// atores em cima de itens e itens acima de corpos.
+/// </summary>
+public enum EntityType
+{
+	CORPSE,
+	ITEM,
+	ACTOR
+};
+
+/// <summary>
+/// Classe para elementos móveis que o jogador pode interagir.
+/// </summary>
+public abstract partial class Entity : Sprite2D {
 	/// <summary>
 	/// A definição da entidade possui caracterísitcas padrões que definem
 	/// a entidade em questão.
 	/// </summary>
 	private EntityDefinition definition;
 
+	private EntityType type;
 	/// <summary>
-    /// É conveniente ter acesso ao mapa dentro da entidade. Isto porque ela existe dentro
-    /// do mapa, então é necessário ter acesso à algumas informações.
+    /// Usado para definir a camada da entidade no mapa.
     /// </summary>
+	public EntityType Type {
+		get => type;
+		set {
+			type = value;
+			ZIndex = (int) type;
+		}
+	}
+
+	/// <summary>
+	/// É conveniente ter acesso ao mapa dentro da entidade. Isto porque ela existe dentro
+	/// do mapa, então é necessário ter acesso à algumas informações.
+	/// </summary>
 	public MapData Map_Data { get; set; }
 
 	private Vector2I gridPosition = Vector2I.Zero;
@@ -76,7 +102,7 @@ public partial class Entity : Sprite2D {
 		this.definition = definition;
 		BlocksMovement = definition.blocksMovement;
 		DisplayName = definition.name;
-		ZIndex = 1;
+		Type = definition.Type;
 		Texture = definition.texture;
 	}
 }

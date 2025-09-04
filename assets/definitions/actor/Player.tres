@@ -6,14 +6,15 @@
 
 [resource]
 script = ExtResource("1_2k33r")
-name = "Jogador"
-texture = ExtResource("2_2xyvf")
 deathTexture = ExtResource("1_m72ac")
-blocksMovement = true
 Speed = 10
 Hp = 36
 Mp = 12
 Atk = 8
 Def = 2
 Men = 3
+name = "Jogador"
+texture = ExtResource("2_2xyvf")
+Type = 2
+blocksMovement = true
 metadata/_custom_type_script = "uid://crxw1e37xlrrt"
