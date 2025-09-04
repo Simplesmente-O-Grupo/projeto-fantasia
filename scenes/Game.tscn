@@ -48,6 +48,6 @@ map = NodePath("../../Map")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 offset = Vector2(8, 8)
-zoom = Vector2(0.5, 0.5)
+zoom = Vector2(2, 2)
 
 [node name="HUD" parent="." instance=ExtResource("6_aug50")]
