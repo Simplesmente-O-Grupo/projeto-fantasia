@@ -31,7 +31,8 @@ public abstract partial class Action : RefCounted {
     /// </code>
     /// </example>
     /// </summary>
-	public abstract void Perform();
+    /// <returns>Se a ação foi executada ou não.</returns>
+	public abstract bool Perform();
 
 	/// <summary>
     /// É conveniente ter acesso ao mapa dentro de uma ação.

@@ -13,7 +13,7 @@ public partial class BumpAction : DirectionalAction
 
 	// Como esta ação inevitavelmente gera outras ações,
 	// não faz sentido descontar a energia do ator.
-	public override void Perform()
+	public override bool Perform()
 	{
 		// Declaramos uma ação genérica.
 		Action action;
@@ -27,6 +27,6 @@ public partial class BumpAction : DirectionalAction
 		}
 
 		// Executa a ação.
-		action.Perform();
+		return action.Perform();
 	}
 }

@@ -9,16 +9,18 @@ public partial class MovementAction : DirectionalAction
 	{
 	}
 
-	public override void Perform()
+	public override bool Perform()
 	{
 		// Não anda se o destino for um tile sólido.
-		if (!Map_Data.GetTile(Destination).IsWalkable) return;
+		if (!Map_Data.GetTile(Destination).IsWalkable) return true;
 
 		// Não anda se o destino for oculpado por um ator.
 		// Na maioria dos casos, essa condição nunca é verdadeira.
-		if (GetTarget() != null) return;
+		if (GetTarget() != null) return true;
 
 		actor.Walk(Offset);
 		actor.Energy -= cost;
+
+		return true;
 	}
 }

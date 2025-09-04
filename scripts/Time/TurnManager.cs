@@ -50,17 +50,18 @@ public partial class TurnManager : RefCounted
 			StartTurn();
 		}
 
+		bool actionResult = true;;
 		// Primeiro executamos a ação do jogador, se ele puder.
 		if (playerActionQueue.Count > 0 && Player.Energy > 0) {
 			Action action = playerActionQueue[0];
 			playerActionQueue.RemoveAt(0);
 
-			action.Perform();
+			actionResult = action.Perform();
 		}
 
-		// Se o jogador ainda tem energia, ele poderá fazer
-		// mais um turno sem interrupções.
-		if (Player.Energy <= 0) {
+		// Se a ação do jogador for gratuita ou se o jogador ainda possuir energia, 
+		// ele poderá fazer mais um turno sem interrupções.
+		if (actionResult && Player.Energy <= 0) {
 			// Depois computamos os turnos dos outros atores.
 			HandleEnemyTurns();
 			map.UpdateFOV(Player.GridPosition);

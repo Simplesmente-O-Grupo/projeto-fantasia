@@ -12,14 +12,14 @@ public partial class MeleeAction : DirectionalAction
 	/// <summary>
 	/// Ataca o ator na direção da ação.
 	/// </summary>
-	public override void Perform()
+	public override bool Perform()
 	{
 		// Eu te disse que este método seria útil.
 		Entity potentialTarget = GetTarget();
 
 		// Só podemos atacar atores.
 		if (potentialTarget is not Actor) {
-			return;
+			return false;
 		}
 
 		Actor target = (Actor)potentialTarget;
@@ -27,7 +27,7 @@ public partial class MeleeAction : DirectionalAction
 
 		// Se não houver um ator na direção, não podemos continuar.
 		// Isto é uma ação gratuita.
-		if (target == null) return;
+		if (target == null) return false;
 
 		// não podemos ter dano negativo.
 		int damage = actor.Atk - target.Def;
@@ -43,5 +43,6 @@ public partial class MeleeAction : DirectionalAction
 
 		MessageLogData.Instance.AddMessage(attackDesc);
 		actor.Energy -= cost;
+		return true;
 	}
 }
