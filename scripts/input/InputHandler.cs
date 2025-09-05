@@ -4,7 +4,8 @@ public enum InputHandlers
 {
 	MainGame,
 	GameOver,
-	Inspect
+	Inspect,
+	Pickup
 }
 
 /// <summary>
@@ -27,6 +28,7 @@ public partial class InputHandler : Node
 		// Controles para quando o jogador está morto.
 		inputHandlers.Add(InputHandlers.GameOver, GetNode<GameOverInputHandler>("GameOverInputHandler"));
 		inputHandlers.Add(InputHandlers.Inspect, GetNode<InspectInputHandler>("InspectInputHandler"));
+		inputHandlers.Add(InputHandlers.Pickup, GetNode<PickupInputHandler>("PickupInputHandler"));
 
 		SetInputHandler(startingInputHandler);
 	}

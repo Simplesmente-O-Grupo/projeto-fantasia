@@ -9,7 +9,7 @@ public partial class Game : Node {
 	/// <summary>
     /// Definição de um jogador.
     /// </summary>
-	private static readonly ActorDefinition playerDefinition = GD.Load<ActorDefinition>("res://assets/definitions/actor/Player.tres");
+	private static readonly PlayerDefinition playerDefinition = GD.Load<PlayerDefinition>("res://assets/definitions/actor/Player.tres");
 	/// <summary>
     /// O jogo possui o mapa.
     /// </summary>

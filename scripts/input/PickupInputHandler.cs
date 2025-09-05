@@ -1,9 +1,9 @@
 using Godot;
 
 /// <summary>
-/// Esquema de controles principal do jogo.
+/// Esquema de controles para pegar um item.
 /// </summary>
-public partial class MainGameInputHandler : BaseInputHandler {
+public partial class PickupInputHandler : BaseInputHandler {
 	private readonly Godot.Collections.Dictionary<string, Vector2I> directions = new()
 	{
 		{"walk-up", Vector2I.Up},
@@ -14,6 +14,7 @@ public partial class MainGameInputHandler : BaseInputHandler {
 		{"walk-up-left", Vector2I.Up + Vector2I.Left},
 		{"walk-down-right", Vector2I.Down + Vector2I.Right},
 		{"walk-down-left", Vector2I.Down + Vector2I.Left},
+		{"skip-turn", Vector2I.Zero}
 	};
 	public override Action GetAction(Player player) {
 		Action action = null;
@@ -21,23 +22,20 @@ public partial class MainGameInputHandler : BaseInputHandler {
 		if (player.IsAlive) {
 			foreach (var direction in directions) {
 				if (Input.IsActionJustPressed(direction.Key)) {
-					action = new BumpAction(player, direction.Value);
+					action = new PickupAction(player, direction.Value);
+					Quit();
 				}
 			}
-
-			if (Input.IsActionJustPressed("pick-item")) {
-				GetParent<InputHandler>().SetInputHandler(InputHandlers.Pickup);
-			}
-
-			if (Input.IsActionJustPressed("inspect")) {
-				GetParent<InputHandler>().SetInputHandler(InputHandlers.Inspect);
-			}
 			
-			if (Input.IsActionJustPressed("skip-turn")) {
-				action = new WaitAction(player);
+			if (Input.IsActionJustPressed("quit")) {
+				Quit();
 			}
 		}
 
 		return action;
+	}
+
+	private void Quit() {
+		GetParent<InputHandler>().SetInputHandler(InputHandlers.MainGame);
 	}
 }

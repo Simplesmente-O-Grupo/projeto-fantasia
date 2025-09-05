@@ -7,7 +7,16 @@ using System;
 [GlobalClass]
 public partial class Player : Actor
 {
-	public Player(Vector2I initialPosition, MapData map, ActorDefinition definition) : base(initialPosition, map, definition)
+	public Inventory inventory;
+
+	public Player(Vector2I initialPosition, MapData map, PlayerDefinition definition) : base(initialPosition, map, definition)
 	{
+		SetDefinition(definition);
+	}
+
+	public void SetDefinition(PlayerDefinition definition) {
+		inventory = new(definition.InventoryCapacity);
+
+		AddChild(inventory);
 	}
 }

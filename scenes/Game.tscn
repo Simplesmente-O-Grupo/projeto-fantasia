@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://u5h6iqyi8wd0"]
+[gd_scene load_steps=12 format=3 uid="uid://u5h6iqyi8wd0"]
 
 [ext_resource type="Script" uid="uid://dwubb28wt4bhe" path="res://scripts/Game.cs" id="1_cpr0p"]
 [ext_resource type="Script" uid="uid://ejqmdbc0524i" path="res://scripts/input/MainGameInputHandler.cs" id="3_400sg"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://bryqrafavmwj4" path="res://scenes/Details.tscn" id="5_qy1jj"]
 [ext_resource type="Script" uid="uid://bereyrj1s46y5" path="res://scripts/map/FieldOfView.cs" id="5_s0nni"]
 [ext_resource type="PackedScene" uid="uid://b4h4xyr1g8o50" path="res://scenes/hud.tscn" id="6_aug50"]
+[ext_resource type="Script" uid="uid://dspqgdxg5jji0" path="res://scripts/input/PickupInputHandler.cs" id="10_3xj3m"]
 
 [node name="Game" type="Node"]
 script = ExtResource("1_cpr0p")
@@ -45,6 +46,9 @@ script = ExtResource("4_g4kob")
 [node name="InspectInputHandler" type="Node" parent="InputHandler" node_paths=PackedStringArray("map")]
 script = ExtResource("5_g4kob")
 map = NodePath("../../Map")
+
+[node name="PickupInputHandler" type="Node" parent="InputHandler"]
+script = ExtResource("10_3xj3m")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 offset = Vector2(8, 8)

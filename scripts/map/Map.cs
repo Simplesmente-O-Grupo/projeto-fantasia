@@ -62,6 +62,8 @@ public partial class Map : Node2D
 	{
 		Map_Data = generator.GenerateDungeon(player);
 
+		Map_Data.EntityPlaced += OnEntityPlaced;
+
 		PlaceTiles();
 		PlaceEntities();
 	}
@@ -76,5 +78,9 @@ public partial class Map : Node2D
 		foreach (Entity entity in Map_Data.Entities) {
 			entity.Visible = Map_Data.GetTile(entity.GridPosition).IsInView;
 		}
+	}
+
+	private void OnEntityPlaced(Entity entity) {
+		entitiesNode.AddChild(entity);
 	}
 }

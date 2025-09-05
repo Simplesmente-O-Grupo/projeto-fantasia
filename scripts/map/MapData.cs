@@ -10,9 +10,12 @@ public partial class MapData : RefCounted
 	public static readonly TileDefinition wallDefinition = GD.Load<TileDefinition>("res://assets/definitions/tiles/wall.tres");
 	public static readonly TileDefinition floorDefinition = GD.Load<TileDefinition>("res://assets/definitions/tiles/floor.tres");
 
+	[Signal]
+	public delegate void EntityPlacedEventHandler(Entity entity);
+
 	/// <summary>
-    /// Largura do mapa.
-    /// </summary>
+	/// Largura do mapa.
+	/// </summary>
 	public int Width { get; private set; }
 	/// <summary>
     /// Altura do mapa.
@@ -32,6 +35,18 @@ public partial class MapData : RefCounted
     /// Lista de todos os atores dentro do mapa.
     /// </summary>
 	public Godot.Collections.Array<Entity> Entities { get; private set; } = [];
+
+	public Godot.Collections.Array<ConsumableItem> Items {
+		get {
+			Godot.Collections.Array<ConsumableItem> list = [];
+			foreach (Entity entity in Entities) {
+				if (entity is ConsumableItem item) {
+					list.Add(item);
+				}
+			}
+			return list;
+		}
+	}
 
 	private AStarGrid2D pathfinder;
 	/// <summary>
@@ -195,6 +210,32 @@ public partial class MapData : RefCounted
 			}
 		}
 		return null;
+	}
+	
+	/// <summary>
+    /// Obtém o primeiro item na posição especificada.
+    /// </summary>
+    /// <param name="pos">Posição</param>
+    /// <returns>O primeiro item na posição, nulo se não houver.</returns>
+	public ConsumableItem GetFirstItemAtPosition(Vector2I pos) {
+		foreach (ConsumableItem item in Items) {
+			if (item.GridPosition == pos) {
+				return item;
+			}
+		}
+
+		return null;
+	}
+
+	/// <summary>
+    /// Remove uma entidade do mapa sem dar free.
+    /// </summary>
+    /// <param name="entity">A entidade para remover</param>
+	public void RemoveEntity(Entity entity) {
+		// Eu removo a entidade do nó de entidades.
+		entity.GetParent().RemoveChild(entity);
+		// Eu removo a entidade da lista de entidades do mapa.
+		Entities.Remove(entity);
 	}
 
 	/// <summary>
