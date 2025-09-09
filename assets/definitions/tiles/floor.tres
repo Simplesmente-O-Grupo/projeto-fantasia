@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="TileDefinition" load_steps=3 format=3 uid="uid://dfrremrf4rn15"]
 
-[ext_resource type="Script" uid="uid://ba82a33ov6uuo" path="res://scripts/map/TileDefinition.cs" id="1_snxyj"]
+[ext_resource type="Script" uid="uid://ba82a33ov6uuo" path="res://scripts/Map/TileDefinition.cs" id="1_snxyj"]
 [ext_resource type="Texture2D" uid="uid://ds13x1dpu0v4s" path="res://assets/sprites/tiles/floor.png" id="1_vvyfi"]
 
 [resource]

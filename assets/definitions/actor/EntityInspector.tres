@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="ActorDefinition" load_steps=2 format=3 uid="uid://bq3mbgtvjgrg3"]
 
-[ext_resource type="Script" uid="uid://crxw1e37xlrrt" path="res://scripts/entities/actors/ActorDefinition.cs" id="1_na4h7"]
+[ext_resource type="Script" uid="uid://crxw1e37xlrrt" path="res://scripts/Entities/Actors/ActorDefinition.cs" id="1_na4h7"]
 
 [resource]
 script = ExtResource("1_na4h7")

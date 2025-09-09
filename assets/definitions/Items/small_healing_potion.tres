@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="HealingConsumableDefinition" load_steps=3 format=3 uid="uid://bm6yx6rwh8bds"]
 
-[ext_resource type="Script" uid="uid://b3qy4gtjfci14" path="res://scripts/entities/items/HealingConsumableDefinition.cs" id="1_4dl2g"]
+[ext_resource type="Script" uid="uid://b3qy4gtjfci14" path="res://scripts/Entities/Items/HealingConsumableDefinition.cs" id="1_4dl2g"]
 [ext_resource type="Texture2D" uid="uid://b7drpdbk4lggb" path="res://assets/sprites/items/small_health_potion.png" id="2_esrbk"]
 
 [resource]

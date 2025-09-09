@@ -1,32 +1,49 @@
 using Godot;
 
+namespace TheLegendOfGustav.GUI;
+
 public partial class Message : Label
 {
-	private static LabelSettings baseSettings = GD.Load<LabelSettings>("res://assets/definitions/message_label_settings.tres");
+	private static readonly LabelSettings baseSettings = GD.Load<LabelSettings>("res://assets/definitions/message_label_settings.tres");
+	
 	private string plainText;
-	public string PlainText { get => plainText; }
 	private int count = 1;
-	public int Count {
+
+	public Message(string text)
+	{
+		PlainText = text;
+		Text = text;
+		LabelSettings = (LabelSettings)baseSettings.Duplicate();
+		AutowrapMode = TextServer.AutowrapMode.WordSmart;
+	}
+	
+	public string PlainText 
+	{
+		get => plainText;
+		private set
+		{
+			plainText = value;
+		}
+	}
+	public int Count
+	{
 		get => count;
-		set {
+		set
+		{
 			count = value;
 			Text = FullText;
 		}
 	}
 
-	public string FullText {
-		get {
-			if (count > 1) {
+	public string FullText
+	{
+		get
+		{
+			if (count > 1)
+			{
 				return $"{plainText} ({count})";
 			}
 			return plainText;
 		}
-	}
-
-	public Message(string text) {
-		plainText = text;
-		Text = text;
-		LabelSettings = (LabelSettings) baseSettings.Duplicate();
-		AutowrapMode = TextServer.AutowrapMode.WordSmart;
 	}
 }

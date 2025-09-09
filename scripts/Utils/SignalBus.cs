@@ -1,5 +1,6 @@
 using Godot;
-using System;
+
+namespace TheLegendOfGustav.Utils;
 
 /// <summary>
 /// Objeto global com sinais, fortes sinais.
@@ -7,15 +8,9 @@ using System;
 public partial class SignalBus : Node
 {
 	/// <summary>
-    /// Pois é.
-    /// </summary>
+	/// Pois é.
+	/// </summary>
 	public static SignalBus Instance { get; private set; }
-
-	public override void _Ready()
-	{
-		base._Ready();
-		Instance = this;
-	}
 
 	[Signal]
 	public delegate void InspectorMovedEventHandler(Vector2I pos);
@@ -24,4 +19,10 @@ public partial class SignalBus : Node
 	public delegate void EnterInspectionModeEventHandler();
 	[Signal]
 	public delegate void ExitInspectionModeEventHandler();
+
+	public override void _Ready()
+	{
+		base._Ready();
+		Instance = this;
+	}
 }

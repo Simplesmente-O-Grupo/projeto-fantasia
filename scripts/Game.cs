@@ -1,36 +1,45 @@
 using Godot;
+using TheLegendOfGustav.Entities.Actors;
+using TheLegendOfGustav.Entities.Actions;
+using TheLegendOfGustav.InputHandling;
+using TheLegendOfGustav.GUI;
+using TheLegendOfGustav.Time;
+using TheLegendOfGustav.Utils;
 
+namespace TheLegendOfGustav;
 
 /// <summary>
 /// Classe principal do jogo.
 /// Lar da lógica central do jogo.
 /// </summary>
-public partial class Game : Node {
+public partial class Game : Node
+{
 	/// <summary>
-    /// Definição de um jogador.
-    /// </summary>
+	/// Definição de um jogador.
+	/// </summary>
 	private static readonly PlayerDefinition playerDefinition = GD.Load<PlayerDefinition>("res://assets/definitions/actor/Player.tres");
 	/// <summary>
-    /// O jogo possui o mapa.
-    /// </summary>
-	private Map Map;
+	/// O jogo possui o mapa.
+	/// </summary>
+	private Map.Map Map { get; set; }
 	/// <summary>
-    /// Objeto para obter input do usuário.
-    /// </summary>
-	private InputHandler inputHandler;
+	/// Objeto para obter input do usuário.
+	/// </summary>
+	private InputHandler InputHandler { get; set; }
 	/// <summary>
 	/// Gerenciador de turnos
 	/// </summary>
-	private TurnManager turnManager;
+	private TurnManager TurnManager { get; set; }
 
 	private Hud hud;
 
-	public override void _Ready() {
+	public override void _Ready()
+	{
 		base._Ready();
 
-		Map = GetNode<Map>("Map");
+		Map = GetNode<Map.Map>("Map");
 
-		inputHandler = GetNode<InputHandler>("InputHandler");
+		InputHandler = GetNode<InputHandler>("InputHandler");
 		hud = GetNode<Hud>("HUD");
 
 		// O jogador é criado pelo jogo.
@@ -38,7 +47,7 @@ public partial class Game : Node {
 		Camera2D camera = GetNode<Camera2D>("Camera2D");
 		RemoveChild(camera);
 		player.HealthChanged += (int hp, int maxHp) => hud.OnHealthChanged(hp, maxHp);
-		player.Died += () => inputHandler.SetInputHandler(InputHandlers.GameOver);
+		player.Died += () => InputHandler.SetInputHandler(InputHandlers.GameOver);
 
 		player.AddChild(camera);
 
@@ -46,29 +55,31 @@ public partial class Game : Node {
 
 		Map.UpdateFOV(player.GridPosition);
 
-		turnManager = new(Map);
+		TurnManager = new(Map);
 
 		MessageLogData.Instance.AddMessage("Boa sorte!");
 	}
 
 	/// <summary>
-    /// Método executa aproximadamente 60 vezes por segundo.
-    /// </summary>
-    /// <param name="delta"></param>
-	public override void _PhysicsProcess(double delta) {
+	/// Método executa aproximadamente 60 vezes por segundo.
+	/// </summary>
+	/// <param name="delta"></param>
+	public override void _PhysicsProcess(double delta)
+	{
 		base._PhysicsProcess(delta);
 
-		Player player = Map.Map_Data.Player;
+		Player player = Map.MapData.Player;
 
 		// Pegamos uma ação do usuário
-		Action action = inputHandler.GetAction(player);
+		Action action = InputHandler.GetAction(player);
 
-		if (action != null) {
-			turnManager.InsertPlayerAction(action);
+		if (action != null)
+		{
+			TurnManager.InsertPlayerAction(action);
 		}
 
 		// Computamos um turno.
-		turnManager.Tick();
+		TurnManager.Tick();
 	}
 
 }
