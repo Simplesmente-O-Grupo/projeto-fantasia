@@ -4,7 +4,7 @@ using Godot;
 /// Esquema de controles principal do jogo.
 /// </summary>
 public partial class MainGameInputHandler : BaseInputHandler {
-	private readonly Godot.Collections.Dictionary<string, Vector2I> directions = new()
+	private static readonly Godot.Collections.Dictionary<string, Vector2I> directions = new()
 	{
 		{"walk-up", Vector2I.Up},
 		{"walk-down", Vector2I.Down},
@@ -23,6 +23,10 @@ public partial class MainGameInputHandler : BaseInputHandler {
 				if (Input.IsActionJustPressed(direction.Key)) {
 					action = new BumpAction(player, direction.Value);
 				}
+			}
+
+			if (Input.IsActionJustPressed("open-inventory")) {
+				GetParent<InputHandler>().SetInputHandler(InputHandlers.Inventory);
 			}
 
 			if (Input.IsActionJustPressed("pick-item")) {

@@ -32,4 +32,8 @@ public partial class Inventory : Node {
 
 		Items.Add(item);
 	}
+
+	public void RemoveItem(ConsumableItem item) {
+		Items.Remove(item);
+	}
 }

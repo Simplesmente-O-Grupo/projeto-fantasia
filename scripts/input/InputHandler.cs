@@ -5,7 +5,8 @@ public enum InputHandlers
 	MainGame,
 	GameOver,
 	Inspect,
-	Pickup
+	Pickup,
+	Inventory
 }
 
 /// <summary>
@@ -29,6 +30,7 @@ public partial class InputHandler : Node
 		inputHandlers.Add(InputHandlers.GameOver, GetNode<GameOverInputHandler>("GameOverInputHandler"));
 		inputHandlers.Add(InputHandlers.Inspect, GetNode<InspectInputHandler>("InspectInputHandler"));
 		inputHandlers.Add(InputHandlers.Pickup, GetNode<PickupInputHandler>("PickupInputHandler"));
+		inputHandlers.Add(InputHandlers.Inventory, GetNode<InventoryInputHandler>("InventoryInputHandler"));
 
 		SetInputHandler(startingInputHandler);
 	}

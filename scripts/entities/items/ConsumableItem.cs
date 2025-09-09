@@ -15,7 +15,7 @@ public abstract partial class ConsumableItem : Entity
 	/// </summary>
 	/// <param name="consumer"></param>
 	/// <returns></returns>
-	public Action GetAction(Actor consumer)
+	public Action GetAction(Player consumer)
 	{
 		return new ItemAction(consumer, this);
 	}
@@ -28,4 +28,10 @@ public abstract partial class ConsumableItem : Entity
 	/// <param name="action">Ação gerada pelo item.</param>
 	/// <returns>Se a ação foi realizada ou não.</returns>
 	public abstract bool Activate(ItemAction action);
+
+	public void ConsumedBy(Player consumer) {
+		Inventory inventory = consumer.inventory;
+		inventory.RemoveItem(this);
+		QueueFree();
+	}
 }

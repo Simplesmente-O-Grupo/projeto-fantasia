@@ -7,10 +7,12 @@ using System;
 [GlobalClass]
 public partial class Player : Actor
 {
+	private PlayerDefinition definition;
 	public Inventory inventory;
 
 	public Player(Vector2I initialPosition, MapData map, PlayerDefinition definition) : base(initialPosition, map, definition)
 	{
+		this.definition = definition;
 		SetDefinition(definition);
 	}
 

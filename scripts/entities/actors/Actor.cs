@@ -139,7 +139,7 @@ public partial class Actor : Entity
 	public int Heal(int amount) {
 		int neoHp = Hp + amount;
 
-		if (amount > MaxHp) neoHp = MaxHp;
+		if (neoHp > MaxHp) neoHp = MaxHp;
 
 		int recovered = neoHp - Hp;
 		Hp = neoHp;

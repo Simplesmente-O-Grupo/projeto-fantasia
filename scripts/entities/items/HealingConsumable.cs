@@ -12,7 +12,7 @@ public partial class HealingConsumable : ConsumableItem
 
 	public override bool Activate(ItemAction action)
 	{
-		Actor consumer = action.ThisActor;
+		Player consumer = (Player) action.ThisActor;
 		int intendedAmount = (int)(HealingPercentage / 100 * consumer.MaxHp);
 		int recovered = consumer.Heal(intendedAmount);
 
@@ -22,6 +22,7 @@ public partial class HealingConsumable : ConsumableItem
 			return false;
 		}
 		MessageLogData.Instance.AddMessage($"Você consome {DisplayName} e recupera {recovered} de HP");
+		ConsumedBy(consumer);
 		return true;
 	}
 }

@@ -2,10 +2,12 @@ using Godot;
 
 public partial class ItemAction : Action
 {
-	private ConsumableItem item;
-	public ItemAction(Actor actor, ConsumableItem item) : base(actor)
+	protected ConsumableItem item;
+	protected Player player;
+	public ItemAction(Player player, ConsumableItem item) : base(player)
 	{
 		this.item = item;
+		this.player = player;
 	}
 
 	public override bool Perform()

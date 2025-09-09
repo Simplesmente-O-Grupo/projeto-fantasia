@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=3 uid="uid://c511reen3sdq"]
+
+[ext_resource type="Script" uid="uid://bdejwf8qmlii0" path="res://scripts/GUI/ItemMenuEntry.cs" id="1_jbgv3"]
+[ext_resource type="Texture2D" uid="uid://dwky8qc2y602k" path="res://assets/sprites/actors/player.png" id="2_boylf"]
+
+[node name="ItemMenuEntry" type="HBoxContainer"]
+offset_right = 8.0
+offset_bottom = 8.0
+size_flags_horizontal = 3
+script = ExtResource("1_jbgv3")
+
+[node name="Icon" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("2_boylf")
+expand_mode = 3
+
+[node name="Shortcut" type="Label" parent="."]
+layout_mode = 2
+text = "Atalho"
+
+[node name="VSeparator" type="VSeparator" parent="."]
+layout_mode = 2
+
+[node name="ItemName" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Nome"
+
+[node name="ActivateBtn" type="Button" parent="."]
+layout_mode = 2
+text = "Usar"
+
+[node name="DropButton" type="Button" parent="."]
+layout_mode = 2
+text = "Descartar"
