@@ -1,5 +1,6 @@
 using Godot;
 using TheLegendOfGustav.Entities.Actions;
+using TheLegendOfGustav.Utils;
 
 namespace TheLegendOfGustav.Entities.Actors.AI;
 
@@ -21,7 +22,7 @@ public partial class HostileEnemyAI : BaseAI
 		Vector2I offset = target.GridPosition - Body.GridPosition;
 		// Distância entre o inimigo e o jogador. Leva em consideração somente
 		// um dos eixos.
-		int distance = int.Max(int.Abs(offset.X), int.Abs(offset.Y));
+		int distance = Grid.Distance(Body.GridPosition, target.GridPosition);
 
 		// A ação executada no turno pode ser de ataque ou de movimento.
 		Action action;
