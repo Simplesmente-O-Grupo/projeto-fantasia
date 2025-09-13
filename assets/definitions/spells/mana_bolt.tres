@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="SpellResource" load_steps=4 format=3 uid="uid://boi8svlb0e8l"]
+
+[ext_resource type="Script" uid="uid://brhihikhjtc6e" path="res://scripts/Magic/SpellEffect.cs" id="1_ux3o7"]
+[ext_resource type="Script" uid="uid://bi6jdrduu76de" path="res://scripts/Magic/SpellResource.cs" id="2_uq8o1"]
+[ext_resource type="Resource" uid="uid://2121t34hbxck" path="res://assets/definitions/spells/little_damage.tres" id="2_yltt7"]
+
+[resource]
+script = ExtResource("2_uq8o1")
+SpellName = "Flecha de mana"
+Cost = 8
+Type = 0
+Range = 7
+Effects = Array[ExtResource("1_ux3o7")]([ExtResource("2_yltt7")])
+metadata/_custom_type_script = "uid://bi6jdrduu76de"

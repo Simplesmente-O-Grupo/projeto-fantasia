@@ -22,7 +22,8 @@ public partial class DungeonGenerator : Node
 	];
 
 	private static readonly Godot.Collections.Array<ConsumableItemDefinition> items = [
-		GD.Load<HealingConsumableDefinition>("res://assets/definitions/Items/small_healing_potion.tres")
+		GD.Load<HealingConsumableDefinition>("res://assets/definitions/Items/small_healing_potion.tres"),
+		GD.Load<ScrollConsumableDefinition>("res://assets/definitions/Items/mana_bolt_scroll.tres")
 	];
 	#endregion
 
@@ -274,7 +275,6 @@ public partial class DungeonGenerator : Node
 				Rng.RandiRange(room.Position.Y, room.End.Y - 1)
 			);
 
-			// Só podemos colocar um ator por ponto no espaço.
 			bool canPlace = true;
 			foreach (Entity entity in data.Entities)
 			{
@@ -292,6 +292,10 @@ public partial class DungeonGenerator : Node
 				if (definition is HealingConsumableDefinition hcDefinition)
 				{
 					HealingConsumable item = new(position, data, hcDefinition);
+					data.InsertEntity(item);
+				} else if (definition is ScrollConsumableDefinition scroll)
+				{
+					ScrollConsumable item = new(position, data, scroll);
 					data.InsertEntity(item);
 				}
 			}

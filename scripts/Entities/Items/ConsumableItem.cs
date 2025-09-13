@@ -9,7 +9,7 @@ namespace TheLegendOfGustav.Entities.Items;
 /// Classe para itens consumíveis.
 /// Itens consumíveis são itens de uso limitado.
 /// </summary>
-public abstract partial class ConsumableItem(Vector2I initialPosition, MapData map, EntityDefinition definition) : Entity(initialPosition, map, definition)
+public abstract partial class ConsumableItem(Vector2I initialPosition, MapData map, ConsumableItemDefinition definition) : Entity(initialPosition, map, definition)
 {
 
 	/// <summary>

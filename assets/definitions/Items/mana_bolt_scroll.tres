@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ScrollConsumableDefinition" load_steps=4 format=3 uid="uid://xbjfp7d6qoyj"]
+
+[ext_resource type="Resource" uid="uid://boi8svlb0e8l" path="res://assets/definitions/spells/mana_bolt.tres" id="1_eaxr2"]
+[ext_resource type="Script" uid="uid://2lk5w2po81gy" path="res://scripts/Entities/Items/ScrollConsumableDefinition.cs" id="1_jtnuc"]
+[ext_resource type="Texture2D" uid="uid://dwky8qc2y602k" path="res://assets/sprites/actors/player.png" id="3_si3hv"]
+
+[resource]
+script = ExtResource("1_jtnuc")
+Spell = ExtResource("1_eaxr2")
+name = "Pergaminho de flecha de mana"
+texture = ExtResource("3_si3hv")
+Type = 1
+blocksMovement = false
+metadata/_custom_type_script = "uid://2lk5w2po81gy"

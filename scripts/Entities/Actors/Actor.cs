@@ -1,4 +1,5 @@
 using Godot;
+using TheLegendOfGustav.Magic;
 using TheLegendOfGustav.Map;
 using TheLegendOfGustav.Utils;
 
@@ -132,6 +133,8 @@ public partial class Actor : Entity
 		get;
 		set;
 	}
+
+	public SpellBook SpellBook { get; private set; } = new();
 	#endregion
 
 	#region Methods

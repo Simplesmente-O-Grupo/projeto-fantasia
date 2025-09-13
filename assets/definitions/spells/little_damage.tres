@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="DamageEffect" load_steps=2 format=3 uid="uid://2121t34hbxck"]
+
+[ext_resource type="Script" uid="uid://cmgtdh2kdo1rq" path="res://scripts/Magic/DamageEffect.cs" id="1_rnhwa"]
+
+[resource]
+script = ExtResource("1_rnhwa")
+Damage = 5
+metadata/_custom_type_script = "uid://cmgtdh2kdo1rq"

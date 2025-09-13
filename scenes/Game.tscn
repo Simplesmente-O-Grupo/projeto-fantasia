@@ -22,6 +22,7 @@ script = ExtResource("3_cpr0p")
 [node name="Generator" type="Node" parent="Map"]
 script = ExtResource("4_78awf")
 UseSeed = false
+Iterations = 7
 
 [node name="FieldOfView" type="Node" parent="Map"]
 script = ExtResource("5_s0nni")
