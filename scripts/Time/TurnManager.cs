@@ -3,6 +3,7 @@ using TheLegendOfGustav.Map;
 using TheLegendOfGustav.Entities.Actors;
 using TheLegendOfGustav.Entities;
 using TheLegendOfGustav.Entities.Actions;
+using TheLegendOfGustav.Utils;
 
 namespace TheLegendOfGustav.Time;
 
@@ -64,6 +65,13 @@ public partial class TurnManager(Map.Map map) : RefCounted
 			PlayerActionQueue.RemoveAt(0);
 
 			actionResult = action.Perform();
+
+			// TODO: Isto é feio, lembre-me de mudar isto antes da entrega final.
+			if (action is SpellAction)
+			{
+				GD.Print(actionResult);
+				SignalBus.Instance.EmitSignal(SignalBus.SignalName.PlayerSpellCast, actionResult);
+			}
 		}
 
 		// Se a ação do jogador for gratuita ou se o jogador ainda possuir energia, 

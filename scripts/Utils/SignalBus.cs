@@ -1,4 +1,7 @@
+using System;
 using Godot;
+using TheLegendOfGustav.InputHandling;
+using TheLegendOfGustav.Magic;
 
 namespace TheLegendOfGustav.Utils;
 
@@ -19,6 +22,14 @@ public partial class SignalBus : Node
 	public delegate void EnterInspectionModeEventHandler();
 	[Signal]
 	public delegate void ExitInspectionModeEventHandler();
+
+	[Signal]
+	public delegate void PlayerSpellChooseLocationEventHandler(SpellResource spell);
+	[Signal]
+	public delegate void PlayerSpellCastEventHandler(bool success);
+
+	[Signal]
+	public delegate void CommandInputHandlerEventHandler(InputHandlers state);
 
 	public override void _Ready()
 	{

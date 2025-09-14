@@ -1,6 +1,8 @@
 using Godot;
 using TheLegendOfGustav.Entities.Actions;
 using TheLegendOfGustav.Entities.Actors;
+using TheLegendOfGustav.Utils;
+using TheLengendOfGustav.InputHandling;
 
 namespace TheLegendOfGustav.InputHandling;
 
@@ -10,7 +12,8 @@ public enum InputHandlers
 	GameOver,
 	Inspect,
 	Pickup,
-	Inventory
+	Inventory,
+	CastSpell
 }
 
 /// <summary>
@@ -32,11 +35,18 @@ public partial class InputHandler : Node
 		InputHandlerDict.Add(InputHandlers.MainGame, GetNode<MainGameInputHandler>("MainGameInputHandler"));
 		// Controles para quando o jogador está morto.
 		InputHandlerDict.Add(InputHandlers.GameOver, GetNode<GameOverInputHandler>("GameOverInputHandler"));
+		// Controles para observar o cenário
 		InputHandlerDict.Add(InputHandlers.Inspect, GetNode<InspectInputHandler>("InspectInputHandler"));
+		// Controles para pegar um item do chão.
 		InputHandlerDict.Add(InputHandlers.Pickup, GetNode<PickupInputHandler>("PickupInputHandler"));
+		// Controles para quando o inventário for aberto.
 		InputHandlerDict.Add(InputHandlers.Inventory, GetNode<InventoryInputHandler>("InventoryInputHandler"));
+		// Controles para quando o jogador precisar escolher um alvo de feitiço.
+		InputHandlerDict.Add(InputHandlers.CastSpell, GetNode<CastSpellInputHandler>("CastSpellInputHandler"));
 
 		SetInputHandler(StartingInputHandler);
+
+		SignalBus.Instance.CommandInputHandler += SetInputHandler;
 	}
 
 	public Action GetAction(Player player)

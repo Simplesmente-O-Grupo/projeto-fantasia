@@ -31,7 +31,7 @@ public abstract partial class ConsumableItem(Vector2I initialPosition, MapData m
 	/// <returns>Se a ação foi realizada ou não.</returns>
 	public abstract bool Activate(ItemAction action);
 
-	public void ConsumedBy(Player consumer)
+	public virtual void ConsumedBy(Player consumer)
 	{
 		Inventory inventory = consumer.Inventory;
 		inventory.RemoveItem(this);
