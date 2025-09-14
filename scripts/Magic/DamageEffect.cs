@@ -14,7 +14,17 @@ public partial class DamageEffect : SpellEffect
 	{
 		int damageDealt = Damage - target.Men;
 
-		MessageLogData.Instance.AddMessage($"{caster.DisplayName} aplica {damageDealt} de dano mágico em {target.DisplayName}");
+		if (damageDealt < 0)
+		{
+			damageDealt = 0;
+		}
+
+		if (damageDealt <= 0) {
+			MessageLogData.Instance.AddMessage($"{target.DisplayName} resite o ataque mágico de {caster.DisplayName}");
+		}
+		else {
+			MessageLogData.Instance.AddMessage($"{caster.DisplayName} aplica {damageDealt} de dano mágico em {target.DisplayName}");
+		}
 
 		target.Hp -= damageDealt;
 	}
