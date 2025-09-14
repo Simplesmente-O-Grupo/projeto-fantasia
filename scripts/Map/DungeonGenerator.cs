@@ -23,7 +23,8 @@ public partial class DungeonGenerator : Node
 
 	private static readonly Godot.Collections.Array<ConsumableItemDefinition> items = [
 		GD.Load<HealingConsumableDefinition>("res://assets/definitions/Items/small_healing_potion.tres"),
-		GD.Load<ScrollConsumableDefinition>("res://assets/definitions/Items/mana_bolt_scroll.tres")
+		GD.Load<ScrollConsumableDefinition>("res://assets/definitions/Items/mana_bolt_scroll.tres"),
+		GD.Load<GrimoireConsumableDefinition>("res://assets/definitions/Items/mana_bolt_grimoire.tres")
 	];
 	#endregion
 
@@ -293,9 +294,14 @@ public partial class DungeonGenerator : Node
 				{
 					HealingConsumable item = new(position, data, hcDefinition);
 					data.InsertEntity(item);
-				} else if (definition is ScrollConsumableDefinition scroll)
+				}
+				else if (definition is ScrollConsumableDefinition scroll)
 				{
 					ScrollConsumable item = new(position, data, scroll);
+					data.InsertEntity(item);
+				} else if (definition is GrimoireConsumableDefinition grimoire)
+				{
+					GrimoireConsumable item = new(position, data, grimoire);
 					data.InsertEntity(item);
 				}
 			}

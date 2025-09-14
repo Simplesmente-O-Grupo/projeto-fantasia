@@ -13,7 +13,8 @@ public enum InputHandlers
 	Inspect,
 	Pickup,
 	Inventory,
-	CastSpell
+	CastSpell,
+	SpellMenu
 }
 
 /// <summary>
@@ -43,6 +44,8 @@ public partial class InputHandler : Node
 		InputHandlerDict.Add(InputHandlers.Inventory, GetNode<InventoryInputHandler>("InventoryInputHandler"));
 		// Controles para quando o jogador precisar escolher um alvo de feitiço.
 		InputHandlerDict.Add(InputHandlers.CastSpell, GetNode<CastSpellInputHandler>("CastSpellInputHandler"));
+		// Controles para quando o menu de feitiços for aberto.
+		InputHandlerDict.Add(InputHandlers.SpellMenu, GetNode<SpellMenuInputHandler>("SpellMenuInputHandler"));
 
 		SetInputHandler(StartingInputHandler);
 

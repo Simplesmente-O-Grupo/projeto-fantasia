@@ -47,6 +47,7 @@ public partial class Game : Node
 		Camera2D camera = GetNode<Camera2D>("Camera2D");
 		RemoveChild(camera);
 		player.HealthChanged += (int hp, int maxHp) => hud.OnHealthChanged(hp, maxHp);
+		player.ManaChanged += hud.OnManaChanged;
 		player.Died += () => InputHandler.SetInputHandler(InputHandlers.GameOver);
 
 		player.AddChild(camera);

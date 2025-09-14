@@ -48,6 +48,11 @@ public partial class MainGameInputHandler : BaseInputHandler
 			GetParent<InputHandler>().SetInputHandler(InputHandlers.Inspect);
 		}
 
+		if (Input.IsActionJustPressed("open-spellbook"))
+		{
+			GetParent<InputHandler>().SetInputHandler(InputHandlers.SpellMenu);
+		}
+
 		if (Input.IsActionJustPressed("skip-turn"))
 		{
 			action = new WaitAction(player);

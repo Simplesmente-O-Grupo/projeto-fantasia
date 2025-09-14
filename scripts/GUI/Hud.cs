@@ -1,20 +1,29 @@
+using System.Runtime.InteropServices;
 using Godot;
 
 namespace TheLegendOfGustav.GUI;
 
 public partial class Hud : Node
 {
-	private TextureProgressBar HpBar { get; set; }
+	private TextureProgressBar hpBar;
+	private TextureProgressBar mpBar;
 
 	public override void _Ready()
 	{
 		base._Ready();
-		HpBar = GetNode<TextureProgressBar>("VBoxContainer/InfoBar/Stats/MarginContainer/HBoxContainer/AspectRatioContainer/HPbar");
+		hpBar = GetNode<TextureProgressBar>("VBoxContainer/InfoBar/Stats/MarginContainer/HBoxContainer/AspectRatioContainer/HPbar");
+		mpBar = GetNode<TextureProgressBar>("VBoxContainer/InfoBar/Stats/MarginContainer/HBoxContainer/AspectRatioContainer2/MPbar");
 	}
 
 	public void OnHealthChanged(int hp, int maxHp)
 	{
-		HpBar.Value = hp;
-		HpBar.MaxValue = maxHp;
+		hpBar.Value = hp;
+		hpBar.MaxValue = maxHp;
+	}
+
+	public void OnManaChanged(int mp, int maxMp)
+	{
+		mpBar.Value = mp;
+		mpBar.MaxValue = maxMp;
 	}
 }

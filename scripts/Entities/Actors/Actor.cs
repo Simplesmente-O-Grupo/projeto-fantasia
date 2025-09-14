@@ -35,6 +35,14 @@ public partial class Actor : Entity
 	public delegate void HealthChangedEventHandler(int hp, int maxHp);
 
 	/// <summary>
+    /// Sinal emitido toda vez que a mana mudar.
+    /// </summary>
+    /// <param name="mp">Nova mana</param>
+    /// <param name="maxMp">Quantidade máxima de mana</param>
+	[Signal]
+	public delegate void ManaChangedEventHandler(int mp, int maxMp);
+
+	/// <summary>
 	/// Sinal emitido se o ator morrer.
 	/// </summary>
 	[Signal]
@@ -106,6 +114,7 @@ public partial class Actor : Entity
 		set
 		{
 			mp = int.Clamp(value, 0, MaxMp);
+			EmitSignal(SignalName.ManaChanged, Mp, MaxMp);
 		}
 	}
 
@@ -125,6 +134,15 @@ public partial class Actor : Entity
 	public int Men { get; private set; }
 
 	/// <summary>
+    /// Quantos turnos para recarregar a mana.
+    /// </summary>
+	public int MpRegenRate { get; private set; } = 2;
+	/// <summary>
+    /// Quanto de mana para recarregar.
+    /// </summary>
+	public int MpRegenPerTurn { get; private set; } = 5;
+
+	/// <summary>
 	/// A definição do ator possui caracterísitcas padrões que definem
 	/// o ator em questão.
 	/// </summary>
@@ -139,11 +157,25 @@ public partial class Actor : Entity
 
 	#region Methods
 	/// <summary>
-	/// Executado uma vez por turno,
+	/// Recarrega a energia do ator.
 	/// </summary>
-	public void RechargeEnergy()
+	private void RechargeEnergy()
 	{
 		Energy += Speed;
+	}
+
+	/// <summary>
+    /// Executado uma vez por 
+    /// </summary>
+    /// <param name="turn">Número do turno.</param>
+	public void OnTurnStart(int turn)
+	{
+		RechargeEnergy();
+
+		if (turn % MpRegenRate == 0 && Mp < MaxMp)
+		{
+			Mp += MpRegenPerTurn;
+		}
 	}
 
 	/// <summary>

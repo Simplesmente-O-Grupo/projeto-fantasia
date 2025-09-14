@@ -46,6 +46,8 @@ public partial class SpellAction : DirectionalAction
 			return false;
 		}
 
+		Actor.Mp -= spell.Cost;
+
 		foreach (SpellEffect effect in spell.Effects)
 		{
 			effect.Apply(Actor, target);

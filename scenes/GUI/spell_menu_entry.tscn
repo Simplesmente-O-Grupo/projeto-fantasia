@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://boioo6c5yu8to"]
+
+[ext_resource type="Script" uid="uid://bg766ly1f747t" path="res://scripts/GUI/SpellMenuEntry.cs" id="1_kcgob"]
+[ext_resource type="Texture2D" uid="uid://dwky8qc2y602k" path="res://assets/sprites/actors/player.png" id="2_7wscr"]
+
+[node name="SpellMenuEntry" type="HBoxContainer"]
+offset_right = 8.0
+offset_bottom = 8.0
+size_flags_horizontal = 3
+script = ExtResource("1_kcgob")
+
+[node name="Icon" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("2_7wscr")
+expand_mode = 3
+
+[node name="Shortcut" type="Label" parent="."]
+layout_mode = 2
+text = "Atalho"
+
+[node name="VSeparator" type="VSeparator" parent="."]
+layout_mode = 2
+
+[node name="SpellName" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Nome"
+
+[node name="CastButton" type="Button" parent="."]
+layout_mode = 2
+text = "Usar"

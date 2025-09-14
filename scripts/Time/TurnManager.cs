@@ -101,7 +101,7 @@ public partial class TurnManager(Map.Map map) : RefCounted
 		{
 			if (entity is Actor actor && actor.IsAlive)
 			{
-				actor.RechargeEnergy();
+				actor.OnTurnStart(TurnCount);
 			}
 		}
 	}
