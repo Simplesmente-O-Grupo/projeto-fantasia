@@ -58,6 +58,11 @@ public partial class MainGameInputHandler : BaseInputHandler
 			action = new WaitAction(player);
 		}
 
+		if (Input.IsActionJustPressed("quit"))
+		{
+			action = new EscapeAction(player);
+		}
+
 		return action;
 	}
 }

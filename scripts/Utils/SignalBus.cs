@@ -31,6 +31,9 @@ public partial class SignalBus : Node
 	[Signal]
 	public delegate void CommandInputHandlerEventHandler(InputHandlers state);
 
+	[Signal]
+	public delegate void EscapeRequestedEventHandler();
+
 	public override void _Ready()
 	{
 		base._Ready();

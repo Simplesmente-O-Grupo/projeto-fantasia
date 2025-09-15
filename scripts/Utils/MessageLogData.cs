@@ -40,7 +40,7 @@ public partial class MessageLogData : Node
 		{
 			Message message = Messages[i];
 			Messages.RemoveAt(i);
-			message.QueueFree();
+			message?.QueueFree();
 		}
 	}
 

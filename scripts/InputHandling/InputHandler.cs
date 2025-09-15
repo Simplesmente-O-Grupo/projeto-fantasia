@@ -57,6 +57,15 @@ public partial class InputHandler : Node
 		return SelectedInputHandler.GetAction(player);
 	}
 
+	public override void _Notification(int what)
+	{
+		if (what == NotificationPredelete)
+		{
+			SignalBus.Instance.CommandInputHandler -= SetInputHandler;
+		}
+		base._Notification(what);
+	}
+
 	/// <summary>
 	/// Define o esquema de controle atual do jogo
 	/// para o estado informado.

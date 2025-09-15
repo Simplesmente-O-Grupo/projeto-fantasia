@@ -36,12 +36,15 @@ public partial class CastSpellInputHandler : BaseInputHandler
 	[Export]
 	private Map map;
 
+	SignalBus.PlayerSpellChooseLocationEventHandler spellLocationLambda;
+
 	public override void _Ready()
 	{
 		base._Ready();
 
+		spellLocationLambda = (SpellResource spell) => selectedSpell = spell;
 		// O jogador informa qual feitiço será usado.
-		SignalBus.Instance.PlayerSpellChooseLocation += (SpellResource spell) => selectedSpell = spell;
+		SignalBus.Instance.PlayerSpellChooseLocation += spellLocationLambda;
 	}
 
 	public override void Enter()
@@ -89,5 +92,17 @@ public partial class CastSpellInputHandler : BaseInputHandler
 		}
 
 		return action;
+	}
+
+	public override void _Notification(int what)
+	{
+		if (what == NotificationPredelete)
+		{
+			if (spellLocationLambda != null)
+			{
+				SignalBus.Instance.PlayerSpellChooseLocation -= spellLocationLambda;
+			}
+		}
+		base._Notification(what);
 	}
 }

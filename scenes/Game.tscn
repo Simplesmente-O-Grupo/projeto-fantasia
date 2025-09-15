@@ -33,8 +33,9 @@ script = ExtResource("5_s0nni")
 
 [node name="Entities" type="Node2D" parent="Map"]
 
-[node name="InspectDetails" parent="Map" instance=ExtResource("5_qy1jj")]
+[node name="InspectDetails" parent="Map" node_paths=PackedStringArray("map") instance=ExtResource("5_qy1jj")]
 visible = false
+map = NodePath("..")
 
 [node name="InputHandler" type="Node" parent="."]
 script = ExtResource("3_s0nni")

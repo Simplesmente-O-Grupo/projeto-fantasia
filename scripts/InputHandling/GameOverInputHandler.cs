@@ -1,3 +1,4 @@
+using Godot;
 using TheLegendOfGustav.Entities.Actions;
 using TheLegendOfGustav.Entities.Actors;
 
@@ -11,6 +12,11 @@ public partial class GameOverInputHandler : BaseInputHandler
 	// Por enquanto não tem nada.
 	public override Action GetAction(Player player)
 	{
-		return null;
+		Action action = null;
+		if (Input.IsActionJustPressed("quit"))
+		{
+			action = new EscapeAction(player);
+		}
+		return action;
 	}
 }

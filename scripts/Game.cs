@@ -33,9 +33,17 @@ public partial class Game : Node
 
 	private Hud hud;
 
+	[Signal]
+	public delegate void MainMenuRequestedEventHandler();
+
+	private SignalBus.EscapeRequestedEventHandler escapeLambda;
+
 	public override void _Ready()
 	{
 		base._Ready();
+
+		escapeLambda = () => EmitSignal(SignalName.MainMenuRequested);
+		SignalBus.Instance.EscapeRequested += escapeLambda;
 
 		Map = GetNode<Map.Map>("Map");
 
@@ -60,6 +68,19 @@ public partial class Game : Node
 
 		MessageLogData.Instance.AddMessage("Boa sorte!");
 	}
+
+	public override void _Notification(int what)
+	{
+		if (what == NotificationPredelete)
+		{
+			if (escapeLambda != null)
+			{
+				SignalBus.Instance.EscapeRequested -= escapeLambda;
+			}
+		}
+		base._Notification(what);
+	}
+
 
 	/// <summary>
 	/// Método executa aproximadamente 60 vezes por segundo.

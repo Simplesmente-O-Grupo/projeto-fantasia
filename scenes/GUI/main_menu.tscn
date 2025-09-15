@@ -1,0 +1,91 @@
+[gd_scene load_steps=10 format=3 uid="uid://cppjdsdfkkxtm"]
+
+[ext_resource type="Script" uid="uid://dx0fxht2oadb6" path="res://scripts/GUI/MainMenu.cs" id="1_b4h60"]
+[ext_resource type="Texture2D" uid="uid://bxjwbucke02gl" path="res://assets/bg.png" id="1_tbt31"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_b4h60"]
+font_size = 32
+
+[sub_resource type="InputEventKey" id="InputEventKey_tbt31"]
+device = -1
+keycode = 78
+unicode = 110
+
+[sub_resource type="Shortcut" id="Shortcut_b4h60"]
+events = [SubResource("InputEventKey_tbt31")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_kebck"]
+device = -1
+keycode = 67
+unicode = 99
+
+[sub_resource type="Shortcut" id="Shortcut_1ei6q"]
+events = [SubResource("InputEventKey_kebck")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_xm7ak"]
+device = -1
+keycode = 83
+unicode = 115
+
+[sub_resource type="Shortcut" id="Shortcut_h03jd"]
+events = [SubResource("InputEventKey_xm7ak")]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_b4h60")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_tbt31")
+stretch_mode = 6
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/CenterContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "The Legend of Gustav"
+label_settings = SubResource("LabelSettings_b4h60")
+
+[node name="neogame" type="Button" parent="VBoxContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+shortcut = SubResource("Shortcut_b4h60")
+shortcut_feedback = false
+text = "[N] Novo jogo"
+
+[node name="continue" type="Button" parent="VBoxContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+shortcut = SubResource("Shortcut_1ei6q")
+shortcut_feedback = false
+text = "[C] Continuar"
+
+[node name="quit" type="Button" parent="VBoxContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+shortcut = SubResource("Shortcut_h03jd")
+text = "[S] Sair"
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Não temo a morte, temo o tempo."

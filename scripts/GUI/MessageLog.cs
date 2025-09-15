@@ -8,6 +8,7 @@ public partial class MessageLog : ScrollContainer
 {
 	private VBoxContainer MessageList { get; set; }
 
+	private MessageLogData.messageSentEventHandler joinSignal;
 	public override void _Ready()
 	{
 		base._Ready();
@@ -18,7 +19,21 @@ public partial class MessageLog : ScrollContainer
 			_ = AddMessageAsync(msg);
 		}
 
-		MessageLogData.Instance.messageSent += async (Message msg) => await AddMessageAsync(msg);
+		joinSignal = async (Message msg) => await AddMessageAsync(msg);
+
+		MessageLogData.Instance.messageSent += joinSignal;
+	}
+
+	public override void _Notification(int what)
+	{
+		if (what == NotificationPredelete)
+		{
+			if (joinSignal != null)
+			{
+				MessageLogData.Instance.messageSent -= joinSignal;
+			}
+		}
+		base._Notification(what);
 	}
 
 	private async Task AddMessageAsync(Message message)
