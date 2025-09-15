@@ -33,6 +33,20 @@ public partial class SpellMenuEntry : HBoxContainer
 		if (shortcut != null)
 		{
 			shortcutLabel.Text = $"{shortcut}";
+			
+			int index = (int)shortcut - 'a';
+
+			InputEventKey activateEvent = new()
+			{
+				Keycode = Key.A + index
+			};
+
+			Shortcut shortie = new()
+			{
+				Events = [activateEvent]
+			};
+
+			castBtn.Shortcut = shortie;
 		}
 		else
 		{

@@ -1,3 +1,4 @@
+using System.Xml;
 using Godot;
 using TheLegendOfGustav.Entities.Items;
 
@@ -38,6 +39,32 @@ public partial class ItemMenuEntry : HBoxContainer
 		if (shortcut != null)
 		{
 			ShortcutLabel.Text = $"{shortcut}";
+
+
+			int index = (int)shortcut - 'a';
+			InputEventKey activateEvent = new()
+			{
+				Keycode = Key.A + index
+			};
+
+			InputEventKey dropEvent = new()
+			{
+				Keycode = Key.A + index,
+				ShiftPressed = true
+			};
+
+			Shortcut shortie = new()
+			{
+				Events = [activateEvent]
+			};
+
+			Shortcut dropperino = new()
+			{
+				Events = [dropEvent]
+			};
+
+			ActivateBtn.Shortcut = shortie;
+			DropBtn.Shortcut = dropperino;
 		}
 		else
 		{
