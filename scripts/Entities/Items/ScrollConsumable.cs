@@ -92,6 +92,25 @@ public partial class ScrollConsumable(Vector2I initialPosition, MapData map, Scr
 		base.ConsumedBy(consumer);
 	}
 
+	public override void _Notification(int what)
+	{
+		if (what == NotificationPredelete)
+		{
+			if (bindSignal != null)
+			{
+				SignalBus.Instance.PlayerSpellCast -= bindSignal;
+			}
+		}
+		base._Notification(what);
+	}
+
+	/// <summary>
+	/// Este método é executado quando o feitiço deste pergaminho for executado
+	/// (depois do jogador escolher um alvo.)
+	/// </summary>
+	/// <param name="success">Se o feitiço for executado com sucesso.</param>
+	
+
 	/// <summary>
     /// Este método é executado quando o feitiço deste pergaminho for executado
     /// (depois do jogador escolher um alvo.)
