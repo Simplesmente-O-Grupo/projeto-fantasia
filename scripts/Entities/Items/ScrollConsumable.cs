@@ -105,13 +105,6 @@ public partial class ScrollConsumable(Vector2I initialPosition, MapData map, Scr
 	}
 
 	/// <summary>
-	/// Este método é executado quando o feitiço deste pergaminho for executado
-	/// (depois do jogador escolher um alvo.)
-	/// </summary>
-	/// <param name="success">Se o feitiço for executado com sucesso.</param>
-	
-
-	/// <summary>
     /// Este método é executado quando o feitiço deste pergaminho for executado
     /// (depois do jogador escolher um alvo.)
     /// </summary>
