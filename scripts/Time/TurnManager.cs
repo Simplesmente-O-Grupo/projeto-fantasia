@@ -73,9 +73,10 @@ public partial class TurnManager(Map.Map map) : RefCounted
 			// TODO: Isto é feio, lembre-me de mudar isto antes da entrega final.
 			if (action is SpellAction)
 			{
-				GD.Print(actionResult);
 				SignalBus.Instance.EmitSignal(SignalBus.SignalName.PlayerSpellCast, actionResult);
 			}
+		} else if (playerActionQueue.Count > 0 && playerActionQueue[0] is EscapeAction esc){
+			esc.Perform();
 		}
 
 		// Se a ação do jogador for gratuita ou se o jogador ainda possuir energia, 

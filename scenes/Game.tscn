@@ -46,14 +46,16 @@ script = ExtResource("3_400sg")
 [node name="GameOverInputHandler" type="Node" parent="InputHandler"]
 script = ExtResource("4_g4kob")
 
-[node name="InspectInputHandler" type="Node" parent="InputHandler"]
+[node name="InspectInputHandler" type="Node" parent="InputHandler" node_paths=PackedStringArray("map")]
 script = ExtResource("5_g4kob")
+map = NodePath("../../Map")
 
 [node name="PickupInputHandler" type="Node" parent="InputHandler"]
 script = ExtResource("10_3xj3m")
 
-[node name="InventoryInputHandler" type="Node" parent="InputHandler"]
+[node name="InventoryInputHandler" type="Node" parent="InputHandler" node_paths=PackedStringArray("map")]
 script = ExtResource("11_mcffj")
+map = NodePath("../../Map")
 
 [node name="CastSpellInputHandler" type="Node" parent="InputHandler" node_paths=PackedStringArray("map")]
 script = ExtResource("12_2rd6h")

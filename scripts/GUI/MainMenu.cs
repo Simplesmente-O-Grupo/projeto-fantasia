@@ -30,7 +30,6 @@ public partial class MainMenu : Control
 
 	private void OnNewGameButtonPressed()
 	{
-		GD.Print("Signal EMIT!");
 		EmitSignal(SignalName.GameRequest, false);
 	}
 
