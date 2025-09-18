@@ -11,10 +11,10 @@ public partial class Details : CanvasLayer
 
 	[Export]
 	private Map.Map map;
-	private VBoxContainer EntityNames { get; set; }
-	private Godot.Collections.Array<Entity> Entities { get; set; } = [];
+	private VBoxContainer entityNames;
+	private Godot.Collections.Array<Entity> entities= [];
 
-	private Godot.Collections.Array<Label> ActorsLabel { get; set; } = [];
+	private Godot.Collections.Array<Label> actorsLabel = [];
 
 	private SignalBus.EnterInspectionModeEventHandler enterLambda;
 	private SignalBus.ExitInspectionModeEventHandler exitLambda;
@@ -22,7 +22,7 @@ public partial class Details : CanvasLayer
 	public override void _Ready()
 	{
 		base._Ready();
-		EntityNames = GetNode<VBoxContainer>("HBoxContainer/PanelContainer/ScrollContainer/Entities");
+		entityNames = GetNode<VBoxContainer>("HBoxContainer/PanelContainer/ScrollContainer/Entities");
 
 		enterLambda = () => Visible = true;
 		exitLambda = () => Visible = false;
@@ -34,7 +34,7 @@ public partial class Details : CanvasLayer
 	public void OnInspectorWalk(Vector2I pos)
 	{
 		MapData mapData = map.MapData;
-		Entities = mapData.GetEntitiesAtPosition(pos);
+		entities = mapData.GetEntitiesAtPosition(pos);
 		UpdateLabels();
 	}
 
@@ -57,14 +57,14 @@ public partial class Details : CanvasLayer
 
 	private void UpdateLabels()
 	{
-		foreach (Label label in ActorsLabel)
+		foreach (Label label in actorsLabel)
 		{
 			label.QueueFree();
 		}
 
-		ActorsLabel.Clear();
+		actorsLabel.Clear();
 
-		foreach (Entity entity in Entities)
+		foreach (Entity entity in entities)
 		{
 			Label label = new()
 			{
@@ -72,8 +72,8 @@ public partial class Details : CanvasLayer
 				LabelSettings = lblSettings
 			};
 
-			ActorsLabel.Add(label);
-			EntityNames.AddChild(label);
+			actorsLabel.Add(label);
+			entityNames.AddChild(label);
 		}
 	}
 }

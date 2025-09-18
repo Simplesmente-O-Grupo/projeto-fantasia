@@ -17,8 +17,6 @@ namespace TheLegendOfGustav.Entities.Items;
 /// <param name="definition">Definição do item.</param>
 public partial class ScrollConsumable(Vector2I initialPosition, MapData map, ScrollConsumableDefinition definition) : ConsumableItem(initialPosition, map, definition)
 {
-	public SpellResource Spell { get; private set; } = definition.Spell;
-
 	/// <summary>
     /// O pergaminho só pode ser usado uma única vez.
     /// Alguns feitiços precisam de um alvo, o que significa que
@@ -40,6 +38,8 @@ public partial class ScrollConsumable(Vector2I initialPosition, MapData map, Scr
     /// para ser desconectado em ConsumedBy.
     /// </summary>
 	private SignalBus.PlayerSpellCastEventHandler bindSignal = null;
+
+	public SpellResource Spell { get; private set; } = definition.Spell;
 
 	public override bool Activate(ItemAction action)
 	{

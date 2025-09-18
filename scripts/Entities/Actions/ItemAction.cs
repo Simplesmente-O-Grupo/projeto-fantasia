@@ -5,32 +5,15 @@ namespace TheLegendOfGustav.Entities.Actions;
 
 public partial class ItemAction : Action
 {
-	private ConsumableItem item;
-	private Player player;
+	protected ConsumableItem item;
 
 	public ItemAction(Player player, ConsumableItem item) : base(player)
 	{
-		Item = item;
+		this.item = item;
 		Player = player;
 	}
 
-	public Player Player
-	{
-		get => player;
-		private set
-		{
-			player = value;
-		}
-	}
-
-	protected ConsumableItem Item
-	{
-		get => item;
-		set
-		{
-			item = value;
-		}
-	}
+	public Player Player { get; private set; }
 
 	public override bool Perform()
 	{

@@ -26,61 +26,60 @@ public partial class DungeonGenerator : Node
 		GD.Load<ScrollConsumableDefinition>("res://assets/definitions/Items/mana_bolt_scroll.tres"),
 		GD.Load<GrimoireConsumableDefinition>("res://assets/definitions/Items/mana_bolt_grimoire.tres")
 	];
-	#endregion
 
-	#region Properties
 	/// <summary>
 	/// Dimensões do mapa a ser criado.
 	/// </summary>
 	[ExportCategory("Dimension")]
 	[Export]
-	private int Width { get; set; } = 80;
+	private int width = 80;
 	[Export]
-	private int Height { get; set; } = 60;
+	private int height = 60;
+
+	/// <summary>
+	/// Qual seed utilizar.
+	/// </summary>
+	[Export]
+	private ulong seed;
+	/// <summary>
+	/// Se será utilizada a nossa seed ou a seed padrão da classe RandomNumberGenerator.
+	/// </summary>
+	[Export]
+	private bool useSeed = true;
+	/// <summary>
+	/// Quantas iterações do algoritmo chamar.
+	/// </summary>
+	[Export]
+	private int iterations = 3;
 
 	/// <summary>
 	/// Gerador de números aleatórios
 	/// </summary>
 	[ExportCategory("RNG")]
-	private RandomNumberGenerator Rng { get; set; } = new();
-	/// <summary>
-	/// Qual seed utilizar.
-	/// </summary>
-	[Export]
-	private ulong Seed { get; set; }
-	/// <summary>
-	/// Se será utilizada a nossa seed ou a seed padrão da classe RandomNumberGenerator.
-	/// </summary>
-	[Export]
-	private bool UseSeed { get; set; } = true;
-	/// <summary>
-	/// Quantas iterações do algoritmo chamar.
-	/// </summary>
-	[Export]
-	private int Iterations { get; set; } = 3;
+	private RandomNumberGenerator rng = new();
 
 	/// <summary>
 	/// Quantidade máxima de inimigos por sala.
 	/// </summary>
 	[ExportCategory("Monster RNG")]
 	[Export]
-	private int MaxMonsterPerRoom { get; set; } = 2;
+	private int maxMonstersPerRoom = 2;
 
 	/// <summary>
 	/// Quantidade máxima de itens por sala.
 	/// </summary>
 	[ExportCategory("Loot RNG")]
 	[Export]
-	private int MaxItemsPerRoom { get; set; } = 2;
+	private int maxItemsPerRoom = 2;
 	#endregion
 
 	#region Methods
 	public override void _Ready()
 	{
 		base._Ready();
-		if (UseSeed)
+		if (useSeed)
 		{
-			Rng.Seed = Seed;
+			rng.Seed = seed;
 		}
 	}
 
@@ -93,13 +92,13 @@ public partial class DungeonGenerator : Node
 	/// <returns>O mapa gerado.</returns>
 	public MapData GenerateDungeon(Player player)
 	{
-		MapData data = new MapData(Width, Height, player);
+		MapData data = new MapData(width, height, player);
 
 		// Divisão mestre que engloba o mapa inteiro.
-		MapDivision root = new MapDivision(0, 0, Width, Height);
+		MapDivision root = new MapDivision(0, 0, width, height);
 
 		// Chama o algoritmo para dividir o mapa.
-		root.Split(Iterations, Rng);
+		root.Split(iterations, rng);
 
 		bool first = true;
 
@@ -113,10 +112,10 @@ public partial class DungeonGenerator : Node
 
 			// A sala não pode oculpar a divisão inteira, senão não haveriam paredes.
 			room = room.GrowIndividual(
-				-Rng.RandiRange(1, 2),
-				-Rng.RandiRange(1, 2),
-				-Rng.RandiRange(1, 2),
-				-Rng.RandiRange(1, 2)
+				-rng.RandiRange(1, 2),
+				-rng.RandiRange(1, 2),
+				-rng.RandiRange(1, 2),
+				-rng.RandiRange(1, 2)
 			);
 
 			// De fato cria a sala.
@@ -236,16 +235,16 @@ public partial class DungeonGenerator : Node
 	private void PlaceEntities(MapData data, Rect2I room)
 	{
 		// Define quantos monstros serão colocados na sala
-		int monsterAmount = Rng.RandiRange(0, MaxMonsterPerRoom);
+		int monsterAmount = rng.RandiRange(0, maxMonstersPerRoom);
 		// Define quantos itens serão colocados na sala.
-		int itemAmount = Rng.RandiRange(0, MaxItemsPerRoom);
+		int itemAmount = rng.RandiRange(0, maxItemsPerRoom);
 
 		for (int i = 0; i < monsterAmount; i++)
 		{
 			// Escolhe um lugar aleatório na sala.
 			Vector2I position = new(
-				Rng.RandiRange(room.Position.X, room.End.X - 1),
-				Rng.RandiRange(room.Position.Y, room.End.Y - 1)
+				rng.RandiRange(room.Position.X, room.End.X - 1),
+				rng.RandiRange(room.Position.Y, room.End.Y - 1)
 			);
 
 			// Só podemos colocar um ator por ponto no espaço.
@@ -272,8 +271,8 @@ public partial class DungeonGenerator : Node
 		{
 			// Escolhe um lugar aleatório na sala.
 			Vector2I position = new(
-				Rng.RandiRange(room.Position.X, room.End.X - 1),
-				Rng.RandiRange(room.Position.Y, room.End.Y - 1)
+				rng.RandiRange(room.Position.X, room.End.X - 1),
+				rng.RandiRange(room.Position.Y, room.End.Y - 1)
 			);
 
 			bool canPlace = true;

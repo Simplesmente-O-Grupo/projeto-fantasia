@@ -12,18 +12,9 @@ public partial class PickupAction : DirectionalAction
 
 	public PickupAction(Player player, Vector2I offset) : base(player, offset)
 	{
-		Player = player;
+		this.player = player;
 		// Pegar itens requer um tempo menor.
-		Cost = 2;
-	}
-
-	protected Player Player
-	{
-		get => player;
-		private set
-		{
-			player = value;
-		}
+		cost = 2;
 	}
 
 	public override bool Perform()
@@ -45,7 +36,7 @@ public partial class PickupAction : DirectionalAction
 		MapData.RemoveEntity(item);
 		player.Inventory.Add(item);
 
-		player.Energy -= Cost;
+		player.Energy -= cost;
 		return true;
 	}
 }

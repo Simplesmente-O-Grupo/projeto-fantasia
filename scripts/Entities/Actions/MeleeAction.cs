@@ -49,7 +49,7 @@ public partial class MeleeAction : DirectionalAction
 		}
 
 		MessageLogData.Instance.AddMessage(attackDesc);
-		Actor.Energy -= Cost;
+		Actor.Energy -= cost;
 		return true;
 	}
 }

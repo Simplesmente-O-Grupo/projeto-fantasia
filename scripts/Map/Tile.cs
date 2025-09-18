@@ -13,7 +13,12 @@ public partial class Tile : Sprite2D
 {
 	private bool isExplored = false;
 	private bool isInView = false;
-	
+
+	/// <summary>
+	/// A definição do tile carrega seus valores padrão.
+	/// </summary>
+	private TileDefinition definition;
+
 	public Tile(Vector2I pos, TileDefinition definition)
 	{
 		// Tile herda da classe Sprite2D.
@@ -36,10 +41,7 @@ public partial class Tile : Sprite2D
 	/// </summary>
 	public bool IsTransparent { get; private set; }
 
-	/// <summary>
-	/// A definição do tile carrega seus valores padrão.
-	/// </summary>
-	private TileDefinition Definition { get; set; }
+	
 	/// <summary>
 	/// Se o jogador já viu este tile antes.
 	/// Tiles não descobertos são invisíveis.
@@ -67,7 +69,7 @@ public partial class Tile : Sprite2D
 		set
 		{
 			isInView = value;
-			Modulate = isInView ? Definition.LitColor : Definition.DarkColor;
+			Modulate = isInView ? definition.LitColor : definition.DarkColor;
 			if (IsInView && !IsExplored)
 			{
 				IsExplored = true;
@@ -81,7 +83,7 @@ public partial class Tile : Sprite2D
 	/// <param name="definition">Definição do tile.</param>
 	public void SetDefinition(TileDefinition definition)
 	{
-		Definition = definition;
+		this.definition = definition;
 		Modulate = definition.DarkColor;
 		Texture = definition.Texture;
 		IsWalkable = definition.IsWalkable;

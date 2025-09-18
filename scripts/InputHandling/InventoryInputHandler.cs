@@ -12,41 +12,41 @@ public partial class InventoryInputHandler : BaseInputHandler
 
 
 	[Export]
-	private Map.Map Map { get; set; }
+	private Map.Map map;
 
-	private InventoryMenu InventoryMenu { get; set; }
-	private ConsumableItem ActivationItem { get; set; } = null;
-	private ConsumableItem DropItem { get; set; } = null;
+	private InventoryMenu inventoryMenu;
+	private ConsumableItem activationItem = null;
+	private ConsumableItem dropItem = null;
 
 	public override void Enter()
 	{
-		InventoryMenu = inventoryScene.Instantiate<InventoryMenu>();
-		Map.MapData.Player.AddChild(InventoryMenu);
-		InventoryMenu.Initialize(Map.MapData.Player.Inventory);
-		InventoryMenu.ItemSelected += OnItemActivate;
-		InventoryMenu.ItemDrop += OnItemDrop;
+		inventoryMenu = inventoryScene.Instantiate<InventoryMenu>();
+		map.MapData.Player.AddChild(inventoryMenu);
+		inventoryMenu.Initialize(map.MapData.Player.Inventory);
+		inventoryMenu.ItemSelected += OnItemActivate;
+		inventoryMenu.ItemDrop += OnItemDrop;
 	}
 
 	public override void Exit()
 	{
-		ActivationItem = null;
-		DropItem = null;
-		InventoryMenu.QueueFree();
+		activationItem = null;
+		dropItem = null;
+		inventoryMenu.QueueFree();
 	}
 
 	public override Action GetAction(Player player)
 	{
 		Action action = null;
 
-		if (ActivationItem != null)
+		if (activationItem != null)
 		{
-			action = new ItemAction(player, ActivationItem);
+			action = new ItemAction(player, activationItem);
 			Close();
 		}
 
-		if (DropItem != null)
+		if (dropItem != null)
 		{
-			action = new DropAction(player, DropItem);
+			action = new DropAction(player, dropItem);
 			Close();
 		}
 
@@ -65,11 +65,11 @@ public partial class InventoryInputHandler : BaseInputHandler
 
 	private void OnItemActivate(ConsumableItem item)
 	{
-		ActivationItem = item;
+		activationItem = item;
 	}
 
 	private void OnItemDrop(ConsumableItem item)
 	{
-		DropItem = item;
+		dropItem = item;
 	}
 }

@@ -15,7 +15,7 @@ public partial class ActorDefinition : EntityDefinition
 
 	[ExportCategory("Mechanics")]
 	[Export]
-	public int Speed { get; set; } = 10;
+	public int Speed = 10;
 
 	// Estatísticas padrão do ator.
 	[ExportCategory("Stats")]

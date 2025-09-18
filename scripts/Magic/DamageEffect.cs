@@ -20,7 +20,7 @@ public partial class DamageEffect : SpellEffect
 		}
 
 		if (damageDealt <= 0) {
-			MessageLogData.Instance.AddMessage($"{target.DisplayName} resite o ataque mágico de {caster.DisplayName}");
+			MessageLogData.Instance.AddMessage($"{target.DisplayName} resiste o ataque mágico de {caster.DisplayName}");
 		}
 		else {
 			MessageLogData.Instance.AddMessage($"{caster.DisplayName} aplica {damageDealt} de dano mágico em {target.DisplayName}");

@@ -10,9 +10,11 @@ namespace TheLegendOfGustav.Entities.Actors;
 /// </summary>
 public partial class Enemy : Actor
 {
+	private EnemyDefinition definition;
+
 	public Enemy(Vector2I initialPosition, MapData map, EnemyDefinition definition) : base(initialPosition, map, definition)
 	{
-		Definition = definition;
+		this.definition = definition;
 		SetDefinition(definition);
 	}
 
@@ -20,8 +22,6 @@ public partial class Enemy : Actor
 	/// A alma do ator. Gera ações que são executadas todo turno.
 	/// </summary>
 	public BaseAI Soul { get; private set; }
-
-	private EnemyDefinition Definition { get; set; }
 
 	/// <summary>
 	/// Além de definir as características gerais de um ator,
@@ -31,7 +31,7 @@ public partial class Enemy : Actor
 	public void SetDefinition(EnemyDefinition definition)
 	{
 		// Definimos as características do ator.
-		base.SetDefinition(Definition);
+		base.SetDefinition(this.definition);
 
 		// Definimos qual IA utilizar.
 		switch (definition.AI)

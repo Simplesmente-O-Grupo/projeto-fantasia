@@ -4,9 +4,9 @@ namespace TheLegendOfGustav.GUI;
 
 public partial class MainMenu : Control
 {
-	private Button NewGameButton;
-	private Button LoadGameButton;
-	private Button QuitButton;
+	private Button newGameButton;
+	private Button loadGameButton;
+	private Button quitButton;
 
 	[Signal]
 	public delegate void GameRequestEventHandler(bool load);
@@ -15,17 +15,17 @@ public partial class MainMenu : Control
 	{
 		base._Ready();
 
-		NewGameButton = GetNode<Button>("VBoxContainer/CenterContainer/VBoxContainer/neogame");
-		LoadGameButton = GetNode<Button>("VBoxContainer/CenterContainer/VBoxContainer/continue");
-		QuitButton = GetNode<Button>("VBoxContainer/CenterContainer/VBoxContainer/quit");
+		newGameButton = GetNode<Button>("VBoxContainer/CenterContainer/VBoxContainer/neogame");
+		loadGameButton = GetNode<Button>("VBoxContainer/CenterContainer/VBoxContainer/continue");
+		quitButton = GetNode<Button>("VBoxContainer/CenterContainer/VBoxContainer/quit");
 
-		NewGameButton.Pressed += OnNewGameButtonPressed;
-		LoadGameButton.Pressed += OnLoadGameButtonPressed;
-		QuitButton.Pressed += OnQuitButtonPressed;
+		newGameButton.Pressed += OnNewGameButtonPressed;
+		loadGameButton.Pressed += OnLoadGameButtonPressed;
+		quitButton.Pressed += OnQuitButtonPressed;
 
-		NewGameButton.GrabFocus();
+		newGameButton.GrabFocus();
 		bool hasSaveFile = FileAccess.FileExists("user://save.dat");
-		LoadGameButton.Disabled = !hasSaveFile;
+		loadGameButton.Disabled = !hasSaveFile;
 	}
 
 	private void OnNewGameButtonPressed()

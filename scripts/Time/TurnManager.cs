@@ -12,16 +12,20 @@ namespace TheLegendOfGustav.Time;
 /// </summary>
 public partial class TurnManager(Map.Map map) : RefCounted
 {
-	public int TurnCount { get; private set; } = 0;
-	private Map.Map Map { get; set; } = map;
-	private MapData Map_Data { get => Map.MapData; }
-	private Player Player { get => Map_Data.Player; }
-
+	private Map.Map map = map;
 	/// <summary>
 	/// As ações do jogador ficam em uma fila e são executadas quando
 	/// possível dentro das regras do senhor do tempo.
 	/// </summary>
-	private Godot.Collections.Array<Action> PlayerActionQueue { get; set; } = [];
+	private Godot.Collections.Array<Action> playerActionQueue = [];
+
+	/// <summary>
+    /// A quantidade de turnos que se passaram.
+    /// </summary>
+	public int TurnCount { get; private set; } = 0;
+
+	private MapData Map_Data { get => map.MapData; }
+	private Player Player { get => Map_Data.Player; }
 
 	/// <summary>
 	/// Insere uma ação na fila de ações do jogador.
@@ -29,7 +33,7 @@ public partial class TurnManager(Map.Map map) : RefCounted
 	/// <param name="playerAction"></param>
 	public void InsertPlayerAction(Action playerAction)
 	{
-		PlayerActionQueue.Add(playerAction);
+		playerActionQueue.Add(playerAction);
 	}
 
 	/// <summary>
@@ -44,7 +48,7 @@ public partial class TurnManager(Map.Map map) : RefCounted
 	{
 		// Se o jogador puder agir mas a fila de ações estiver vazia,
 		// não computamos o turno.
-		if (PlayerActionQueue.Count == 0 && Player.Energy > 0)
+		if (playerActionQueue.Count == 0 && Player.Energy > 0)
 		{
 			return;
 		}
@@ -59,10 +63,10 @@ public partial class TurnManager(Map.Map map) : RefCounted
 
 		bool actionResult = true; ;
 		// Primeiro executamos a ação do jogador, se ele puder.
-		if (PlayerActionQueue.Count > 0 && Player.Energy > 0)
+		if (playerActionQueue.Count > 0 && Player.Energy > 0)
 		{
-			Action action = PlayerActionQueue[0];
-			PlayerActionQueue.RemoveAt(0);
+			Action action = playerActionQueue[0];
+			playerActionQueue.RemoveAt(0);
 
 			actionResult = action.Perform();
 
@@ -80,12 +84,12 @@ public partial class TurnManager(Map.Map map) : RefCounted
 		{
 			// Depois computamos os turnos dos outros atores.
 			HandleEnemyTurns();
-			Map.UpdateFOV(Player.GridPosition);
+			map.UpdateFOV(Player.GridPosition);
 		}
 		// Por fim, se o jogador mudou de lugar, atualizamos seu campo de visão.
 		if (Player.GridPosition != previousPlayerPos)
 		{
-			Map.UpdateFOV(Player.GridPosition);
+			map.UpdateFOV(Player.GridPosition);
 		}
 	}
 

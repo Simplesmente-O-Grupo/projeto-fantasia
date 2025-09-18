@@ -6,13 +6,13 @@ namespace TheLegendOfGustav.GUI;
 
 public partial class MessageLog : ScrollContainer
 {
-	private VBoxContainer MessageList { get; set; }
+	private VBoxContainer messageList;
 
 	private MessageLogData.messageSentEventHandler joinSignal;
 	public override void _Ready()
 	{
 		base._Ready();
-		MessageList = GetNode<VBoxContainer>("MessageList");
+		messageList = GetNode<VBoxContainer>("MessageList");
 
 		foreach (Message msg in MessageLogData.Instance.Messages)
 		{
@@ -38,7 +38,7 @@ public partial class MessageLog : ScrollContainer
 
 	private async Task AddMessageAsync(Message message)
 	{
-		MessageList.AddChild(message);
+		messageList.AddChild(message);
 		await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
 		EnsureControlVisible(message);
 	}

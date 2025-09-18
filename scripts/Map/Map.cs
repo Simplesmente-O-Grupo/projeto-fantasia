@@ -10,34 +10,34 @@ namespace TheLegendOfGustav.Map;
 public partial class Map : Node2D
 {
 	/// <summary>
-	/// Dados do mapa.
-	/// </summary>
-	public MapData MapData { get; private set; }
-
-	/// <summary>
 	/// raio de alcance da visão do jogador.
 	/// </summary>
 	[Export]
-	private int FovRadius { get; set; } = 12;
+	private int fovRadius = 12;
+
+	private FieldOfView fieldOfView;
+
+	private Node2D tilesNode;
+	private Node2D entitiesNode;
 
 	/// <summary>
 	/// Gerador de mapas.
 	/// </summary>
-	private DungeonGenerator Generator { get; set; }
+	private DungeonGenerator generator;
 
-	FieldOfView FieldOfView { get; set; }
-
-	private Node2D TilesNode { get; set; }
-	private Node2D EntitiesNode { get; set; }
-
+	/// <summary>
+	/// Dados do mapa.
+	/// </summary>
+	public MapData MapData { get; private set; }
+	
 	public override void _Ready()
 	{
 		base._Ready();
 		// Começamos obtendo nós relevantes para o mapa.
-		Generator = GetNode<DungeonGenerator>("Generator");
-		FieldOfView = GetNode<FieldOfView>("FieldOfView");
-		TilesNode = GetNode<Node2D>("Tiles");
-		EntitiesNode = GetNode<Node2D>("Entities");
+		generator = GetNode<DungeonGenerator>("Generator");
+		fieldOfView = GetNode<FieldOfView>("FieldOfView");
+		tilesNode = GetNode<Node2D>("Tiles");
+		entitiesNode = GetNode<Node2D>("Entities");
 	}
 
 	/// <summary>
@@ -46,7 +46,7 @@ public partial class Map : Node2D
 	/// <param name="player">O gerador de mapas precisa do jogador.</param>
 	public void Generate(Player player)
 	{
-		MapData = Generator.GenerateDungeon(player);
+		MapData = generator.GenerateDungeon(player);
 
 		MapData.EntityPlaced += OnEntityPlaced;
 
@@ -60,7 +60,7 @@ public partial class Map : Node2D
 	/// <param name="pos">Centro de visão, normalmente é a posição do jogador.</param>
 	public void UpdateFOV(Vector2I pos)
 	{
-		FieldOfView.UpdateFOV(MapData, pos, FovRadius);
+		fieldOfView.UpdateFOV(MapData, pos, fovRadius);
 		// Esconde ou revela entidades com base no campo de visão.
 		foreach (Entity entity in MapData.Entities)
 		{
@@ -76,7 +76,7 @@ public partial class Map : Node2D
 	{
 		foreach (Tile tile in MapData.Tiles)
 		{
-			TilesNode.AddChild(tile);
+			tilesNode.AddChild(tile);
 		}
 	}
 
@@ -87,12 +87,12 @@ public partial class Map : Node2D
 	{
 		foreach (Entity entity in MapData.Entities)
 		{
-			EntitiesNode.AddChild(entity);
+			entitiesNode.AddChild(entity);
 		}
 	}
 
 	private void OnEntityPlaced(Entity entity)
 	{
-		EntitiesNode.AddChild(entity);
+		entitiesNode.AddChild(entity);
 	}
 }

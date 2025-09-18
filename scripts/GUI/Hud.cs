@@ -3,7 +3,7 @@ using Godot;
 
 namespace TheLegendOfGustav.GUI;
 
-public partial class Hud : Node
+public partial class Hud : CanvasLayer
 {
 	private TextureProgressBar hpBar;
 	private TextureProgressBar mpBar;

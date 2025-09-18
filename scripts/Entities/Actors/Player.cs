@@ -9,13 +9,14 @@ namespace TheLegendOfGustav.Entities.Actors;
 [GlobalClass]
 public partial class Player : Actor
 {
+	private PlayerDefinition definition;
+
 	public Player(Vector2I initialPosition, MapData map, PlayerDefinition definition) : base(initialPosition, map, definition)
 	{
-		Definition = definition;
+		this.definition = definition;
 		SetDefinition(definition);
 	}
 
-	private PlayerDefinition Definition { get; set; }
 	public Inventory Inventory { get; private set; }
 
 	public void SetDefinition(PlayerDefinition definition)

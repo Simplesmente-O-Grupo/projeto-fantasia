@@ -23,7 +23,7 @@ public partial class MovementAction : DirectionalAction
 		if (GetTarget() != null) return true;
 
 		Actor.Walk(Offset);
-		Actor.Energy -= Cost;
+		Actor.Energy -= cost;
 
 		return true;
 	}

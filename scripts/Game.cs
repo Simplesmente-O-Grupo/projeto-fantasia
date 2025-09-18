@@ -21,22 +21,22 @@ public partial class Game : Node
 	/// <summary>
 	/// O jogo possui o mapa.
 	/// </summary>
-	private Map.Map Map { get; set; }
+	private Map.Map map;
 	/// <summary>
 	/// Objeto para obter input do usuário.
 	/// </summary>
-	private InputHandler InputHandler { get; set; }
+	private InputHandler inputHandler;
 	/// <summary>
 	/// Gerenciador de turnos
 	/// </summary>
-	private TurnManager TurnManager { get; set; }
+	private TurnManager turnManager;
 
 	private Hud hud;
 
+	private SignalBus.EscapeRequestedEventHandler escapeLambda;
+
 	[Signal]
 	public delegate void MainMenuRequestedEventHandler();
-
-	private SignalBus.EscapeRequestedEventHandler escapeLambda;
 
 	public override void _Ready()
 	{
@@ -45,9 +45,9 @@ public partial class Game : Node
 		escapeLambda = () => EmitSignal(SignalName.MainMenuRequested);
 		SignalBus.Instance.EscapeRequested += escapeLambda;
 
-		Map = GetNode<Map.Map>("Map");
+		map = GetNode<Map.Map>("Map");
 
-		InputHandler = GetNode<InputHandler>("InputHandler");
+		inputHandler = GetNode<InputHandler>("InputHandler");
 		hud = GetNode<Hud>("HUD");
 
 		// O jogador é criado pelo jogo.
@@ -56,15 +56,15 @@ public partial class Game : Node
 		RemoveChild(camera);
 		player.HealthChanged += (int hp, int maxHp) => hud.OnHealthChanged(hp, maxHp);
 		player.ManaChanged += hud.OnManaChanged;
-		player.Died += () => InputHandler.SetInputHandler(InputHandlers.GameOver);
+		player.Died += () => inputHandler.SetInputHandler(InputHandlers.GameOver);
 
 		player.AddChild(camera);
 
-		Map.Generate(player);
+		map.Generate(player);
 
-		Map.UpdateFOV(player.GridPosition);
+		map.UpdateFOV(player.GridPosition);
 
-		TurnManager = new(Map);
+		turnManager = new(map);
 
 		MessageLogData.Instance.AddMessage("Boa sorte!");
 	}
@@ -90,18 +90,18 @@ public partial class Game : Node
 	{
 		base._PhysicsProcess(delta);
 
-		Player player = Map.MapData.Player;
+		Player player = map.MapData.Player;
 
 		// Pegamos uma ação do usuário
-		Action action = InputHandler.GetAction(player);
+		Action action = inputHandler.GetAction(player);
 
 		if (action != null)
 		{
-			TurnManager.InsertPlayerAction(action);
+			turnManager.InsertPlayerAction(action);
 		}
 
 		// Computamos um turno.
-		TurnManager.Tick();
+		turnManager.Tick();
 	}
 
 }

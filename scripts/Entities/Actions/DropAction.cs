@@ -11,7 +11,7 @@ public partial class DropAction : ItemAction
 
 	public override bool Perform()
 	{
-		Player.Inventory.Drop(Item);
+		Player.Inventory.Drop(item);
 		return true;
 	}
 }

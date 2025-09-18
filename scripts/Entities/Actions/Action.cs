@@ -10,47 +10,29 @@ namespace TheLegendOfGustav.Entities.Actions;
 /// </summary>
 public abstract partial class Action : RefCounted
 {
-	private Actor actor;
-
-	private int cost;
+	/// <summary>
+	/// O custo da ação.
+	/// </summary>
+	protected int cost;
 
 	public Action(Actor actor)
 	{
 		Actor = actor;
 		// Custo base, subclasses podem sobreescrever isto se quiserem.
-		Cost = 10;
+		cost = 10;
 	}
 
 	/// <summary>
 	/// O ator que realiza a ação.
 	/// </summary>
-	public Actor Actor
-	{
-		get => actor;
-		private set
-		{
-			actor = value;
-		}
-	}
-
-	/// <summary>
-	/// O custo da ação.
-	/// </summary>
-	protected int Cost
-	{
-		get => cost;
-		set
-		{
-			cost = value;
-		}
-	}
+	public Actor Actor { get; private set; }
 
 	/// <summary>
 	/// É conveniente ter acesso ao mapa dentro de uma ação.
 	/// </summary>
 	protected MapData MapData
 	{
-		get => actor.MapData;
+		get => Actor.MapData;
 	}
 
 	/// <summary>

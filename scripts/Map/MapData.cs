@@ -19,7 +19,7 @@ public partial class MapData : RefCounted
 	/// Peso do ator no pathfinder.
 	/// A IA irá evitar de passar por espaços com peso alto.
 	/// </summary>
-	private static readonly float EntityWeight = 10.0f;
+	private static readonly float entityWeight = 10.0f;
 	#endregion
 
 	#region Constructor
@@ -138,7 +138,7 @@ public partial class MapData : RefCounted
 	/// <param name="entity">A entidade em questão.</param>
 	public void RegisterBlockingEntity(Entity entity)
 	{
-		Pathfinder.SetPointWeightScale(entity.GridPosition, EntityWeight);
+		Pathfinder.SetPointWeightScale(entity.GridPosition, entityWeight);
 	}
 
 	/// <summary>

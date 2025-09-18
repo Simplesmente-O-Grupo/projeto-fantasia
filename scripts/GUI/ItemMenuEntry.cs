@@ -6,39 +6,39 @@ namespace TheLegendOfGustav.GUI;
 
 public partial class ItemMenuEntry : HBoxContainer
 {
+	private TextureRect icon;
+	private Label shortcutLabel;
+	private Label nameLabel;
+	private Button activateBtn;
+	private Button dropBtn;
+	private ConsumableItem item;
+
 	[Signal]
 	public delegate void ActivateEventHandler(ConsumableItem Item);
 
 	[Signal]
 	public delegate void DropEventHandler(ConsumableItem Item);
 
-	private TextureRect Icon { get; set; }
-	private Label ShortcutLabel { get; set; }
-	private Label NameLabel { get; set; }
-	private Button ActivateBtn { get; set; }
-	private Button DropBtn { get; set; }
-	private ConsumableItem Item { get; set; }
-
 	public override void _Ready()
 	{
 		base._Ready();
-		Icon = GetNode<TextureRect>("Icon");
-		ShortcutLabel = GetNode<Label>("Shortcut");
-		NameLabel = GetNode<Label>("ItemName");
-		ActivateBtn = GetNode<Button>("ActivateBtn");
-		DropBtn = GetNode<Button>("DropButton");
+		icon = GetNode<TextureRect>("Icon");
+		shortcutLabel = GetNode<Label>("Shortcut");
+		nameLabel = GetNode<Label>("ItemName");
+		activateBtn = GetNode<Button>("ActivateBtn");
+		dropBtn = GetNode<Button>("DropButton");
 
-		ActivateBtn.Pressed += () => EmitSignal(SignalName.Activate, Item);
-		DropBtn.Pressed += () => EmitSignal(SignalName.Drop, Item);
+		activateBtn.Pressed += () => EmitSignal(SignalName.Activate, item);
+		dropBtn.Pressed += () => EmitSignal(SignalName.Drop, item);
 	}
 
 	public void Initialize(ConsumableItem item, char? shortcut)
 	{
-		Item = item;
-		NameLabel.Text = item.DisplayName;
+		this.item = item;
+		nameLabel.Text = item.DisplayName;
 		if (shortcut != null)
 		{
-			ShortcutLabel.Text = $"{shortcut}";
+			shortcutLabel.Text = $"{shortcut}";
 
 
 			int index = (int)shortcut - 'a';
@@ -63,13 +63,13 @@ public partial class ItemMenuEntry : HBoxContainer
 				Events = [dropEvent]
 			};
 
-			ActivateBtn.Shortcut = shortie;
-			DropBtn.Shortcut = dropperino;
+			activateBtn.Shortcut = shortie;
+			dropBtn.Shortcut = dropperino;
 		}
 		else
 		{
-			ShortcutLabel.Text = "";
+			shortcutLabel.Text = "";
 		}
-		Icon.Texture = item.Texture;
+		icon.Texture = item.Texture;
 	}
 }

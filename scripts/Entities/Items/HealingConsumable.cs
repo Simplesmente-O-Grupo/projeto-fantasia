@@ -8,7 +8,7 @@ namespace TheLegendOfGustav.Entities.Items;
 
 public partial class HealingConsumable(Vector2I initialPosition, MapData map, HealingConsumableDefinition definition) : ConsumableItem(initialPosition, map, definition)
 {
-	private HealingConsumableDefinition Definition { get; set; } = definition;
+	private HealingConsumableDefinition definition = definition;
 	public float HealingPercentage { get; private set; } = definition.healingPercentage;
 
 	public override bool Activate(ItemAction action)

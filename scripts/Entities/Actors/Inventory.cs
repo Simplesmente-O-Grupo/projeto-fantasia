@@ -7,27 +7,27 @@ namespace TheLegendOfGustav.Entities.Actors;
 
 public partial class Inventory(int capacity) : Node
 {
-	private Player Player { get; set; }
+	private Player player;
 	public int Capacity { get; private set; } = capacity;
 	public Godot.Collections.Array<ConsumableItem> Items { get; private set; } = [];
 
 	public override void _Ready()
 	{
 		base._Ready();
-		Player = GetParent<Player>();
+		player = GetParent<Player>();
 	}
 
 	public void Drop(ConsumableItem item)
 	{
 		Items.Remove(item);
 
-		MapData data = Player.MapData;
+		MapData data = player.MapData;
 		
 		data.InsertEntity(item);
 		data.EmitSignal(MapData.SignalName.EntityPlaced, item);
 		
 		item.MapData = data;
-		item.GridPosition = Player.GridPosition;
+		item.GridPosition = player.GridPosition;
 
 		MessageLogData.Instance.AddMessage($"Você descarta {item.DisplayName}.");
 	}

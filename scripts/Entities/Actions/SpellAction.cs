@@ -16,7 +16,7 @@ public partial class SpellAction : DirectionalAction
 	{
 		this.spell = spell;
 
-		Cost = 5;
+		cost = 5;
 	}
 
 	public override bool Perform()
@@ -53,7 +53,7 @@ public partial class SpellAction : DirectionalAction
 			effect.Apply(Actor, target);
 		}
 
-		Actor.Energy -= Cost;
+		Actor.Energy -= cost;
 		return true;
 	}
 }

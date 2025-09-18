@@ -26,6 +26,12 @@ public abstract partial class Entity : Sprite2D
 	private bool blocksMovement;
 	private string displayName;
 
+	/// <summary>
+	/// A definição da entidade possui caracterísitcas padrões que definem
+	/// a entidade em questão.
+	/// </summary>
+	private EntityDefinition definition;
+
 	public Entity(Vector2I initialPosition, MapData map, EntityDefinition definition)
 	{
 		GridPosition = initialPosition;
@@ -94,12 +100,6 @@ public abstract partial class Entity : Sprite2D
 		}
 	}
 
-	/// <summary>
-	/// A definição da entidade possui caracterísitcas padrões que definem
-	/// a entidade em questão.
-	/// </summary>
-	private EntityDefinition Definition;
-
 	public override void _Ready()
 	{
 		base._Ready();
@@ -118,7 +118,7 @@ public abstract partial class Entity : Sprite2D
 	/// <param name="definition">A definição do ator.</param>
 	public virtual void SetDefinition(EntityDefinition definition)
 	{
-		Definition = definition;
+		this.definition = definition;
 		BlocksMovement = definition.blocksMovement;
 		DisplayName = definition.name;
 		Type = definition.Type;

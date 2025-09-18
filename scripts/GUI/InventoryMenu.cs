@@ -8,18 +8,18 @@ public partial class InventoryMenu : CanvasLayer
 {
 	private static readonly PackedScene itemMenuEntryScene = GD.Load<PackedScene>("res://scenes/GUI/item_menu_entry.tscn");
 	
+	private VBoxContainer itemsNode;
+	
 	[Signal]
 	public delegate void ItemSelectedEventHandler(ConsumableItem item);
 	[Signal]
 	public delegate void ItemDropEventHandler(ConsumableItem item);
 
-	private VBoxContainer ItemsNode { get; set; }
-
 	public override void _Ready()
 	{
 		base._Ready();
 
-		ItemsNode = GetNode<VBoxContainer>("CenterContainer/PanelContainer/VBoxContainer/Items");
+		itemsNode = GetNode<VBoxContainer>("CenterContainer/PanelContainer/VBoxContainer/Items");
 		Hide();
 	}
 
@@ -55,7 +55,7 @@ public partial class InventoryMenu : CanvasLayer
 
 		ItemMenuEntry itemEntry = itemMenuEntryScene.Instantiate<ItemMenuEntry>();
 
-		ItemsNode.AddChild(itemEntry);
+		itemsNode.AddChild(itemEntry);
 		itemEntry.Initialize(item, shortcut);
 		itemEntry.Activate += OnActivate;
 		itemEntry.Drop += OnDrop;

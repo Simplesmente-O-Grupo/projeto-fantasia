@@ -16,6 +16,12 @@ public partial class Actor : Entity
 	private int hp;
 
 	private int energy;
+
+	/// <summary>
+	/// A definição do ator possui caracterísitcas padrões que definem
+	/// o ator em questão.
+	/// </summary>
+	private ActorDefinition definition;
 	#endregion
 
 	#region Constructors
@@ -77,7 +83,7 @@ public partial class Actor : Entity
 	/// <summary>
 	/// Taxa de recarga de energia.
 	/// </summary>
-	public int Speed { get => Definition.Speed; }
+	public int Speed { get => definition.Speed; }
 
 	/// <summary>
 	/// HP máximo do ator.
@@ -141,16 +147,6 @@ public partial class Actor : Entity
     /// Quanto de mana para recarregar.
     /// </summary>
 	public int MpRegenPerTurn { get; private set; } = 5;
-
-	/// <summary>
-	/// A definição do ator possui caracterísitcas padrões que definem
-	/// o ator em questão.
-	/// </summary>
-	private ActorDefinition Definition
-	{
-		get;
-		set;
-	}
 
 	public SpellBook SpellBook { get; private set; } = new();
 	#endregion
@@ -220,7 +216,7 @@ public partial class Actor : Entity
 	public virtual void SetDefinition(ActorDefinition definition)
 	{
 		base.SetDefinition(definition);
-		Definition = definition;
+		this.definition = definition;
 
 		Type = definition.Type;
 
@@ -275,7 +271,7 @@ public partial class Actor : Entity
 
 		MessageLogData.Instance.AddMessage(deathMessage);
 
-		Texture = Definition.deathTexture;
+		Texture = definition.deathTexture;
 		BlocksMovement = false;
 		Type = EntityType.CORPSE;
 		DisplayName = $"Restos mortais de {DisplayName}";

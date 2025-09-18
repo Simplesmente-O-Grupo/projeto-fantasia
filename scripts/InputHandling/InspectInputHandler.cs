@@ -10,7 +10,7 @@ namespace TheLegendOfGustav.InputHandling;
 /// </summary>
 public partial class InspectInputHandler : BaseInputHandler
 {
-	private static readonly PackedScene InspectorScene = GD.Load<PackedScene>("res://scenes/Inspector.tscn");
+	private static readonly PackedScene inspectorScene = GD.Load<PackedScene>("res://scenes/Inspector.tscn");
 
 	private static readonly Godot.Collections.Dictionary<string, Vector2I> directions = new()
 	{
@@ -28,23 +28,23 @@ public partial class InspectInputHandler : BaseInputHandler
 	/// Preciso disso
 	/// </summary>
 	[Export]
-	private Map.Map Map { get; set; }
+	private Map.Map map;
 
-	private Inspector Inspector { get; set; }
+	private Inspector inspector;
 
 	public override void Enter()
 	{
 		SignalBus.Instance.EmitSignal(SignalBus.SignalName.EnterInspectionMode);
-		Inspector = InspectorScene.Instantiate<Inspector>();
+		inspector = inspectorScene.Instantiate<Inspector>();
 
-		Inspector.GridPosition = Map.MapData.Player.GridPosition;
+		inspector.GridPosition = map.MapData.Player.GridPosition;
 
-		Map.AddChild(Inspector);
+		map.AddChild(inspector);
 	}
 
 	public override void Exit()
 	{
-		Inspector.QueueFree();
+		inspector.QueueFree();
 
 		SignalBus.Instance.EmitSignal(SignalBus.SignalName.ExitInspectionMode);
 	}
@@ -56,7 +56,7 @@ public partial class InspectInputHandler : BaseInputHandler
 		{
 			if (Input.IsActionJustPressed(direction.Key))
 			{
-				Inspector.Walk(direction.Value);
+				inspector.Walk(direction.Value);
 			}
 		}
 

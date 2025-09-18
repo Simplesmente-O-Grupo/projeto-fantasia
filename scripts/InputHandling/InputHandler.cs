@@ -23,38 +23,38 @@ public enum InputHandlers
 public partial class InputHandler : Node
 {
 	[Export]
-	private InputHandlers StartingInputHandler { get; set; }
+	private InputHandlers startingInputHandler;
 
-	private Godot.Collections.Dictionary<InputHandlers, BaseInputHandler> InputHandlerDict { get; set; } = [];
+	private Godot.Collections.Dictionary<InputHandlers, BaseInputHandler> inputHandlerDict = [];
 
-	private BaseInputHandler SelectedInputHandler { get; set; }
+	private BaseInputHandler selectedInputHandler;
 
 	public override void _Ready()
 	{
 		base._Ready();
 		// Controles para quando o jogador está vivo e jogando normalmente.
-		InputHandlerDict.Add(InputHandlers.MainGame, GetNode<MainGameInputHandler>("MainGameInputHandler"));
+		inputHandlerDict.Add(InputHandlers.MainGame, GetNode<MainGameInputHandler>("MainGameInputHandler"));
 		// Controles para quando o jogador está morto.
-		InputHandlerDict.Add(InputHandlers.GameOver, GetNode<GameOverInputHandler>("GameOverInputHandler"));
+		inputHandlerDict.Add(InputHandlers.GameOver, GetNode<GameOverInputHandler>("GameOverInputHandler"));
 		// Controles para observar o cenário
-		InputHandlerDict.Add(InputHandlers.Inspect, GetNode<InspectInputHandler>("InspectInputHandler"));
+		inputHandlerDict.Add(InputHandlers.Inspect, GetNode<InspectInputHandler>("InspectInputHandler"));
 		// Controles para pegar um item do chão.
-		InputHandlerDict.Add(InputHandlers.Pickup, GetNode<PickupInputHandler>("PickupInputHandler"));
+		inputHandlerDict.Add(InputHandlers.Pickup, GetNode<PickupInputHandler>("PickupInputHandler"));
 		// Controles para quando o inventário for aberto.
-		InputHandlerDict.Add(InputHandlers.Inventory, GetNode<InventoryInputHandler>("InventoryInputHandler"));
+		inputHandlerDict.Add(InputHandlers.Inventory, GetNode<InventoryInputHandler>("InventoryInputHandler"));
 		// Controles para quando o jogador precisar escolher um alvo de feitiço.
-		InputHandlerDict.Add(InputHandlers.CastSpell, GetNode<CastSpellInputHandler>("CastSpellInputHandler"));
+		inputHandlerDict.Add(InputHandlers.CastSpell, GetNode<CastSpellInputHandler>("CastSpellInputHandler"));
 		// Controles para quando o menu de feitiços for aberto.
-		InputHandlerDict.Add(InputHandlers.SpellMenu, GetNode<SpellMenuInputHandler>("SpellMenuInputHandler"));
+		inputHandlerDict.Add(InputHandlers.SpellMenu, GetNode<SpellMenuInputHandler>("SpellMenuInputHandler"));
 
-		SetInputHandler(StartingInputHandler);
+		SetInputHandler(startingInputHandler);
 
 		SignalBus.Instance.CommandInputHandler += SetInputHandler;
 	}
 
 	public Action GetAction(Player player)
 	{
-		return SelectedInputHandler.GetAction(player);
+		return selectedInputHandler.GetAction(player);
 	}
 
 	public override void _Notification(int what)
@@ -73,8 +73,8 @@ public partial class InputHandler : Node
 	/// <param name="inputhandler">Estado do jogo.</param>
 	public void SetInputHandler(InputHandlers inputhandler)
 	{
-		SelectedInputHandler?.Exit();
-		SelectedInputHandler = InputHandlerDict[inputhandler];
-		SelectedInputHandler.Enter();
+		selectedInputHandler?.Exit();
+		selectedInputHandler = inputHandlerDict[inputhandler];
+		selectedInputHandler.Enter();
 	}
 }
