@@ -2,20 +2,18 @@
 
 [ext_resource type="Script" uid="uid://bd78nfh1tsjq6" path="res://scripts/Entities/Actors/PlayerDefinition.cs" id="1_2k33r"]
 [ext_resource type="Texture2D" uid="uid://w0808ug4al66" path="res://assets/sprites/actors/generic_grave.png" id="1_m72ac"]
-[ext_resource type="Texture2D" uid="uid://dwky8qc2y602k" path="res://assets/sprites/actors/player.png" id="3_frwfa"]
+[ext_resource type="Texture2D" uid="uid://cqo28rmbq78c" path="res://assets/sprites/actors/Knight.png" id="3_m72ac"]
 
 [resource]
 script = ExtResource("1_2k33r")
 InventoryCapacity = 20
 deathTexture = ExtResource("1_m72ac")
-Speed = 10
 Hp = 36
 Mp = 12
 Atk = 8
 Def = 2
 Men = 3
 name = "Jogador"
-texture = ExtResource("3_frwfa")
+texture = ExtResource("3_m72ac")
 Type = 2
-blocksMovement = true
 metadata/_custom_type_script = "uid://bd78nfh1tsjq6"

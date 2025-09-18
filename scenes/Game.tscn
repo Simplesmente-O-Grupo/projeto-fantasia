@@ -23,8 +23,8 @@ script = ExtResource("3_cpr0p")
 
 [node name="Generator" type="Node" parent="Map"]
 script = ExtResource("4_78awf")
-UseSeed = false
-Iterations = 7
+useSeed = false
+iterations = 6
 
 [node name="FieldOfView" type="Node" parent="Map"]
 script = ExtResource("5_s0nni")
@@ -46,16 +46,14 @@ script = ExtResource("3_400sg")
 [node name="GameOverInputHandler" type="Node" parent="InputHandler"]
 script = ExtResource("4_g4kob")
 
-[node name="InspectInputHandler" type="Node" parent="InputHandler" node_paths=PackedStringArray("Map")]
+[node name="InspectInputHandler" type="Node" parent="InputHandler"]
 script = ExtResource("5_g4kob")
-Map = NodePath("../../Map")
 
 [node name="PickupInputHandler" type="Node" parent="InputHandler"]
 script = ExtResource("10_3xj3m")
 
-[node name="InventoryInputHandler" type="Node" parent="InputHandler" node_paths=PackedStringArray("Map")]
+[node name="InventoryInputHandler" type="Node" parent="InputHandler"]
 script = ExtResource("11_mcffj")
-Map = NodePath("../../Map")
 
 [node name="CastSpellInputHandler" type="Node" parent="InputHandler" node_paths=PackedStringArray("map")]
 script = ExtResource("12_2rd6h")
