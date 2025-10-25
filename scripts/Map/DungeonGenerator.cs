@@ -21,10 +21,9 @@ public partial class DungeonGenerator : Node
 		GD.Load<EnemyDefinition>("res://assets/definitions/actor/Shadow.tres"),
 	];
 
-	private static readonly Godot.Collections.Array<ConsumableItemDefinition> items = [
-		GD.Load<HealingConsumableDefinition>("res://assets/definitions/Items/small_healing_potion.tres"),
-		GD.Load<ScrollConsumableDefinition>("res://assets/definitions/Items/mana_bolt_scroll.tres"),
-		GD.Load<GrimoireConsumableDefinition>("res://assets/definitions/Items/mana_bolt_grimoire.tres")
+	private static readonly Godot.Collections.Array<ItemResource> items = [
+		GD.Load<ItemResource>("res://assets/definitions/Items/small_healing_potion.tres"),
+		GD.Load<ItemResource>("res://assets/definitions/Items/mana_bolt_grimoire.tres")
 	];
 
 	/// <summary>
@@ -275,7 +274,7 @@ public partial class DungeonGenerator : Node
 				rng.RandiRange(room.Position.Y, room.End.Y - 1)
 			);
 
-			bool canPlace = true;
+			bool canPlace = items.Count > 0;
 			foreach (Entity entity in data.Entities)
 			{
 				if (entity.GridPosition == position)
@@ -288,21 +287,10 @@ public partial class DungeonGenerator : Node
 			// Se possível, criamos um inimigo aleatório na posição escolhida.
 			if (canPlace)
 			{
-				ConsumableItemDefinition definition = items.PickRandom();
-				if (definition is HealingConsumableDefinition hcDefinition)
-				{
-					HealingConsumable item = new(position, data, hcDefinition);
-					data.InsertEntity(item);
-				}
-				else if (definition is ScrollConsumableDefinition scroll)
-				{
-					ScrollConsumable item = new(position, data, scroll);
-					data.InsertEntity(item);
-				} else if (definition is GrimoireConsumableDefinition grimoire)
-				{
-					GrimoireConsumable item = new(position, data, grimoire);
-					data.InsertEntity(item);
-				}
+				ItemResource itemRes = items.PickRandom();
+				Item item = new(itemRes);
+				ItemEntity itemEnt = new(position, data, item);
+				data.InsertEntity(itemEnt);
 			}
 		}
 	}

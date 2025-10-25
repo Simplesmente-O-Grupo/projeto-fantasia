@@ -70,14 +70,14 @@ public partial class MapData : RefCounted
 	/// <summary>
     /// Lista de todos os itens dentro do mapa.
     /// </summary>
-	public Godot.Collections.Array<ConsumableItem> Items
+	public Godot.Collections.Array<ItemEntity> Items
 	{
 		get
 		{
-			Godot.Collections.Array<ConsumableItem> list = [];
+			Godot.Collections.Array<ItemEntity> list = [];
 			foreach (Entity entity in Entities)
 			{
-				if (entity is ConsumableItem item)
+				if (entity is ItemEntity item)
 				{
 					list.Add(item);
 				}
@@ -207,9 +207,9 @@ public partial class MapData : RefCounted
 	/// </summary>
 	/// <param name="pos">Posição</param>
 	/// <returns>O primeiro item na posição, nulo se não houver.</returns>
-	public ConsumableItem GetFirstItemAtPosition(Vector2I pos)
+	public ItemEntity GetFirstItemAtPosition(Vector2I pos)
 	{
-		foreach (ConsumableItem item in Items)
+		foreach (ItemEntity item in Items)
 		{
 			if (item.GridPosition == pos)
 			{

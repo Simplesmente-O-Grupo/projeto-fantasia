@@ -9,7 +9,7 @@ public partial class Inventory(int capacity) : Node
 {
 	private Player player;
 	public int Capacity { get; private set; } = capacity;
-	public Godot.Collections.Array<ConsumableItem> Items { get; private set; } = [];
+	public Godot.Collections.Array<Item> Items { get; private set; } = [];
 
 	public override void _Ready()
 	{
@@ -17,29 +17,28 @@ public partial class Inventory(int capacity) : Node
 		player = GetParent<Player>();
 	}
 
-	public void Drop(ConsumableItem item)
+	public void Drop(Item item)
 	{
 		Items.Remove(item);
 
 		MapData data = player.MapData;
-		
-		data.InsertEntity(item);
-		data.EmitSignal(MapData.SignalName.EntityPlaced, item);
-		
-		item.MapData = data;
-		item.GridPosition = player.GridPosition;
 
-		MessageLogData.Instance.AddMessage($"Você descarta {item.DisplayName}.");
+		ItemEntity itemEnt = new(player.GridPosition, data, item);
+
+		data.InsertEntity(itemEnt);
+		data.EmitSignal(MapData.SignalName.EntityPlaced, itemEnt);
+		
+		MessageLogData.Instance.AddMessage($"Você descarta {item.Definition.DisplayName}.");
 	}
 
-	public void Add(ConsumableItem item)
+	public void Add(Item item)
 	{
 		if (Items.Count >= Capacity) return;
 
 		Items.Add(item);
 	}
 
-	public void RemoveItem(ConsumableItem item)
+	public void RemoveItem(Item item)
 	{
 		Items.Remove(item);
 	}

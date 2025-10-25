@@ -5,9 +5,9 @@ namespace TheLegendOfGustav.Entities.Actions;
 
 public partial class ItemAction : Action
 {
-	protected ConsumableItem item;
+	protected Item item;
 
-	public ItemAction(Player player, ConsumableItem item) : base(player)
+	public ItemAction(Player player, Item item) : base(player)
 	{
 		this.item = item;
 		Player = player;

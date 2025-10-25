@@ -1,13 +1,24 @@
-[gd_resource type="Resource" script_class="HealingConsumableDefinition" load_steps=3 format=3 uid="uid://bm6yx6rwh8bds"]
+[gd_resource type="Resource" script_class="ItemResource" load_steps=7 format=3 uid="uid://bb2lhoglbafb4"]
 
-[ext_resource type="Script" uid="uid://b3qy4gtjfci14" path="res://scripts/Entities/Items/HealingConsumableDefinition.cs" id="1_4dl2g"]
-[ext_resource type="Texture2D" uid="uid://b7drpdbk4lggb" path="res://assets/sprites/items/small_health_potion.png" id="2_esrbk"]
+[ext_resource type="Script" uid="uid://bybli1lduvm3n" path="res://scripts/Entities/Items/ItemResource.cs" id="1_4dl2g"]
+[ext_resource type="Script" uid="uid://bslt4pbvwvsj1" path="res://scripts/Magic/HealEffect.cs" id="1_fmuec"]
+[ext_resource type="Script" uid="uid://b72fwkwul1wet" path="res://scripts/Entities/Items/SpellEffectItemActivation.cs" id="2_nd4hc"]
+[ext_resource type="Texture2D" uid="uid://b7drpdbk4lggb" path="res://assets/sprites/items/small_health_potion.png" id="3_e450c"]
+
+[sub_resource type="Resource" id="Resource_qjoe0"]
+script = ExtResource("1_fmuec")
+Healing = 4
+metadata/_custom_type_script = "uid://bslt4pbvwvsj1"
+
+[sub_resource type="Resource" id="Resource_72281"]
+script = ExtResource("2_nd4hc")
+effect = SubResource("Resource_qjoe0")
+metadata/_custom_type_script = "uid://b72fwkwul1wet"
 
 [resource]
 script = ExtResource("1_4dl2g")
-healingPercentage = 10.0
-name = "Poção de vida pequena"
-texture = ExtResource("2_esrbk")
-Type = 1
-blocksMovement = false
-metadata/_custom_type_script = "uid://b3qy4gtjfci14"
+DisplayName = "Poção de vida pequena"
+Icon = ExtResource("3_e450c")
+Description = "Recupera um pouco de vida lol"
+Activation = SubResource("Resource_72281")
+metadata/_custom_type_script = "uid://bybli1lduvm3n"

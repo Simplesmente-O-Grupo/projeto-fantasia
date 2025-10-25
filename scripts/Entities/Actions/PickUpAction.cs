@@ -19,7 +19,7 @@ public partial class PickupAction : DirectionalAction
 
 	public override bool Perform()
 	{
-		ConsumableItem item = MapData.GetFirstItemAtPosition(Destination);
+		ItemEntity item = MapData.GetFirstItemAtPosition(Destination);
 
 		if (item == null)
 		{
@@ -34,7 +34,9 @@ public partial class PickupAction : DirectionalAction
 		}
 
 		MapData.RemoveEntity(item);
-		player.Inventory.Add(item);
+		player.Inventory.Add(item.Item);
+
+		item.QueueFree();
 
 		player.Energy -= cost;
 		return true;

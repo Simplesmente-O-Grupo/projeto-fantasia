@@ -11,9 +11,9 @@ public partial class InventoryMenu : CanvasLayer
 	private VBoxContainer itemsNode;
 	
 	[Signal]
-	public delegate void ItemSelectedEventHandler(ConsumableItem item);
+	public delegate void ItemSelectedEventHandler(Item item);
 	[Signal]
-	public delegate void ItemDropEventHandler(ConsumableItem item);
+	public delegate void ItemDropEventHandler(Item item);
 
 	public override void _Ready()
 	{
@@ -23,12 +23,12 @@ public partial class InventoryMenu : CanvasLayer
 		Hide();
 	}
 
-	public void OnActivate(ConsumableItem item)
+	public void OnActivate(Item item)
 	{
 		EmitSignal(SignalName.ItemSelected, item);
 	}
 
-	public void OnDrop(ConsumableItem item)
+	public void OnDrop(Item item)
 	{
 		EmitSignal(SignalName.ItemDrop, item);
 	}
@@ -43,7 +43,7 @@ public partial class InventoryMenu : CanvasLayer
 		Show();
 	}
 	
-	private void RegisterItem(int index, ConsumableItem item)
+	private void RegisterItem(int index, Item item)
 	{
 		char? shortcut = null;
 

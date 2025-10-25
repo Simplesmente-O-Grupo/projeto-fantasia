@@ -1,14 +1,19 @@
-[gd_resource type="Resource" script_class="GrimoireConsumableDefinition" load_steps=4 format=3 uid="uid://coeyeuyren2vi"]
+[gd_resource type="Resource" script_class="ItemResource" load_steps=6 format=3 uid="uid://bpg2rb62r7aev"]
 
-[ext_resource type="Resource" uid="uid://boi8svlb0e8l" path="res://assets/definitions/spells/mana_bolt.tres" id="1_dnjm5"]
-[ext_resource type="Script" uid="uid://blkth0in1fp74" path="res://scripts/Entities/Items/GrimoireConsumableDefinition.cs" id="1_tv46f"]
-[ext_resource type="Texture2D" uid="uid://lgxlsnp626j8" path="res://assets/sprites/items/grimoire.png" id="3_degcq"]
+[ext_resource type="Script" uid="uid://bjheqia3q1u7m" path="res://scripts/Entities/Items/GrimoireItemActivation.cs" id="1_degcq"]
+[ext_resource type="Script" uid="uid://bybli1lduvm3n" path="res://scripts/Entities/Items/ItemResource.cs" id="1_tv46f"]
+[ext_resource type="Resource" uid="uid://boi8svlb0e8l" path="res://assets/definitions/spells/mana_bolt.tres" id="2_dtkc6"]
+[ext_resource type="Texture2D" uid="uid://lgxlsnp626j8" path="res://assets/sprites/items/grimoire.png" id="3_f5ce4"]
+
+[sub_resource type="Resource" id="Resource_4p7cf"]
+script = ExtResource("1_degcq")
+spell = ExtResource("2_dtkc6")
+metadata/_custom_type_script = "uid://bjheqia3q1u7m"
 
 [resource]
 script = ExtResource("1_tv46f")
-Spell = ExtResource("1_dnjm5")
-name = "Grimório de flecha de mana."
-texture = ExtResource("3_degcq")
-Type = 1
-blocksMovement = false
-metadata/_custom_type_script = "uid://blkth0in1fp74"
+DisplayName = "Grimório de mana bolt"
+Icon = ExtResource("3_f5ce4")
+Description = "O demiurgo usou as leis da matéria, moldou o mundo e aprisionou todas as centelhas no reino sensível."
+Activation = SubResource("Resource_4p7cf")
+metadata/_custom_type_script = "uid://bybli1lduvm3n"

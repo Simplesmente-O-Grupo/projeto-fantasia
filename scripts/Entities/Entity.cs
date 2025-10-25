@@ -40,6 +40,20 @@ public abstract partial class Entity : Sprite2D
 
 		SetDefinition(definition);
 	}
+
+	/// <summary>
+	/// Aqui eu confio que quem chamar este contrutor
+	/// chamará SetDefinition logo depois. Este construtor existe
+	/// porque tem um caso onde eu não tenho a definição logo de cara.
+	/// </summary>
+	/// <param name="initialPosition"></param>
+	/// <param name="map"></param>
+	public Entity(Vector2I initialPosition, MapData map)
+	{
+		GridPosition = initialPosition;
+		MapData = map;
+		Centered = false;
+	}
 	
 	/// <summary>
 	/// Usado para definir a camada da entidade no mapa.

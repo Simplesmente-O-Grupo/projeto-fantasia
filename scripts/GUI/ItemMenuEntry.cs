@@ -11,13 +11,13 @@ public partial class ItemMenuEntry : HBoxContainer
 	private Label nameLabel;
 	private Button activateBtn;
 	private Button dropBtn;
-	private ConsumableItem item;
+	private Item item;
 
 	[Signal]
-	public delegate void ActivateEventHandler(ConsumableItem Item);
+	public delegate void ActivateEventHandler(Item Item);
 
 	[Signal]
-	public delegate void DropEventHandler(ConsumableItem Item);
+	public delegate void DropEventHandler(Item Item);
 
 	public override void _Ready()
 	{
@@ -32,10 +32,10 @@ public partial class ItemMenuEntry : HBoxContainer
 		dropBtn.Pressed += () => EmitSignal(SignalName.Drop, item);
 	}
 
-	public void Initialize(ConsumableItem item, char? shortcut)
+	public void Initialize(Item item, char? shortcut)
 	{
 		this.item = item;
-		nameLabel.Text = item.DisplayName;
+		nameLabel.Text = item.Definition.DisplayName;
 		if (shortcut != null)
 		{
 			shortcutLabel.Text = $"{shortcut}";
@@ -70,6 +70,6 @@ public partial class ItemMenuEntry : HBoxContainer
 		{
 			shortcutLabel.Text = "";
 		}
-		icon.Texture = item.Texture;
+		icon.Texture = item.Definition.Icon;
 	}
 }

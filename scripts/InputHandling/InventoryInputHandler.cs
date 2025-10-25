@@ -15,8 +15,8 @@ public partial class InventoryInputHandler : BaseInputHandler
 	private Map.Map map;
 
 	private InventoryMenu inventoryMenu;
-	private ConsumableItem activationItem = null;
-	private ConsumableItem dropItem = null;
+	private Item activationItem = null;
+	private Item dropItem = null;
 
 	public override void Enter()
 	{
@@ -63,12 +63,12 @@ public partial class InventoryInputHandler : BaseInputHandler
 		GetParent<InputHandler>().SetInputHandler(InputHandlers.MainGame);
 	}
 
-	private void OnItemActivate(ConsumableItem item)
+	private void OnItemActivate(Item item)
 	{
 		activationItem = item;
 	}
 
-	private void OnItemDrop(ConsumableItem item)
+	private void OnItemDrop(Item item)
 	{
 		dropItem = item;
 	}

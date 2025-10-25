@@ -5,7 +5,7 @@ namespace TheLegendOfGustav.Entities.Actions;
 
 public partial class DropAction : ItemAction
 {
-	public DropAction(Player player, ConsumableItem item) : base(player, item)
+	public DropAction(Player player, Item item) : base(player, item)
 	{
 	}
 
