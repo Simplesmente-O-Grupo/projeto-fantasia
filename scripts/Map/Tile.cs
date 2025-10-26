@@ -1,7 +1,15 @@
+using System.Threading;
 using Godot;
+using Godot.Collections;
 using TheLegendOfGustav.Utils;
 
 namespace TheLegendOfGustav.Map;
+
+public enum TileType
+{
+	WALL,
+	FLOOR
+}
 
 /// <summary>
 /// O mundo do jogo é composto por Tiles.
@@ -9,8 +17,25 @@ namespace TheLegendOfGustav.Map;
 /// unidade discreta do cenário. Tiles podem agir como
 /// parede, chão, ou outras funções.
 /// </summary>
-public partial class Tile : Sprite2D
+public partial class Tile : Sprite2D, ISaveable
 {
+	private static readonly Godot.Collections.Dictionary<TileType, TileDefinition> Types = new()
+	{
+		{TileType.WALL, GD.Load<TileDefinition>("res://assets/definitions/tiles/wall.tres")},
+		{TileType.FLOOR, GD.Load<TileDefinition>("res://assets/definitions/tiles/floor.tres")}
+	};
+
+	TileType key;
+	public TileType Key
+	{
+		get => key;
+		set
+		{
+			key = value;
+			SetDefinition(Types[value]);
+		}
+	}
+
 	private bool isExplored = false;
 	private bool isInView = false;
 
@@ -19,7 +44,7 @@ public partial class Tile : Sprite2D
 	/// </summary>
 	private TileDefinition definition;
 
-	public Tile(Vector2I pos, TileDefinition definition)
+	public Tile(Vector2I pos, TileType type)
 	{
 		// Tile herda da classe Sprite2D.
 		// Por padrão, a posição do Sprite2D é no centro de sua textura.
@@ -29,7 +54,7 @@ public partial class Tile : Sprite2D
 		// Tiles começam invisíveis porque não foram vistos pelo jogador.
 		Visible = false;
 		Position = Grid.GridToWorld(pos);
-		SetDefinition(definition);
+		Key = type;
 	}
 
 	/// <summary>
@@ -88,5 +113,23 @@ public partial class Tile : Sprite2D
 		Texture = definition.Texture;
 		IsWalkable = definition.IsWalkable;
 		IsTransparent = definition.IsTransparent;
+	}
+
+	public Dictionary<string, Variant> GetSaveData()
+	{
+		return new()
+		{
+			{"key", (int)Key},
+			{"is_explored", IsExplored}
+		};
+	}
+
+	public bool LoadSaveData(Dictionary<string, Variant> saveData)
+	{
+		// É o seguinte, não tenho tempo, não vou verificar se a entrada está correta.
+		Key = (TileType)(int)saveData["key"];
+
+		IsExplored = (bool)saveData["is_explored"];
+		return true;
 	}
 }

@@ -1,4 +1,5 @@
 using Godot;
+using Godot.Collections;
 using TheLegendOfGustav.Map;
 using TheLegendOfGustav.Utils;
 
@@ -18,7 +19,7 @@ public enum EntityType
 /// <summary>
 /// Classe para elementos móveis que o jogador pode interagir.
 /// </summary>
-public abstract partial class Entity : Sprite2D
+public abstract partial class Entity : Sprite2D, ISaveable
 {
 	private Vector2I gridPosition = Vector2I.Zero;
 
@@ -137,5 +138,27 @@ public abstract partial class Entity : Sprite2D
 		DisplayName = definition.name;
 		Type = definition.Type;
 		Texture = definition.texture;
+	}
+
+	public Dictionary<string, Variant> GetSaveData()
+	{
+		return new()
+		{
+			{"position_x", GridPosition.X},
+			{"position_y", GridPosition.Y},
+			{"blocks_movement", BlocksMovement},
+			{"name", DisplayName},
+			{"layer", (int)Type},
+
+		};
+	}
+
+	public bool LoadSaveData(Dictionary<string, Variant> saveData)
+	{
+		GridPosition = new((int)saveData["position_x"], (int)saveData["position_y"]);
+		BlocksMovement = (bool)saveData["blocks_movement"];
+		DisplayName = (string)saveData["name"];
+		Type = (EntityType)(int)saveData["layer"];
+		return true;
 	}
 }

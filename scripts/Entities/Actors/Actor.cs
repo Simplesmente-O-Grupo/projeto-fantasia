@@ -1,4 +1,5 @@
 using Godot;
+using Godot.Collections;
 using TheLegendOfGustav.Magic;
 using TheLegendOfGustav.Map;
 using TheLegendOfGustav.Utils;
@@ -9,7 +10,7 @@ namespace TheLegendOfGustav.Entities.Actors;
 /// A classe de ator define um personagem no jogo.
 /// </summary>
 [GlobalClass]
-public partial class Actor : Entity
+public partial class Actor : Entity, ISaveable
 {
 	#region Fields
 	private int mp;
@@ -28,6 +29,9 @@ public partial class Actor : Entity
 	public Actor(Vector2I initialPosition, MapData map, ActorDefinition definition) : base(initialPosition, map, definition)
 	{
 		SetDefinition(definition);
+	}
+	public Actor(Vector2I initialPosition, MapData map) : base(initialPosition, map)
+	{
 	}
 	#endregion
 
@@ -277,6 +281,49 @@ public partial class Actor : Entity
 		DisplayName = $"Restos mortais de {DisplayName}";
 		MapData.UnregisterBlockingEntity(this);
 		EmitSignal(SignalName.Died);
+	}
+
+	public new Dictionary<string, Variant> GetSaveData()
+	{
+		Dictionary<string, Variant> baseData = base.GetSaveData();
+		baseData.Add("energy", Energy);
+		baseData.Add("max_hp", MaxHp);
+		baseData.Add("hp", Hp);
+		baseData.Add("max_mp", MaxMp);
+		baseData.Add("mp", MaxMp);
+		baseData.Add("atk", Atk);
+		baseData.Add("def", Def);
+		baseData.Add("men", Men);
+		baseData.Add("mp_regen_rate", MpRegenRate);
+		baseData.Add("mp_regen_per_turn", MpRegenPerTurn);
+		baseData.Add("spell_book", SpellBook.GetSaveData());
+
+		return baseData;
+	}
+
+	public new bool LoadSaveData(Dictionary<string, Variant> saveData)
+	{
+		if (!base.LoadSaveData(saveData))
+		{
+			return false;
+		}
+
+		if (!SpellBook.LoadSaveData((Dictionary<string, Variant>)saveData["spell_book"]))
+		{
+			return false;
+		}
+
+		Energy = (int)saveData["energy"];
+		MaxHp = (int)saveData["max_hp"];
+		Hp = (int)saveData["hp"];
+		MaxMp = (int)saveData["max_mp"];
+		Mp = (int)saveData["max_mp"];
+		Atk = (int)saveData["atk"];
+		Def = (int)saveData["def"];
+		Men = (int)saveData["men"];
+		MpRegenRate = (int)saveData["mp_regen_rate"];
+		MpRegenPerTurn = (int)saveData["mp_regen_per_turn"];
+		return true;
 	}
 	#endregion
 }

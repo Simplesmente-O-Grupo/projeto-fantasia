@@ -24,7 +24,7 @@ public partial class MainMenu : Control
 		quitButton.Pressed += OnQuitButtonPressed;
 
 		newGameButton.GrabFocus();
-		bool hasSaveFile = FileAccess.FileExists("user://save.dat");
+		bool hasSaveFile = FileAccess.FileExists("user://save_game.json");
 		loadGameButton.Disabled = !hasSaveFile;
 	}
 

@@ -144,7 +144,7 @@ public partial class DungeonGenerator : Node
 		Tile tile = data.GetTile(pos);
 		if (tile == null) return;
 
-		tile.SetDefinition(MapData.floorDefinition);
+		tile.Key = TileType.FLOOR;
 	}
 
 	/// <summary>

@@ -1,4 +1,5 @@
 using Godot;
+using Godot.Collections;
 using TheLegendOfGustav.Entities;
 using TheLegendOfGustav.Entities.Actors;
 using TheLegendOfGustav.Entities.Items;
@@ -10,11 +11,9 @@ namespace TheLegendOfGustav.Map;
 /// O mapa é o cenário onde as ações do jogo ocorrem.
 /// Mais especificamente, o mapa é um único andar da masmorra.
 /// </summary>
-public partial class MapData : RefCounted
+public partial class MapData : RefCounted, ISaveable
 {
 	#region Fields
-	public static readonly TileDefinition wallDefinition = GD.Load<TileDefinition>("res://assets/definitions/tiles/wall.tres");
-	public static readonly TileDefinition floorDefinition = GD.Load<TileDefinition>("res://assets/definitions/tiles/floor.tres");
 	/// <summary>
 	/// Peso do ator no pathfinder.
 	/// A IA irá evitar de passar por espaços com peso alto.
@@ -275,11 +274,16 @@ public partial class MapData : RefCounted
 	/// </summary>
 	private void SetupTiles()
 	{
+		if (Tiles.Count > 1)
+		{
+			Tiles.Clear();
+		}
+
 		for (int i = 0; i < Height; i++)
 		{
 			for (int j = 0; j < Width; j++)
 			{
-				Tiles.Add(new Tile(new Vector2I(j, i), wallDefinition));
+				Tiles.Add(new Tile(new Vector2I(j, i), TileType.WALL));
 			}
 		}
 	}
@@ -308,6 +312,114 @@ public partial class MapData : RefCounted
 			return false;
 		}
 		if (pos.X >= Width || pos.Y >= Height)
+		{
+			return false;
+		}
+
+		return true;
+	}
+
+	public Dictionary<string, Variant> GetSaveData()
+	{
+		Array<Dictionary<string, Variant>> serializedTiles = [];
+		Array<Dictionary<string, Variant>> serializedItemEntities = [];
+		Array<Dictionary<string, Variant>> serializedEnemies = [];
+		foreach (Tile tile in Tiles)
+		{
+			serializedTiles.Add(tile.GetSaveData());
+		}
+
+		foreach (Entity ent in Entities)
+		{
+			if (ent is Enemy enemy)
+			{
+				serializedEnemies.Add(enemy.GetSaveData());
+			}
+			else if (ent is ItemEntity it)
+			{
+				serializedItemEntities.Add(it.GetSaveData());
+			}
+		}
+
+		return new()
+		{
+			{"tiles", serializedTiles},
+			{"enemies", serializedEnemies},
+			{"items", serializedItemEntities},
+			{"player", Player.GetSaveData()},
+			{"width", Width},
+			{"height", Height},
+		};
+	}
+
+	public bool LoadSaveData(Dictionary<string, Variant> saveData)
+	{
+		Width = (int)saveData["width"];
+		Height = (int)saveData["height"];
+
+		SetupTiles();
+
+		Array<Dictionary<string, Variant>> serializedTiles = (Array<Dictionary<string, Variant>>)saveData["tiles"];
+		Array<Dictionary<string, Variant>> serializedItemEntities = (Array<Dictionary<string, Variant>>)saveData["items"];
+		Array<Dictionary<string, Variant>> serializedEnemies = (Array<Dictionary<string, Variant>>)saveData["enemies"];
+
+		for (int i = 0; i < serializedTiles.Count; i++)
+		{
+			if (!Tiles[i].LoadSaveData(serializedTiles[i]))
+			{
+				return false;
+			}
+		}
+		SetupPathfinding();
+		if (!Player.LoadSaveData((Dictionary<string, Variant>)saveData["player"]))
+		{
+			return false;
+		}
+
+		Player.MapData = this;
+
+		foreach(Dictionary<string, Variant> enemy in serializedEnemies)
+		{
+			Enemy en = new(Vector2I.Zero, this);
+			if (!en.LoadSaveData(enemy))
+			{
+				return false;
+			}
+
+			InsertEntity(en);
+		}
+
+		foreach(Dictionary<string, Variant> item in serializedItemEntities)
+		{
+			ItemEntity en = new(Vector2I.Zero, this);
+
+			if (!en.LoadSaveData(item))
+			{
+				return false;
+			}
+
+			InsertEntity(en);
+		}
+
+		return true;
+	}
+
+	public void SaveGame()
+	{
+		using var saveFile = FileAccess.Open("user://save_game.json", FileAccess.ModeFlags.Write);
+		var saveData = GetSaveData();
+		string saveString = Json.Stringify(saveData);
+
+		saveFile.StoreLine(saveString);
+	}
+
+	public bool LoadGame()
+	{
+		using var saveFile = FileAccess.Open("user://save_game.json", FileAccess.ModeFlags.Read);
+		string saveString = saveFile.GetLine();
+		var saveData = (Dictionary<string, Variant>)Json.ParseString(saveString);
+
+		if (!LoadSaveData(saveData))
 		{
 			return false;
 		}

@@ -1,17 +1,22 @@
 using System.Reflection.Metadata;
 using Godot;
+using Godot.Collections;
 using TheLegendOfGustav.Entities.Actions;
 using TheLegendOfGustav.Entities.Actors;
 
 namespace TheLegendOfGustav.Entities.Items;
 
-public partial class Item : RefCounted
+public partial class Item : RefCounted, ISaveable
 {
 
 	public Item(ItemResource definition)
 	{
 		Definition = definition;
 		Uses = Definition.MaxUses;
+	}
+
+	public Item()
+	{
 	}
 
 	public ItemResource Definition { get; private set; }
@@ -57,5 +62,22 @@ public partial class Item : RefCounted
 	{
 		Inventory inventory = consumer.Inventory;
 		inventory.RemoveItem(this);
+	}
+
+	public Dictionary<string, Variant> GetSaveData()
+	{
+		return new()
+		{
+			{"definition", Definition.ResourcePath},
+			{"uses", Uses}
+		};
+	}
+
+	public bool LoadSaveData(Dictionary<string, Variant> saveData)
+	{
+		Definition = GD.Load<ItemResource>((string)saveData["definition"]);
+		Uses = (int)saveData["uses"];
+
+		return true;
 	}
 }

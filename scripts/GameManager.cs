@@ -50,10 +50,29 @@ public partial class GameManager : Node
 		MessageLogData.Instance.ClearMessages();
 		Game game = (Game)SwitchToScene(gameScene);
 		game.MainMenuRequested += LoadMainMenu;
+		if (!game.LoadGame())
+		{
+			SwitchToScene(mainMenuScene);
+		}
+	}
+
+	private void NewGame()
+	{
+		MessageLogData.Instance.ClearMessages();
+		Game game = (Game)SwitchToScene(gameScene);
+		game.NewGame();
+		game.MainMenuRequested += LoadMainMenu;
 	}
 
 	private void OnGameRequest(bool load)
 	{
-		LoadGame();
+		if (!load)
+		{
+			NewGame();
+		}
+		else 
+		{
+			LoadGame();
+		}
 	}
 }

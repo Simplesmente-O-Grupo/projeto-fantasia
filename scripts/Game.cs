@@ -14,6 +14,7 @@ namespace TheLegendOfGustav;
 /// </summary>
 public partial class Game : Node
 {
+	private bool initialized = false;
 	/// <summary>
 	/// Definição de um jogador.
 	/// </summary>
@@ -41,10 +42,12 @@ public partial class Game : Node
 	public override void _Ready()
 	{
 		base._Ready();
-
 		escapeLambda = () => EmitSignal(SignalName.MainMenuRequested);
 		SignalBus.Instance.EscapeRequested += escapeLambda;
 
+	}
+	public void NewGame()
+	{
 		map = GetNode<Map.Map>("Map");
 
 		inputHandler = GetNode<InputHandler>("InputHandler");
@@ -67,6 +70,38 @@ public partial class Game : Node
 		turnManager = new(map);
 
 		MessageLogData.Instance.AddMessage("Boa sorte!");
+		initialized = true;
+	}
+	public bool LoadGame()
+	{
+		map = GetNode<Map.Map>("Map");
+
+		inputHandler = GetNode<InputHandler>("InputHandler");
+		hud = GetNode<Hud>("HUD");
+
+		// O jogador é criado pelo jogo.
+		Player player = new Player(Vector2I.Zero, null, playerDefinition);
+		Camera2D camera = GetNode<Camera2D>("Camera2D");
+		RemoveChild(camera);
+		
+		player.AddChild(camera);
+
+		if (!map.LoadGame(player))
+		{
+			return false;
+		}
+		
+		player.HealthChanged += (int hp, int maxHp) => hud.OnHealthChanged(hp, maxHp);
+		player.ManaChanged += hud.OnManaChanged;
+		player.Died += () => inputHandler.SetInputHandler(InputHandlers.GameOver);
+
+		map.UpdateFOV(player.GridPosition);
+
+		turnManager = new(map);
+
+		MessageLogData.Instance.AddMessage("Boa sorte!");
+		initialized = true;
+		return true;
 	}
 
 	public override void _Notification(int what)
@@ -90,6 +125,8 @@ public partial class Game : Node
 	{
 		base._PhysicsProcess(delta);
 
+		if(initialized)
+		{
 		Player player = map.MapData.Player;
 
 		// Pegamos uma ação do usuário
@@ -102,6 +139,8 @@ public partial class Game : Node
 
 		// Computamos um turno.
 		turnManager.Tick();
+
+		}
 	}
 
 }

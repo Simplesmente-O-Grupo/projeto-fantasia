@@ -1,3 +1,4 @@
+using System.Net.Http.Headers;
 using Godot;
 using TheLegendOfGustav.Entities;
 using TheLegendOfGustav.Entities.Actors;
@@ -94,5 +95,22 @@ public partial class Map : Node2D
 	private void OnEntityPlaced(Entity entity)
 	{
 		entitiesNode.AddChild(entity);
+	}
+
+	public bool LoadGame(Player player)
+	{
+
+		MapData = new(0, 0, player);
+
+		if (!MapData.LoadGame())
+		{
+			return false;
+		}
+
+		PlaceTiles();
+		PlaceEntities();
+
+		MapData.EntityPlaced += OnEntityPlaced;
+		return true;
 	}
 }
