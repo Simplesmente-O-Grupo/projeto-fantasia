@@ -52,11 +52,11 @@ public partial class Enemy : Actor, ISaveable
 		}
 	}
 
-	public override void Die()
+	public override void Die(bool inLoading)
 	{
 		Soul.QueueFree();
 		Soul = null;
-		base.Die();
+		base.Die(inLoading);
 	}
 
 	public new Dictionary<string, Variant> GetSaveData()

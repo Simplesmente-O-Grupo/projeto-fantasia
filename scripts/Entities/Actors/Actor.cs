@@ -106,7 +106,16 @@ public partial class Actor : Entity, ISaveable
 			EmitSignal(SignalName.HealthChanged, Hp, MaxHp);
 			if (hp <= 0)
 			{
-				Die();
+				bool inLoading = true;
+
+				// Se o ator morrer, porém não estiver em um SceneTree,
+				// Quer dizer que este ator já estava morto e estamos carregando
+				// um save.
+				if (IsInsideTree())
+				{
+					inLoading = false;
+				}
+				Die(inLoading);
 			}
 		}
 	}
@@ -234,7 +243,7 @@ public partial class Actor : Entity, ISaveable
 		Men = definition.Men;
 	}
 
-	public virtual void Die()
+	public virtual void Die(bool inLoading)
 	{
 		//⠀⠀⠀⠀⢠⣤⣤⣤⢠⣤⣤⣤⣤⣄⢀⣠⣤⣤⣄⠀⠀⠀⢀⣠⣤⣤⣄⠀⣤⣤⠀⠀⣠⣤⣤⣤⣤⣤⡄⢠⣤⣤⣤⣄⠀⠀
 		//⠀⠀⠀⠀⠈⢹⣿⠉⠈⠉⣿⣿⠉⠉⢾⣿⣉⣉⠙⠀⠀⢀⣾⡟⠉⠉⣿⣧⢸⣿⡄⢠⣿⠏⣿⣿⣉⣉⡁⢸⣿⡏⢉⣿⡷⠀
@@ -273,14 +282,19 @@ public partial class Actor : Entity, ISaveable
 			deathMessage = $"{DisplayName} morreu!";
 		}
 
-		MessageLogData.Instance.AddMessage(deathMessage);
 
+		if (!inLoading)
+		{
+			MessageLogData.Instance.AddMessage(deathMessage);
+			DisplayName = $"Restos mortais de {DisplayName}";
+
+			EmitSignal(SignalName.Died);
+		}
+		
 		Texture = definition.deathTexture;
 		BlocksMovement = false;
 		Type = EntityType.CORPSE;
-		DisplayName = $"Restos mortais de {DisplayName}";
 		MapData.UnregisterBlockingEntity(this);
-		EmitSignal(SignalName.Died);
 	}
 
 	public new Dictionary<string, Variant> GetSaveData()
