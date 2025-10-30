@@ -8,7 +8,8 @@ namespace TheLegendOfGustav.Map;
 public enum TileType
 {
 	WALL,
-	FLOOR
+	FLOOR,
+	DOWN_STAIRS
 }
 
 /// <summary>
@@ -22,7 +23,8 @@ public partial class Tile : Sprite2D, ISaveable
 	private static readonly Godot.Collections.Dictionary<TileType, TileDefinition> Types = new()
 	{
 		{TileType.WALL, GD.Load<TileDefinition>("res://assets/definitions/tiles/wall.tres")},
-		{TileType.FLOOR, GD.Load<TileDefinition>("res://assets/definitions/tiles/floor.tres")}
+		{TileType.FLOOR, GD.Load<TileDefinition>("res://assets/definitions/tiles/floor.tres")},
+		{TileType.DOWN_STAIRS, GD.Load<TileDefinition>("res://assets/definitions/tiles/downstairs.tres")}
 	};
 
 	TileType key;

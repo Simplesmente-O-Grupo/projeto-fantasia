@@ -34,6 +34,9 @@ public partial class SignalBus : Node
 	[Signal]
 	public delegate void EscapeRequestedEventHandler();
 
+	[Signal]
+	public delegate void PlayerDescentEventHandler();
+
 	public override void _Ready()
 	{
 		base._Ready();

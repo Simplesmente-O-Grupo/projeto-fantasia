@@ -2,6 +2,7 @@ using System.Net.Http.Headers;
 using Godot;
 using TheLegendOfGustav.Entities;
 using TheLegendOfGustav.Entities.Actors;
+using TheLegendOfGustav.Utils;
 
 namespace TheLegendOfGustav.Map;
 
@@ -30,7 +31,11 @@ public partial class Map : Node2D
 	/// Dados do mapa.
 	/// </summary>
 	public MapData MapData { get; private set; }
-	
+
+	[Signal]
+	public delegate void DungeonFloorChangedEventHandler(int floor);
+
+	private SignalBus.PlayerDescentEventHandler joinSignal;
 	public override void _Ready()
 	{
 		base._Ready();
@@ -39,20 +44,46 @@ public partial class Map : Node2D
 		fieldOfView = GetNode<FieldOfView>("FieldOfView");
 		tilesNode = GetNode<Node2D>("Tiles");
 		entitiesNode = GetNode<Node2D>("Entities");
+
+		joinSignal = () => NextFloor();
+		SignalBus.Instance.PlayerDescent += joinSignal;
+	}
+
+	void NextFloor()
+	{
+		Player player = MapData.Player;
+		entitiesNode.RemoveChild(player);
+
+		foreach (var entity in entitiesNode.GetChildren())
+		{
+			entity.QueueFree();
+		}
+
+		foreach (var tile in tilesNode.GetChildren())
+		{
+			tile.QueueFree();
+		}
+
+		Generate(player, MapData.CurrentFloor + 1);
+		player.GetNode<Camera2D>("Camera2D").MakeCurrent();
+		fieldOfView.ResetFOV();
+		UpdateFOV(player.GridPosition);
 	}
 
 	/// <summary>
 	/// Cria um andar da masmorra utilizando o gerador de mapa.
 	/// </summary>
 	/// <param name="player">O gerador de mapas precisa do jogador.</param>
-	public void Generate(Player player)
+	public void Generate(Player player, int currentFloor = 1)
 	{
-		MapData = generator.GenerateDungeon(player);
+		MapData = generator.GenerateDungeon(player, currentFloor);
 
 		MapData.EntityPlaced += OnEntityPlaced;
 
 		PlaceTiles();
 		PlaceEntities();
+
+		EmitSignal(SignalName.DungeonFloorChanged, currentFloor);
 	}
 
 	/// <summary>
@@ -111,6 +142,19 @@ public partial class Map : Node2D
 		PlaceEntities();
 
 		MapData.EntityPlaced += OnEntityPlaced;
+		EmitSignal(SignalName.DungeonFloorChanged, MapData.CurrentFloor);
 		return true;
+	}
+
+	public override void _Notification(int what)
+	{
+		if (what == NotificationPredelete)
+		{
+			if (joinSignal != null)
+			{
+				SignalBus.Instance.PlayerDescent -= joinSignal;
+			}
+		}
+		base._Notification(what);
 	}
 }

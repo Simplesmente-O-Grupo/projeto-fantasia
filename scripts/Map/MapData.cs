@@ -84,6 +84,10 @@ public partial class MapData : RefCounted, ISaveable
 			return list;
 		}
 	}
+
+	public int CurrentFloor { get; set; } = 0;
+
+	public Vector2I DownstairsLocation { get; set; }
 	/// <summary>
 	/// Objeto do Godot que utiliza do algoritmo A* para calcular
 	/// caminhos e rotas.
@@ -349,6 +353,9 @@ public partial class MapData : RefCounted, ISaveable
 			{"player", Player.GetSaveData()},
 			{"width", Width},
 			{"height", Height},
+			{"current_floor", CurrentFloor},
+			{"down_stairs_location_x", DownstairsLocation.X},
+			{"down_stairs_location_y", DownstairsLocation.Y}
 		};
 	}
 
@@ -356,6 +363,9 @@ public partial class MapData : RefCounted, ISaveable
 	{
 		Width = (int)saveData["width"];
 		Height = (int)saveData["height"];
+
+		CurrentFloor = (int)saveData["current_floor"];
+		DownstairsLocation = new((int)saveData["down_stairs_location_x"], (int)saveData["down_stairs_location_y"]);
 
 		SetupTiles();
 

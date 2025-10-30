@@ -101,6 +101,17 @@ public partial class FieldOfView : Node
 		fov.Clear();
 	}
 
+	/// <summary>
+	/// Diferença de ClearFOV: não referencia tiles.
+	/// No contexto onde ResetFOV é chamado, os tiles não
+	/// podem ser referenciados porque já foram liberados da
+	/// memória.
+	/// </summary>
+	public void ResetFOV()
+	{
+		fov.Clear();
+	}
+
 	public void UpdateFOV(MapData data, Vector2I position, int radius)
 	{
 		ClearFOV();

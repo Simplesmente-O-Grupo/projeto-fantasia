@@ -63,6 +63,11 @@ public partial class MainGameInputHandler : BaseInputHandler
 			action = new EscapeAction(player);
 		}
 
+		if (Input.IsActionJustPressed("descend"))
+		{
+			action = new TakeStairsAction(player);
+		}
+
 		return action;
 	}
 }

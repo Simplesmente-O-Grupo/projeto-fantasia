@@ -2,6 +2,7 @@ using Godot;
 using TheLegendOfGustav.Entities.Actors;
 using TheLegendOfGustav.Entities;
 using TheLegendOfGustav.Entities.Items;
+using System;
 
 namespace TheLegendOfGustav.Map;
 
@@ -36,16 +37,6 @@ public partial class DungeonGenerator : Node
 	private int height = 60;
 
 	/// <summary>
-	/// Qual seed utilizar.
-	/// </summary>
-	[Export]
-	private ulong seed;
-	/// <summary>
-	/// Se será utilizada a nossa seed ou a seed padrão da classe RandomNumberGenerator.
-	/// </summary>
-	[Export]
-	private bool useSeed = true;
-	/// <summary>
 	/// Quantas iterações do algoritmo chamar.
 	/// </summary>
 	[Export]
@@ -73,14 +64,6 @@ public partial class DungeonGenerator : Node
 	#endregion
 
 	#region Methods
-	public override void _Ready()
-	{
-		base._Ready();
-		if (useSeed)
-		{
-			rng.Seed = seed;
-		}
-	}
 
 	/// <summary>
 	/// Gera um andar da masmorra.
@@ -89,9 +72,12 @@ public partial class DungeonGenerator : Node
 	/// </summary>
 	/// <param name="player">Jogador.</param>
 	/// <returns>O mapa gerado.</returns>
-	public MapData GenerateDungeon(Player player)
+	public MapData GenerateDungeon(Player player, int currentFloor)
 	{
+		rng.Seed = (ulong)DateTimeOffset.Now.ToUnixTimeMilliseconds();
+
 		MapData data = new MapData(width, height, player);
+		data.CurrentFloor = currentFloor;
 
 		// Divisão mestre que engloba o mapa inteiro.
 		MapDivision root = new MapDivision(0, 0, width, height);
@@ -103,6 +89,8 @@ public partial class DungeonGenerator : Node
 
 		// Coloca os corredores.
 		TunnelDivisions(data, root);
+
+		Rect2I lastRoom = new(0, 0, 0, 0);
 
 		// Cria as salas com base nas divisões geradas.
 		foreach (MapDivision division in root.GetLeaves())
@@ -127,7 +115,13 @@ public partial class DungeonGenerator : Node
 			}
 			// Colocamos os inimigos na sala.
 			PlaceEntities(data, room);
+
+			lastRoom = room;
 		}
+
+		data.DownstairsLocation = lastRoom!.GetCenter();
+		Tile downTile = data.GetTile(data.DownstairsLocation);
+		downTile.Key = TileType.DOWN_STAIRS;
 
 		// Feito o mapa, inicializamos o algoritmo de pathfinding.
 		data.SetupPathfinding();
