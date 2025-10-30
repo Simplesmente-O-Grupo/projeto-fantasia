@@ -19,13 +19,14 @@
 script = ExtResource("1_cpr0p")
 
 [node name="Map" type="Node2D" parent="."]
+position = Vector2(-1, 0)
 script = ExtResource("3_cpr0p")
 
 [node name="Generator" type="Node" parent="Map"]
 script = ExtResource("4_78awf")
 width = 30
 height = 20
-useSeed = false
+iterations = 6
 
 [node name="FieldOfView" type="Node" parent="Map"]
 script = ExtResource("5_s0nni")
