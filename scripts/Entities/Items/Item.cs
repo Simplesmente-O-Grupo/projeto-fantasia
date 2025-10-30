@@ -50,6 +50,11 @@ public partial class Item : RefCounted, ISaveable
 				Uses--;
 			}
 
+			if (Uses == 0)
+			{
+				ConsumedBy(action.Player);
+			}
+
 			return ret;
 		}
 		else 
