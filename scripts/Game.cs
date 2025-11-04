@@ -46,7 +46,7 @@ public partial class Game : Node
 		SignalBus.Instance.EscapeRequested += escapeLambda;
 
 	}
-	public void NewGame()
+	public void NewGame(string name)
 	{
 		map = GetNode<Map.Map>("Map");
 
@@ -55,6 +55,10 @@ public partial class Game : Node
 
 		// O jogador é criado pelo jogo.
 		Player player = new Player(Vector2I.Zero, null, playerDefinition);
+		if (name != "")
+		{
+			player.DisplayName = name;
+		}
 		Camera2D camera = GetNode<Camera2D>("Camera2D");
 		RemoveChild(camera);
 		player.HealthChanged += (int hp, int maxHp) => hud.OnHealthChanged(hp, maxHp);

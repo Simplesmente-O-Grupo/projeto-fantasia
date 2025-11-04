@@ -1,6 +1,5 @@
+using System.Diagnostics;
 using Godot;
-using GodotPlugins.Game;
-using System;
 using TheLegendOfGustav.GUI;
 using TheLegendOfGustav.Utils;
 
@@ -10,6 +9,7 @@ public partial class GameManager : Node
 {
 	private PackedScene mainMenuScene = GD.Load<PackedScene>("res://scenes/GUI/main_menu.tscn");
 	private PackedScene gameScene = GD.Load<PackedScene>("res://scenes/Game.tscn");
+	private PackedScene nameScene = GD.Load<PackedScene>("res://scenes/name_thyself.tscn");
 
 	private Node currentScene;
 
@@ -56,19 +56,30 @@ public partial class GameManager : Node
 		}
 	}
 
-	private void NewGame()
+	private void NewGame(string name)
 	{
 		MessageLogData.Instance.ClearMessages();
 		Game game = (Game)SwitchToScene(gameScene);
-		game.NewGame();
+		game.NewGame(name);
 		game.MainMenuRequested += LoadMainMenu;
+	}
+
+	private void SelectName()
+	{
+		PlayerName namesc = (PlayerName)SwitchToScene(nameScene);
+		namesc.NewGameRequest += OnNameSelect;
+	}
+
+	private void OnNameSelect(string name)
+	{
+		NewGame(name);
 	}
 
 	private void OnGameRequest(bool load)
 	{
 		if (!load)
 		{
-			NewGame();
+			SelectName();
 		}
 		else 
 		{

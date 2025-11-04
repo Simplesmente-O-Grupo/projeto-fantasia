@@ -109,7 +109,7 @@ public abstract partial class Entity : Sprite2D, ISaveable
 	public string DisplayName
 	{
 		get => displayName;
-		protected set
+		set
 		{
 			displayName = value;
 		}
