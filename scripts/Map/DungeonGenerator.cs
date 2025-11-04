@@ -92,8 +92,6 @@ public partial class DungeonGenerator : Node
 
 		Vector2I lastRoom = new(0, 0);
 
-		bool placedStair = false;
-
 		// Cria as salas com base nas divisões geradas.
 		foreach (MapDivision division in root.GetLeaves())
 		{
@@ -115,13 +113,8 @@ public partial class DungeonGenerator : Node
 				first = false;
 				player.GridPosition = room.GetCenter();
 			}
-			else if (!placedStair && rng.RandiRange(0, 100) > 25)
-			{
-				lastRoom = room.GetCenter();
-				placedStair = true;
-			} else if (!placedStair) {
-				lastRoom = room.GetCenter();
-			}
+
+			lastRoom = room.GetCenter();
 
 			// Colocamos os inimigos na sala.
 			PlaceEntities(data, room);
