@@ -37,6 +37,9 @@ public partial class SignalBus : Node
 	[Signal]
 	public delegate void PlayerDescentEventHandler();
 
+	[Signal]
+	public delegate void DungeonFloorChangedEventHandler(int floor);
+
 	public override void _Ready()
 	{
 		base._Ready();

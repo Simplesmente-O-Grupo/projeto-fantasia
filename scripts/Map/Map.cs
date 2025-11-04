@@ -32,9 +32,6 @@ public partial class Map : Node2D
 	/// </summary>
 	public MapData MapData { get; private set; }
 
-	[Signal]
-	public delegate void DungeonFloorChangedEventHandler(int floor);
-
 	private SignalBus.PlayerDescentEventHandler joinSignal;
 	public override void _Ready()
 	{
@@ -83,7 +80,7 @@ public partial class Map : Node2D
 		PlaceTiles();
 		PlaceEntities();
 
-		EmitSignal(SignalName.DungeonFloorChanged, currentFloor);
+		SignalBus.Instance.EmitSignal(SignalBus.SignalName.DungeonFloorChanged, currentFloor);
 	}
 
 	/// <summary>
@@ -142,7 +139,7 @@ public partial class Map : Node2D
 		PlaceEntities();
 
 		MapData.EntityPlaced += OnEntityPlaced;
-		EmitSignal(SignalName.DungeonFloorChanged, MapData.CurrentFloor);
+		SignalBus.Instance.EmitSignal(SignalBus.SignalName.DungeonFloorChanged, MapData.CurrentFloor);
 		return true;
 	}
 
