@@ -43,6 +43,7 @@ text = "Quem é você?"
 [node name="thename" type="LineEdit" parent="VBoxContainer"]
 layout_mode = 2
 placeholder_text = "Player"
+expand_to_text_length = true
 
 [node name="Button" type="Button" parent="VBoxContainer"]
 layout_mode = 2
