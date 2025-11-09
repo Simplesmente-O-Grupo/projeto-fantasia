@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="ItemResource" load_steps=6 format=3 uid="uid://otklq7k1tb45"]
+
+[ext_resource type="Script" uid="uid://bybli1lduvm3n" path="res://scripts/Entities/Items/ItemResource.cs" id="1_6qucm"]
+[ext_resource type="Script" uid="uid://bslt4pbvwvsj1" path="res://scripts/Magic/HealEffect.cs" id="1_uvkms"]
+[ext_resource type="Script" uid="uid://b72fwkwul1wet" path="res://scripts/Entities/Items/SpellEffectItemActivation.cs" id="2_i5wwe"]
+
+[sub_resource type="Resource" id="Resource_idx7p"]
+script = ExtResource("1_uvkms")
+Healing = 89
+metadata/_custom_type_script = "uid://bslt4pbvwvsj1"
+
+[sub_resource type="Resource" id="Resource_v7ab0"]
+script = ExtResource("2_i5wwe")
+effect = SubResource("Resource_idx7p")
+metadata/_custom_type_script = "uid://b72fwkwul1wet"
+
+[resource]
+script = ExtResource("1_6qucm")
+DisplayName = "ojo"
+Activation = SubResource("Resource_v7ab0")
+metadata/_custom_type_script = "uid://bybli1lduvm3n"

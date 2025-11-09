@@ -60,7 +60,7 @@ public partial class MainGameInputHandler : BaseInputHandler
 
 		if (Input.IsActionJustPressed("quit"))
 		{
-			action = new EscapeAction(player);
+			action = new EscapeAction(player, true);
 		}
 
 		if (Input.IsActionJustPressed("descend"))

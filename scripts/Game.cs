@@ -90,6 +90,8 @@ public partial class Game : Node
 		
 		player.AddChild(camera);
 
+		Stats.Instance.PlayerName = player.DisplayName;
+
 		if (!map.LoadGame(player))
 		{
 			return false;

@@ -42,6 +42,7 @@ public partial class GameManager : Node
 	private void LoadMainMenu()
 	{
 		MainMenu menu = (MainMenu)SwitchToScene(mainMenuScene);
+		Stats.Instance.Clear();
 		menu.GameRequest += OnGameRequest;
 	}
 
@@ -72,6 +73,7 @@ public partial class GameManager : Node
 
 	private void OnNameSelect(string name)
 	{
+		Stats.Instance.PlayerName = name;
 		NewGame(name);
 	}
 

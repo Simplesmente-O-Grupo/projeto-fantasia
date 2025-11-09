@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 
 signalBus="*res://scripts/Utils/SignalBus.cs"
 MessageLogData="*res://scripts/Utils/MessageLogData.cs"
+Stats="*res://scripts/Utils/Stats.cs"
 
 [display]
 
