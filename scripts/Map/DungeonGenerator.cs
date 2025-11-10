@@ -20,6 +20,7 @@ public partial class DungeonGenerator : Node
 		GD.Load<EnemyDefinition>("res://assets/definitions/actor/Skeleton.tres"),
 		GD.Load<EnemyDefinition>("res://assets/definitions/actor/morcegao.tres"),
 		GD.Load<EnemyDefinition>("res://assets/definitions/actor/Shadow.tres"),
+		GD.Load<EnemyDefinition>("res://assets/definitions/actor/omal.tres")
 	];
 
 	private static readonly Godot.Collections.Array<ItemResource> items = [

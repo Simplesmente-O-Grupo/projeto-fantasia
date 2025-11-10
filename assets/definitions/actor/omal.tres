@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="EnemyDefinition" load_steps=4 format=3 uid="uid://302hatscl8gd"]
+
+[ext_resource type="Script" uid="uid://dkfdm2m2scyks" path="res://scripts/Entities/Actors/EnemyDefinition.cs" id="1_6andn"]
+[ext_resource type="Texture2D" uid="uid://w0808ug4al66" path="res://assets/sprites/actors/generic_grave.png" id="1_fbs0n"]
+[ext_resource type="Texture2D" uid="uid://bx1ryvgqxx2co" path="res://assets/sprites/actors/bixo.png" id="3_fbs0n"]
+
+[resource]
+script = ExtResource("1_6andn")
+AI = 1
+deathTexture = ExtResource("1_fbs0n")
+Speed = 8
+Hp = 40
+Mp = 2
+Atk = 2
+Men = 5
+name = "Omal"
+texture = ExtResource("3_fbs0n")
+Type = 2
+metadata/_custom_type_script = "uid://dkfdm2m2scyks"
