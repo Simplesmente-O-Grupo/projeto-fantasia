@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://ddxrecok5ctss"]
+[gd_scene load_steps=7 format=3 uid="uid://ddxrecok5ctss"]
 
 [ext_resource type="Script" uid="uid://bj6r5oalajbmc" path="res://scenes/GUI/Leaderboard.cs" id="1_8w6tf"]
 [ext_resource type="Texture2D" uid="uid://bxjwbucke02gl" path="res://assets/bg.png" id="1_dlctp"]
 [ext_resource type="PackedScene" uid="uid://w4oy340d3ugn" path="res://scenes/GUI/leaderboard_item.tscn" id="2_8w6tf"]
+[ext_resource type="StyleBox" uid="uid://krfa04v10vwc" path="res://scenes/GUI/button.tres" id="4_kxih3"]
 
 [sub_resource type="InputEventKey" id="InputEventKey_8w6tf"]
 device = -1
@@ -47,5 +48,6 @@ layout_mode = 2
 
 [node name="exit" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_styles/normal = ExtResource("4_kxih3")
 shortcut = SubResource("Shortcut_kxih3")
 text = "[V] Voltar"

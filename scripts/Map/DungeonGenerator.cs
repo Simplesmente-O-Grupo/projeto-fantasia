@@ -44,11 +44,13 @@ public partial class DungeonGenerator : Node
 		GD.Load<EnemyDefinition>("res://assets/definitions/actor/Skeleton.tres"),
 		GD.Load<EnemyDefinition>("res://assets/definitions/actor/morcegao.tres"),
 		GD.Load<EnemyDefinition>("res://assets/definitions/actor/Shadow.tres"),
+		GD.Load<EnemyDefinition>("res://assets/definitions/actor/toilet.tres")
 	];
 
 	private static readonly Godot.Collections.Array<ItemResource> items = [
 		GD.Load<ItemResource>("res://assets/definitions/Items/small_healing_potion.tres"),
-		GD.Load<ItemResource>("res://assets/definitions/Items/mana_bolt_grimoire.tres")
+		GD.Load<ItemResource>("res://assets/definitions/Items/mana_bolt_grimoire.tres"),
+		GD.Load<ItemResource>("res://assets/definitions/Items/big_potion_of_heals.tres")
 	];
 
 	/// <summary>

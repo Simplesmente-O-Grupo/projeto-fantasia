@@ -30,6 +30,10 @@ window/stretch/mode="canvas_items"
 
 project/assembly_name="projeto-fantasia"
 
+[gui]
+
+theme/custom_font="uid://bkhmc8y1sdhb1"
+
 [input]
 
 walk-up={

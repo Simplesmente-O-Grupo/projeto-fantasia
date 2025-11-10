@@ -1,7 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://baio67tv5ifph"]
+[gd_scene load_steps=6 format=3 uid="uid://baio67tv5ifph"]
 
 [ext_resource type="Texture2D" uid="uid://bxjwbucke02gl" path="res://assets/bg.png" id="1_c644k"]
 [ext_resource type="Script" uid="uid://cmtn05tqqh0t4" path="res://scripts/GUI/PlayerName.cs" id="1_jhpgh"]
+[ext_resource type="Texture2D" uid="uid://dwg5pwgld1xrr" path="res://assets/sprites/inter-face/button_texture.png" id="3_c5fbr"]
+[ext_resource type="StyleBox" uid="uid://krfa04v10vwc" path="res://scenes/GUI/button.tres" id="4_jndhp"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_x2lmy"]
+texture = ExtResource("3_c5fbr")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 2.0
+texture_margin_bottom = 2.0
+modulate_color = Color(0.39308554, 0.3930855, 0.39308548, 1)
 
 [node name="NameThyself" type="Control"]
 layout_mode = 3
@@ -42,9 +52,11 @@ text = "Quem é você?"
 
 [node name="thename" type="LineEdit" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_x2lmy")
 placeholder_text = "Player"
 expand_to_text_length = true
 
 [node name="Button" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_styles/normal = ExtResource("4_jndhp")
 text = "Iniciar"
