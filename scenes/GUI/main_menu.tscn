@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cppjdsdfkkxtm"]
+[gd_scene load_steps=12 format=3 uid="uid://cppjdsdfkkxtm"]
 
 [ext_resource type="Script" uid="uid://dx0fxht2oadb6" path="res://scripts/GUI/MainMenu.cs" id="1_b4h60"]
 [ext_resource type="Texture2D" uid="uid://bxjwbucke02gl" path="res://assets/bg.png" id="1_tbt31"]
@@ -21,6 +21,14 @@ unicode = 99
 
 [sub_resource type="Shortcut" id="Shortcut_1ei6q"]
 events = [SubResource("InputEventKey_kebck")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_b4h60"]
+device = -1
+keycode = 80
+unicode = 112
+
+[sub_resource type="Shortcut" id="Shortcut_kebck"]
+events = [SubResource("InputEventKey_b4h60")]
 
 [sub_resource type="InputEventKey" id="InputEventKey_xm7ak"]
 device = -1
@@ -80,6 +88,11 @@ layout_mode = 2
 shortcut = SubResource("Shortcut_1ei6q")
 shortcut_feedback = false
 text = "[C] Continuar"
+
+[node name="leaderboard" type="Button" parent="VBoxContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+shortcut = SubResource("Shortcut_kebck")
+text = "[P] Placar"
 
 [node name="quit" type="Button" parent="VBoxContainer/CenterContainer/VBoxContainer"]
 layout_mode = 2

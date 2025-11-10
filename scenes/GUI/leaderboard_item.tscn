@@ -1,0 +1,35 @@
+[gd_scene load_steps=2 format=3 uid="uid://w4oy340d3ugn"]
+
+[ext_resource type="Script" uid="uid://cbjltiujfsw4v" path="res://scripts/GUI/LeaderboardItem.cs" id="1_ilpit"]
+
+[node name="HBoxContainer" type="HBoxContainer"]
+script = ExtResource("1_ilpit")
+
+[node name="hdNome" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Nome"
+
+[node name="VSeparator" type="VSeparator" parent="."]
+layout_mode = 2
+
+[node name="hdAndar" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Maior Andar"
+
+[node name="VSeparator2" type="VSeparator" parent="."]
+layout_mode = 2
+
+[node name="hdkills" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Inimigos Mortos"
+
+[node name="VSeparator3" type="VSeparator" parent="."]
+layout_mode = 2
+
+[node name="hddamage" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Dano tomado"

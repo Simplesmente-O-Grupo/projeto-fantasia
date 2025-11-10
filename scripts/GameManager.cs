@@ -10,6 +10,7 @@ public partial class GameManager : Node
 	private PackedScene mainMenuScene = GD.Load<PackedScene>("res://scenes/GUI/main_menu.tscn");
 	private PackedScene gameScene = GD.Load<PackedScene>("res://scenes/Game.tscn");
 	private PackedScene nameScene = GD.Load<PackedScene>("res://scenes/name_thyself.tscn");
+	private PackedScene leaderboardScene = GD.Load<PackedScene>("res://scenes/GUI/Leaderboard.tscn");
 
 	private Node currentScene;
 
@@ -44,6 +45,7 @@ public partial class GameManager : Node
 		MainMenu menu = (MainMenu)SwitchToScene(mainMenuScene);
 		Stats.Instance.Clear();
 		menu.GameRequest += OnGameRequest;
+		menu.LeaderboardRequest += OnLeaderboardRequest;
 	}
 
 	private void LoadGame()
@@ -87,5 +89,11 @@ public partial class GameManager : Node
 		{
 			LoadGame();
 		}
+	}
+
+	private void OnLeaderboardRequest()
+	{
+		Leaderboard scene = (Leaderboard)SwitchToScene(leaderboardScene);
+		scene.MenuRequested += LoadMainMenu;
 	}
 }
