@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="ItemResource" load_steps=6 format=3 uid="uid://c2ih2qf8c4rso"]
+
+[ext_resource type="Script" uid="uid://bjheqia3q1u7m" path="res://scripts/Entities/Items/GrimoireItemActivation.cs" id="1_1lv8a"]
+[ext_resource type="Script" uid="uid://bybli1lduvm3n" path="res://scripts/Entities/Items/ItemResource.cs" id="1_rna1l"]
+[ext_resource type="Resource" uid="uid://c5uviqcb4ai8" path="res://assets/definitions/spells/small_cure.tres" id="2_6n7k0"]
+[ext_resource type="Texture2D" uid="uid://lgxlsnp626j8" path="res://assets/sprites/items/grimoire.png" id="3_wfig5"]
+
+[sub_resource type="Resource" id="Resource_tcd4j"]
+script = ExtResource("1_1lv8a")
+spell = ExtResource("2_6n7k0")
+metadata/_custom_type_script = "uid://bjheqia3q1u7m"
+
+[resource]
+script = ExtResource("1_rna1l")
+DisplayName = "grimoario cura pequena"
+Icon = ExtResource("3_wfig5")
+Description = "cura pequena"
+Activation = SubResource("Resource_tcd4j")
+metadata/_custom_type_script = "uid://bybli1lduvm3n"
