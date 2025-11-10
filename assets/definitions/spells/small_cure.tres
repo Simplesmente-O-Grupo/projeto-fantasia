@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="SpellResource" load_steps=5 format=3 uid="uid://c5uviqcb4ai8"]
+
+[ext_resource type="Script" uid="uid://bslt4pbvwvsj1" path="res://scripts/Magic/HealEffect.cs" id="1_6vhk7"]
+[ext_resource type="Script" uid="uid://bi6jdrduu76de" path="res://scripts/Magic/SpellResource.cs" id="1_bmdi4"]
+[ext_resource type="Texture2D" uid="uid://b38owm0e2mdf6" path="res://assets/sprites/spells/preview.png" id="2_dgyrn"]
+
+[sub_resource type="Resource" id="Resource_yfnw8"]
+script = ExtResource("1_6vhk7")
+Healing = 4
+metadata/_custom_type_script = "uid://bslt4pbvwvsj1"
+
+[resource]
+script = ExtResource("1_bmdi4")
+Icon = ExtResource("2_dgyrn")
+SpellName = "Small cure"
+Cost = 10
+Type = 1
+Effects = Array[Object]([SubResource("Resource_yfnw8")])
+metadata/_custom_type_script = "uid://bi6jdrduu76de"
