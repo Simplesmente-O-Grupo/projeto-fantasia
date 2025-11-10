@@ -1,0 +1,53 @@
+[gd_scene load_steps=7 format=3 uid="uid://ddxrecok5ctss"]
+
+[ext_resource type="Script" uid="uid://bj6r5oalajbmc" path="res://scenes/GUI/Leaderboard.cs" id="1_8w6tf"]
+[ext_resource type="Texture2D" uid="uid://bxjwbucke02gl" path="res://assets/bg.png" id="1_dlctp"]
+[ext_resource type="PackedScene" uid="uid://w4oy340d3ugn" path="res://scenes/GUI/leaderboard_item.tscn" id="2_8w6tf"]
+[ext_resource type="StyleBox" uid="uid://krfa04v10vwc" path="res://scenes/GUI/button.tres" id="4_kxih3"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_8w6tf"]
+device = -1
+keycode = 86
+unicode = 118
+
+[sub_resource type="Shortcut" id="Shortcut_kxih3"]
+events = [SubResource("InputEventKey_8w6tf")]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8w6tf")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_dlctp")
+expand_mode = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Header" parent="VBoxContainer/VBoxContainer" instance=ExtResource("2_8w6tf")]
+layout_mode = 2
+
+[node name="exit" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_styles/normal = ExtResource("4_kxih3")
+shortcut = SubResource("Shortcut_kxih3")
+text = "[V] Voltar"

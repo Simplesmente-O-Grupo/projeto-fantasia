@@ -3,6 +3,9 @@ using TheLegendOfGustav.Entities.Actors;
 using TheLegendOfGustav.Entities;
 using TheLegendOfGustav.Entities.Items;
 using System;
+using Godot.Collections;
+using System.Diagnostics.Metrics;
+using System.Numerics;
 
 namespace TheLegendOfGustav.Map;
 
@@ -14,18 +17,41 @@ public partial class DungeonGenerator : Node
 {
 	#region Fields
 	/// <summary>
+	/// Chave: Andar mínimo
+	/// Valor: Número de máximo de monstros por sala
+	/// </summary>
+	private static readonly Dictionary<int, int> maxMonstersByFloor = new()
+	{
+		{1, 2},
+		{4, 3},
+		{6, 4},
+		{10, 8}
+	};
+	/// <summary>
+	/// Chave: Andar mínimo
+	/// Valor: Número de máximo de itens por sala
+	/// </summary>
+	private static readonly Dictionary<int, int> maxItemsByFloor = new()
+	{
+		{1, 1},
+		{4, 2},
+		{6, 3},
+	};
+	/// <summary>
 	/// Coleção de todos os inimigos que o gerador tem acesso.
 	/// </summary>
 	private static readonly Godot.Collections.Array<EnemyDefinition> enemies = [
 		GD.Load<EnemyDefinition>("res://assets/definitions/actor/Skeleton.tres"),
 		GD.Load<EnemyDefinition>("res://assets/definitions/actor/morcegao.tres"),
 		GD.Load<EnemyDefinition>("res://assets/definitions/actor/Shadow.tres"),
-		GD.Load<EnemyDefinition>("res://assets/definitions/actor/omal.tres")
+		GD.Load<EnemyDefinition>("res://assets/definitions/actor/omal.tres"),
+		GD.Load<EnemyDefinition>("res://assets/definitions/actor/toilet.tres")
 	];
 
 	private static readonly Godot.Collections.Array<ItemResource> items = [
 		GD.Load<ItemResource>("res://assets/definitions/Items/small_healing_potion.tres"),
-		GD.Load<ItemResource>("res://assets/definitions/Items/mana_bolt_grimoire.tres")
+		GD.Load<ItemResource>("res://assets/definitions/Items/mana_bolt_grimoire.tres"),
+		GD.Load<ItemResource>("res://assets/definitions/Items/big_potion_of_heals.tres")
 	];
 
 	/// <summary>
@@ -48,23 +74,29 @@ public partial class DungeonGenerator : Node
 	/// </summary>
 	[ExportCategory("RNG")]
 	private RandomNumberGenerator rng = new();
-
-	/// <summary>
-	/// Quantidade máxima de inimigos por sala.
-	/// </summary>
-	[ExportCategory("Monster RNG")]
-	[Export]
-	private int maxMonstersPerRoom = 2;
-
-	/// <summary>
-	/// Quantidade máxima de itens por sala.
-	/// </summary>
-	[ExportCategory("Loot RNG")]
-	[Export]
-	private int maxItemsPerRoom = 2;
 	#endregion
 
 	#region Methods
+
+	private int GetMaxIValueForFloor(Dictionary<int, int> valueTable, int currentFloor) {
+		int currentValue = 0;
+
+		int? key = null;
+
+		foreach (int theKey in valueTable.Keys) {
+			if (theKey > currentFloor) {
+				break;
+			} else {
+				key = theKey;
+			}
+		}
+
+		if (key.HasValue) {
+			currentValue = valueTable[key.Value];
+		}
+
+		return currentValue;
+	}
 
 	/// <summary>
 	/// Gera um andar da masmorra.
@@ -230,9 +262,9 @@ public partial class DungeonGenerator : Node
 	private void PlaceEntities(MapData data, Rect2I room)
 	{
 		// Define quantos monstros serão colocados na sala
-		int monsterAmount = rng.RandiRange(0, maxMonstersPerRoom);
+		int monsterAmount = rng.RandiRange(0, GetMaxIValueForFloor(maxMonstersByFloor, data.CurrentFloor));
 		// Define quantos itens serão colocados na sala.
-		int itemAmount = rng.RandiRange(0, maxItemsPerRoom);
+		int itemAmount = rng.RandiRange(0, GetMaxIValueForFloor(maxItemsByFloor, data.CurrentFloor));
 
 		for (int i = 0; i < monsterAmount; i++)
 		{

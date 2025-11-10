@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 
 signalBus="*res://scripts/Utils/SignalBus.cs"
 MessageLogData="*res://scripts/Utils/MessageLogData.cs"
+Stats="*res://scripts/Utils/Stats.cs"
 
 [display]
 
@@ -28,6 +29,10 @@ window/stretch/mode="canvas_items"
 [dotnet]
 
 project/assembly_name="projeto-fantasia"
+
+[gui]
+
+theme/custom_font="uid://bkhmc8y1sdhb1"
 
 [input]
 

@@ -101,6 +101,9 @@ public partial class Actor : Entity, ISaveable
 		get => hp;
 		set
 		{
+			if (MapData != null && MapData.Player == this && hp > value) {
+				Stats.Instance.DamageTaken += (hp - value);
+			}
 			// Esta propriedade impede que o HP seja maior que o máximo.
 			hp = int.Clamp(value, 0, MaxHp);
 			EmitSignal(SignalName.HealthChanged, Hp, MaxHp);
@@ -280,6 +283,9 @@ public partial class Actor : Entity, ISaveable
 		else
 		{
 			deathMessage = $"{DisplayName} morreu!";
+			if (!inLoading) {
+				Stats.Instance.EnemiesKilled++;
+			}
 		}
 
 
